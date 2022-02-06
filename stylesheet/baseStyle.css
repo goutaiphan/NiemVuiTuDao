@@ -1,0 +1,27 @@
+* {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    text-align: center;
+    /*background-image: url('../media/TriangleBackground.png');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#titleArea {
+    font-family: 'PlayfairDisplay', serif;
+    font-size: 100px;
+    transform: scale(1.05, 1);
+}
