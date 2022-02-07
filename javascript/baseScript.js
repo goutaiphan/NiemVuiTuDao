@@ -8,7 +8,7 @@ let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
 for (let i = 0; i < array0.length; i++) {
     let text = document.createElement('p');
     titleArea.appendChild(text);
-    text.innerHTML = array0[i] + window.innerWidth.toString();
+    text.innerHTML = array0[i];
     text.style.animation = 'fadeIn 0.5s linear forwards';
     text.style.animationDelay = 0.5 * (i + 1) + 's';
 

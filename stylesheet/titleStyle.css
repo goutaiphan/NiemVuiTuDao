@@ -1,6 +1,7 @@
 #titleArea {
     width: 100%;
-    margin: 11vh auto auto;
+    margin: auto;
+    background: red;
 }
 
 #titleArea p {
