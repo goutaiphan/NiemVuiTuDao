@@ -1,7 +1,11 @@
 import {deAccent} from "./functionScript.js";
 
-let widthRatio = window.innerWidth / 500 < 1
-    ? window.innerWidth / 500
+let width = window.innerWidth < window.innerHeight
+    ? window.innerWidth
+    : window.innerHeight;
+
+let widthRatio = width / 500 < 1
+    ? width / 500
     : 1;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
