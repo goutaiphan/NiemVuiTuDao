@@ -1,37 +1,3 @@
-#niem, #vui, #tu, #dao, #intro {
-    opacity: 0;
-    animation: fadeIn 0.5s linear forwards;
-}
-
-#niem {
-    animation-delay: 0.5s;
-}
-
-#vui {
-    animation-delay: 1s;
-}
-
-#tu {
-    animation-delay: 1.5s;
-}
-
-#dao {
-    animation-delay: 2s;
-}
-
-#intro {
-    animation-delay: 2.5s;
-}
-
-#buttonStart {
-    opacity: 0;
-    animation: slideToBottom 0.5s 3s ease-out infinite;
-}
-
-/*#buttonStart:active {*/
-/*    transform: translate(0, 5px);*/
-/*}*/
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -50,12 +16,32 @@
     }
 }
 
-@keyframes slideToBottom {
+@keyframes zoomIn {
     from {
         opacity: 1;
     }
     to {
         opacity: 1;
-        transform: translate(0, 8px);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes bounce {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 15px);
+    }
+}
+
+@keyframes slideToBottom {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 15px);
     }
 }

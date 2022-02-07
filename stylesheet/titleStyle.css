@@ -1,0 +1,36 @@
+#titleArea {
+    width: 100%;
+    margin: 11vh auto auto;
+}
+
+#titleArea p {
+    margin: auto auto -10px;
+    font-family: 'PlayfairDisplay', serif;
+    font-size: 75px;
+    transform: scale(1.05, 1);
+    opacity: 0;
+}
+
+#titleArea p:nth-child(-n+4) {
+    background: linear-gradient(to right, #36648B 20%, #4F94CD 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#titleArea p:nth-child(5) {
+    margin: 60px auto 55px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+#titleArea p:nth-child(6) {
+    width: 200px;
+    height: 50px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 50px;
+    border-radius: 5px;
+    color: #36648B;
+    background-color: #daedff;
+    cursor: pointer;
+}

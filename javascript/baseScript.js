@@ -1,28 +1,78 @@
 import {deAccent} from "./functionScript.js";
 
 let titleArea = document.getElementById('titleArea');
-let array = ['Niềm', 'vui', 'tu', 'Đạo'];
-for (let i = 0; i < array.length; i++) {
-    let title = document.createElement('p');
-    titleArea.appendChild(title);
-    title.id = deAccent(array[i]).toLowerCase();
-    title.innerHTML = array[i];
+let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
+    'Chương trình hỏi đáp thú vị về<br>Đức Chí Tôn, Đức Ngọc Hoàng Thượng Đế',
+    'Bắt đầu'];
+
+for (let i = 0; i < array0.length; i++) {
+    let text = document.createElement('p');
+    titleArea.appendChild(text);
+    text.innerHTML = array0[i];
+    text.style.animation = 'fadeIn 0.5s linear forwards';
+    text.style.animationDelay = 0.5 * (i + 1) + 's';
+
+    if (i === array0.length - 1) {
+        text.onclick = stopTitleArea;
+        text.style.animation = 'zoomIn 0.5s ease-out alternate infinite';
+        text.style.animationDelay = '3s';
+    }
 }
 
-let intro = document.createElement('p');
-titleArea.appendChild(intro);
-intro.id = 'intro';
-intro.innerHTML = 'Bộ sưu tập câu hỏi về Đức Chí Tôn,<br>Đức Ngọc Hoàng Thượng Đế.';
+function stopTitleArea() {
+    let groundAudio = document.createElement('audio');
+    document.body.appendChild(groundAudio);
+    groundAudio.src = '../media/FreeTheMindInNature - WuNuo.mp3';
+    groundAudio.volume = 0.7;
+    groundAudio.preload;
+    //groundAudio.play();
 
-let buttonStart = document.createElement('button');
-titleArea.appendChild(buttonStart);
-buttonStart.id = 'buttonStart';
-buttonStart.innerHTML = 'Bắt đầu';
-
-let backgroundSound = document.getElementById('backgroundSound');
-backgroundSound.src = '../media/FreeTheMindInNature - WuNuo.mp3';
-backgroundSound.volume = 0.7;
-buttonStart.onclick = function () {
-    //backgroundSound.play();
     titleArea.style.animation = 'fadeOut 0.5s linear forwards';
+    setTimeout(function () {
+        document.body.removeChild(titleArea);
+        startIntroArea();
+    }, 500);
+}
+
+function startIntroArea() {
+    let introArea = document.getElementById('introArea');
+    let introBoard = document.createElement('p');
+    introBoard.id = 'introBoard';
+    introArea.appendChild(introBoard);
+
+    let tieuDan = document.createElement('img');
+    introArea.appendChild(tieuDan);
+    tieuDan.id = 'tieuDan';
+    tieuDan.src = '../media/TigerFace.png';
+
+    let introText = document.createElement('div');
+    introArea.appendChild(introText);
+    introText.id = 'introText';
+
+    tieuDan.style.animation = 'fadeIn 0.7s 0.5s linear forwards,' +
+        'bounce 0.7s 1.2s ease-in alternate infinite';
+    introBoard.style.animation = 'fadeIn 0.5s 1.9s linear forwards';
+
+    let array1 = [['Mến chào quý đạo hữu,', 'đệ là <span>Tiểu Dần</span>.'],
+        'Mến chúc quý đạo hữu một năm mới',
+        'nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>',
+        'Nhân dịp Thánh Lễ của<br>Đức Ngọc Hoàng Thượng Đế,',
+        'Tiểu Dần thân mời cả nhà cùng tham gia',
+        'chương trình đố vui Niềm vui tu Đạo',
+        'để cùng nhau tưởng nhớ về Ngài,',
+        'vị Cha Lành từ ái của muôn sinh.'];
+
+    for (let i = 0; i < array1.length; i++) {
+        let text0 = document.createElement('p');
+        let text1 = document.createElement('p');
+        text0.innerHTML = array1[i][0];
+        text1.innerHTML = array1[i][1];
+        text0.style.animation = 'fadeIn 0.5s linear forwards';
+        text1.style.animation = 'fadeIn 0.5s 1s linear forwards';
+
+        if (i === 0) {
+            introText.appendChild(text0);
+            introText.appendChild(text1);
+        }
+    }
 }

@@ -1,15 +1,15 @@
 @media screen and (hover: none) and (pointer: coarse) {
     body {
-        margin: 8% auto 10%;
+        margin: auto;
         transform: scale(0.8);
     }
-
 }
 
 @media screen and (hover: hover) and (pointer: fine),
 (hover: none) and (pointer: coarse) and (min-width: 500px) {
     body {
-        margin: 8% auto 10%;
+        width: 400px;
+        margin: auto;
     }
 }
 
@@ -30,40 +30,4 @@
 
 body {
     text-align: center;
-    /*background-image: url('../media/TriangleBackground.png');*/
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-#titleArea {
-    width: max-content;
-    margin: auto;
-}
-
-#niem, #vui, #tu, #dao {
-    margin: auto auto -10px;
-    font-family: 'PlayfairDisplay', serif;
-    font-size: 80px;
-    transform: scale(1.05, 1);
-    background: linear-gradient(to right, #36648B 20%, #4F94CD 60%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-#intro {
-    margin: 60px auto 55px;
-    font-size: 20px;
-    line-height: 1.5;
-}
-
-#buttonStart {
-    width: 200px;
-    height: 50px;
-    margin: auto;
-    font-size: 18px;
-    border-radius: 3px;
-    color: #36648B;
-    background-color: #daedff;
-    cursor: pointer;
 }

@@ -1,0 +1,39 @@
+#introArea {
+    width: 100%;
+    margin: 14vh auto auto;
+}
+
+#introBoard {
+    width: 350px;
+    height: 400px;
+    margin: auto;
+    top: 30%;
+    border: 2px solid #e7d8be;
+    border-radius: 5px;
+    background-color: #fff9f2;
+    opacity: 0;
+}
+
+#introText {
+    position: absolute;
+    top: 20%;
+}
+
+#introText p {
+    width: max-content;
+    margin: auto;
+    font-size: 20px;
+    line-height: 1.6;
+    opacity: 0;
+}
+
+#tieuDan {
+    width: 50%;
+    top: -60px;
+    opacity: 0;
+}
+
+span {
+    font-size: 22px;
+    color: #744d26;
+}
