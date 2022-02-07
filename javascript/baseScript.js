@@ -10,6 +10,7 @@ let pixelRatio = devicePixelRatio;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
 }
+alert(window.devicePixelRatio);
 console.log(window.devicePixelRatio, pixelRatio);
 let titleArea = document.getElementById('titleArea');
 titleArea.style.paddingTop = 350 * widthRatio + 'px';
