@@ -10,7 +10,7 @@ let widthRatio = width / 500 < 1
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
 }
-alert(width + ' ' + widthRatio);
+alert(window.innerWidth + ' ' + window.innerHeight);
 let titleArea = document.getElementById('titleArea');
 titleArea.style.paddingTop = 350 * widthRatio + 'px';
 
