@@ -1,6 +1,6 @@
 @media screen and (hover: none) and (pointer: coarse) {
     body {
-        margin: 60px auto 90px;
+        margin: 15% auto 15%;
         transform: scale(0.8);
     }
 
@@ -9,7 +9,7 @@
 @media screen and (hover: hover) and (pointer: fine),
 (hover: none) and (pointer: coarse) and (min-width: 500px) {
     body {
-        margin: 100px auto 150px;
+        margin: 12.5% auto 15%;
     }
 }
 
