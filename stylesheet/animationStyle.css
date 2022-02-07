@@ -27,7 +27,7 @@
     animation-delay: 3s;
 }
 
-#buttonStart:hover {
+#buttonStart:active {
     transform: translate(0, 5px);
 }
 
