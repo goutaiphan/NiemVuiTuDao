@@ -1,8 +1,22 @@
 import {deAccent} from "./functionScript.js";
 
+let width = window.innerWidth < window.innerHeight
+    ? window.innerWidth
+    : window.innerHeight;
+let widthRatio = width / 500 < 1
+    ? width / 500
+    : 1;
+let pixelRatio = devicePixelRatio;
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    document.body.style.transform = `scale(${widthRatio})`;
+}
+console.log(window.devicePixelRatio, pixelRatio);
 let titleArea = document.getElementById('titleArea');
+titleArea.style.paddingTop = 350 * widthRatio + 'px';
+
+
 let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
-    'Chương trình hỏi đáp thú vị về<br>Đức Chí Tôn, Đức Ngọc Hoàng Thượng Đế',
+    'Chương trình hỏi đáp về<br>Đức Chí Tôn, Đức Ngọc Hoàng Thượng Đế',
     'Bắt đầu'];
 
 for (let i = 0; i < array0.length; i++) {
@@ -36,6 +50,8 @@ function stopTitleArea() {
 
 function startIntroArea() {
     let introArea = document.getElementById('introArea');
+    introArea.style.paddingTop = 150 * widthRatio + 'px';
+
     let introBoard = document.createElement('p');
     introBoard.id = 'introBoard';
     introArea.appendChild(introBoard);

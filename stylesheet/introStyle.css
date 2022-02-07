@@ -1,6 +1,7 @@
 #introArea {
     width: 100%;
     margin: auto;
+    position: absolute;
 }
 
 #introBoard {
