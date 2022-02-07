@@ -6,14 +6,11 @@ let width = window.innerWidth < window.innerHeight
 let widthRatio = width / 500 < 1
     ? width / 500
     : 1;
-let pixelRatio = devicePixelRatio;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
 }
-console.log(window.devicePixelRatio, pixelRatio);
 let titleArea = document.getElementById('titleArea');
 titleArea.style.paddingTop = 350 * widthRatio + 'px';
-
 
 let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về<br>Đức Chí Tôn, Đức Ngọc Hoàng Thượng Đế',
