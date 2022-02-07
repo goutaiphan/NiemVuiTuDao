@@ -6,13 +6,13 @@
 
 #titleArea p {
     margin: auto auto -10px;
-    font-family: 'PlayfairDisplay', serif;
-    font-size: 75px;
     transform: scale(1.05, 1);
     opacity: 0;
 }
 
 #titleArea p:nth-child(-n+4) {
+    font-family: 'PlayfairDisplay', serif;
+    font-size: 75px;
     background: linear-gradient(to right, #36648B 20%, #4F94CD 60%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
