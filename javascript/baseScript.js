@@ -10,7 +10,6 @@ let pixelRatio = devicePixelRatio;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
 }
-alert(window.devicePixelRatio);
 console.log(window.devicePixelRatio, pixelRatio);
 let titleArea = document.getElementById('titleArea');
 titleArea.style.paddingTop = 350 * widthRatio + 'px';
@@ -51,7 +50,7 @@ function stopTitleArea() {
 
 function startIntroArea() {
     let introArea = document.getElementById('introArea');
-    introArea.style.paddingTop = 150 * widthRatio + 'px';
+    introArea.style.paddingTop = 450 * widthRatio + 'px';
 
     let introBoard = document.createElement('p');
     introBoard.id = 'introBoard';
@@ -63,7 +62,7 @@ function startIntroArea() {
     tieuDan.src = '../media/TigerFace.png';
 
     let introText = document.createElement('div');
-    introArea.appendChild(introText);
+    introBoard.appendChild(introText);
     introText.id = 'introText';
 
     tieuDan.style.animation = 'fadeIn 0.7s 0.5s linear forwards,' +
