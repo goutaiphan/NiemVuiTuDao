@@ -1,3 +1,21 @@
+@media screen and (hover: none) and (pointer: coarse) {
+    body {
+        margin: 60px auto 90px;
+        font-size: 15px;
+    }
+
+}
+
+@media screen and (hover: hover) and (pointer: fine),
+(hover: none) and (pointer: coarse) and (min-width: 500px) {
+    body {
+        margin: 100px auto 150px;
+        font-size: 17px;
+    }
+
+
+}
+
 * {
     left: 0;
     right: 0;
@@ -10,6 +28,7 @@
     background-color: transparent;
     background-repeat: no-repeat;
     -webkit-tap-highlight-color: transparent;
+    font-family: 'Lora', serif;
 }
 
 body {
@@ -21,7 +40,33 @@ body {
 }
 
 #titleArea {
+    width: max-content;
+    margin: auto;
+}
+
+#niem, #vui, #tu, #dao {
+    margin: auto auto -10px;
     font-family: 'PlayfairDisplay', serif;
-    font-size: 100px;
+    font-size: 80px;
     transform: scale(1.05, 1);
+    background: linear-gradient(to right, #36648B 20%, #4F94CD 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#intro {
+    margin: 50px auto 50px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+#buttonStart {
+    width: 200px;
+    height: 50px;
+    margin: auto;
+    font-size: 18px;
+    border-radius: 3px;
+    color: #36648B;
+    background-color: #daedff;
+    cursor: pointer;
 }
