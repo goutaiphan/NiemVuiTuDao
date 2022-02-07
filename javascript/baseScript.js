@@ -1,8 +1,8 @@
 import {deAccent} from "./functionScript.js";
 
 let width = window.innerWidth < window.innerHeight
-    ? window.innerWidth
-    : window.innerHeight;
+    ? window.screen.availWidth
+    : window.screen.availHeight;
 
 let widthRatio = width / 500 < 1
     ? width / 500
