@@ -1,4 +1,4 @@
-#niem, #vui, #tu, #dao, #intro, #buttonStart {
+#niem, #vui, #tu, #dao, #intro {
     opacity: 0;
     animation: fadeIn 0.5s linear forwards;
 }
@@ -24,12 +24,13 @@
 }
 
 #buttonStart {
-    animation-delay: 3s;
+    opacity: 0;
+    animation: slideToBottom 0.5s 3s ease-out infinite;
 }
 
-#buttonStart:active {
-    transform: translate(0, 5px);
-}
+/*#buttonStart:active {*/
+/*    transform: translate(0, 5px);*/
+/*}*/
 
 @keyframes fadeIn {
     from {
@@ -37,5 +38,24 @@
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideToBottom {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 8px);
     }
 }

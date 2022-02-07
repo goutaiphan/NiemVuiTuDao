@@ -24,4 +24,5 @@ backgroundSound.src = '../media/FreeTheMindInNature - WuNuo.mp3';
 backgroundSound.volume = 0.7;
 buttonStart.onclick = function () {
     //backgroundSound.play();
+    titleArea.style.animation = 'fadeOut 0.5s linear forwards';
 }
