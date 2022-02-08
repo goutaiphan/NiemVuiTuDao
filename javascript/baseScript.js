@@ -60,11 +60,11 @@ function startIntroArea() {
     introText.id = 'introText';
 
     let array1 = [['Mến chào quý đạo hữu,', 'đệ là <span>Tiểu Dần</span>.'],
-        'Mến chúc quý đạo hữu một năm mới',
-        'nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>',
+        ['Mến chúc quý đạo hữu một năm mới',
+        'nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>'],
         'Nhân dịp Thánh Lễ của<br>Đức Ngọc Hoàng Thượng Đế,',
         'Tiểu Dần thân mời cả nhà cùng tham gia',
-        'chương trình đố vui Niềm vui tu Đạo',
+        'chương trình hỏi đáp Niềm vui tu Đạo',
         'để cùng nhau tưởng nhớ về Ngài,',
         'vị Cha Lành từ ái của muôn sinh.'];
 
