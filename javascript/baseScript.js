@@ -3,24 +3,14 @@ import {deAccent} from "./functionScript.js";
 let width = window.screen.availWidth < window.screen.availHeight
     ? window.screen.availWidth
     : window.screen.availHeight;
-let widthRatio = window.innerWidth <= 500
+let widthRatio = window.innerWidth <= 700
     ? width / 500
-    : 1.2;
+    : 1.3;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
 }
 
-let height = window.screen.availWidth < window.screen.availHeight
-    ? window.screen.availHeight
-    : window.screen.availWidth;
-let heightRatio = window.innerHeight <= 873
-    ? 873 / height
-    : height / 873;
-alert(window.screen.availHeight);
-
 let titleArea = document.getElementById('titleArea');
-titleArea.style.paddingTop = 200 * heightRatio + 'px';
-
 let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
     'Đức Ngọc Hoàng Thượng Đế',

@@ -1,8 +1,7 @@
 #titleArea {
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  position: absolute;
+  display: table-cell;
+  vertical-align: middle;
+  padding-bottom: 20%;
 }
 
 #titleArea p {
