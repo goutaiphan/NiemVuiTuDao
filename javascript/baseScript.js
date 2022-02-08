@@ -3,15 +3,23 @@ import {deAccent} from "./functionScript.js";
 let width = window.screen.availWidth < window.screen.availHeight
     ? window.screen.availWidth
     : window.screen.availHeight;
-let widthRatio = width / 500 < 1
+let widthRatio = window.innerWidth <= 500
     ? width / 500
-    : 1;
+    : 1.2;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     document.body.style.transform = `scale(${widthRatio})`;
 }
 
+let height = window.screen.availWidth < window.screen.availHeight
+    ? window.screen.availHeight
+    : window.screen.availWidth;
+let heightRatio = window.innerHeight <= 873
+    ? 873 / height
+    : height / 873;
+alert(window.screen.availWidth);
+
 let titleArea = document.getElementById('titleArea');
-titleArea.style.paddingTop = 350 * widthRatio + 'px';
+titleArea.style.paddingTop = 200 * heightRatio + 'px';
 
 let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
@@ -22,7 +30,7 @@ for (let i = 0; i < array0.length; i++) {
     let text = document.createElement('p');
     titleArea.appendChild(text);
     text.innerHTML = array0[i];
-    if (i === array0.length-1){
+    if (i === array0.length - 1) {
         text.onclick = stopTitleArea;
     }
 }
@@ -43,9 +51,6 @@ function stopTitleArea() {
 }
 
 function startIntroArea() {
-    let introArea = document.getElementById('introArea');
-    introArea.style.paddingTop = 450 * widthRatio + 'px';
-
     let introBoard = document.createElement('p');
     introBoard.id = 'introBoard';
     introArea.appendChild(introBoard);
@@ -61,7 +66,7 @@ function startIntroArea() {
 
     let array1 = [['Mến chào quý đạo hữu,', 'đệ là <span>Tiểu Dần</span>.'],
         ['Mến chúc quý đạo hữu một năm mới',
-        'nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>'],
+            'nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>'],
         'Nhân dịp Thánh Lễ của<br>Đức Ngọc Hoàng Thượng Đế,',
         'Tiểu Dần thân mời cả nhà cùng tham gia',
         'chương trình hỏi đáp Niềm vui tu Đạo',
