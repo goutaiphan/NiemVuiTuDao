@@ -16,7 +16,7 @@ let height = window.screen.availWidth < window.screen.availHeight
 let heightRatio = window.innerHeight <= 873
     ? 873 / height
     : height / 873;
-alert(window.screen.availWidth);
+alert(window.screen.availHeight);
 
 let titleArea = document.getElementById('titleArea');
 titleArea.style.paddingTop = 200 * heightRatio + 'px';
