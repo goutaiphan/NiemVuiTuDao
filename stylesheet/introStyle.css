@@ -38,3 +38,19 @@ span {
     font-size: 24px;
     color: #744d26;
 }
+
+#tieuDan {
+    animation: fadeIn 0.7s 0.5s linear forwards, bounce 0.7s 1.2s ease-in alternate infinite;
+}
+
+#introBoard {
+    animation: slideTop 0.5s 2s linear forwards;
+}
+
+#introText p:nth-child(1) {
+    animation: fadeIn 0.5s linear forwards;
+}
+
+#introText p:nth-child(2) {
+    animation: fadeIn 0.5s 1s linear forwards;
+}
