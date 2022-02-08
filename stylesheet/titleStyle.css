@@ -11,7 +11,7 @@
 
 #titleArea p:nth-child(-n+4) {
   font-family: "PlayfairDisplay", serif;
-  font-size: 75px;
+  font-size: 80px;
   transform: scale(1.05, 1);
   background: linear-gradient(to right, #36648B 20%, #4F94CD 60%);
   -webkit-background-clip: text;
@@ -19,12 +19,12 @@
 }
 
 #titleArea p:nth-child(5) {
-  margin: 60px auto 10px;
+  margin: 65px auto 10px;
   font-size: 20px;
 }
 
 #titleArea p:nth-child(6) {
-  margin: auto auto 55px;
+  margin: auto auto 60px;
   font-size: 20px;
 }
 
