@@ -1,14 +1,10 @@
-#titleArea {
-  display: table-cell;
-  vertical-align: middle;
-}
-
 #titleArea p {
   margin: auto auto -10px;
   opacity: 0;
 }
 
 #titleArea p:nth-child(-n+4) {
+  width: 95%;
   font-family: 'PlayfairDisplay', serif;
   font-size: 77px;
   transform: scale(1.05, 1);

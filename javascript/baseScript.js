@@ -1,29 +1,39 @@
 import {deAccent} from "./functionScript.js";
 
-let width = window.screen.availWidth < window.screen.availHeight
-    ? window.screen.availWidth
-    : window.screen.availHeight;
-let widthRatio = window.innerWidth <= 700
-    ? width / 500
-    : 1.3;
+// alert(screen.width + '/' + screen.height + ','
+//     + outerWidth + '/' + outerHeight);
+
+if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+    let width = Math.min(screen.width, screen.height);
+    let height = Math.max(screen.width, screen.height);
+    let widthRatio = width / 450;
+    let heightRatio = height / 850;
+
+    if (width < 450) {
+        widthRatio = width < 360
+            ? widthRatio * 1.2
+            : widthRatio
+        document.body.style.width = width + 'px';
+        document.body.style.marginTop = 25 * heightRatio + 'px';
+    } else if (width < 1000) {
+        widthRatio = widthRatio * 0.85;
+        document.body.style.marginTop = 180 * heightRatio + 'px';
+    } else {
+        widthRatio = widthRatio * 0.85;
+        document.body.style.marginTop = 220 * heightRatio + 'px';
+    }
+    document.body.style.transform = `scale(${widthRatio})`;
+
+} else {
+    document.body.style.marginTop = '80px';
+}
 
 let titleArea = document.getElementById('titleArea');
 let introArea = document.getElementById('introArea');
-
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    document.body.style.transform = `scale(${widthRatio})`;
-    titleArea.style.paddingBottom = '19%';
-    introArea.style.paddingBottom = '5%';
-} else {
-    titleArea.style.paddingTop = '4%';
-    introArea.style.paddingTop = '15%';
-}
-
 let array0 = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
     'Đức Ngọc Hoàng Thượng Đế',
     'Bắt đầu'];
-
 for (let i = 0; i < array0.length; i++) {
     let text = document.createElement('p');
     titleArea.appendChild(text);

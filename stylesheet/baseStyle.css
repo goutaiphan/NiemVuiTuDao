@@ -1,22 +1,25 @@
 * {
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     position: relative;
     box-sizing: border-box;
     border: none;
     outline: none;
+    white-space: nowrap;
     background-color: transparent;
+    background-size: cover;
     background-repeat: no-repeat;
     -webkit-tap-highlight-color: transparent;
     font-family: 'Lora', serif;
 }
 
 body {
-    max-width: 400px;
-    height: 90vh;
-    margin: auto;
-    display: table;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+
+    width: 450px;
+    height: max-content;
+    margin: auto;
+    padding: 50px 0 100px;
 }

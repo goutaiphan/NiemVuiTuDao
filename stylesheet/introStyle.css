@@ -1,13 +1,11 @@
-#introArea {
-    display: table-cell;
-    vertical-align: middle;
-}
-
 #introBoard {
     width: 350px;
     height: 400px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    justify-items: center;
     margin: auto;
-    display: table;
     border: 2px solid #e7d8be;
     border-radius: 5px;
     background-color: #fff9f2;
@@ -15,8 +13,6 @@
 }
 
 #introText {
-    display: table-cell;
-    vertical-align: middle;
     padding-bottom: 20px;
 }
 
