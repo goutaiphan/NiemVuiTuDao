@@ -14,7 +14,6 @@ if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobil
             ? widthRatio
             : widthRatio
         document.body.style.width = width + 'px';
-        document.body.style.marginTop = '5px';
     } else {
         widthRatio = widthRatio * 0.7;
         document.body.style.marginTop = width < 1000
