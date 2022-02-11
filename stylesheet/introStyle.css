@@ -1,11 +1,12 @@
 #introBoard {
-    width: 350px;
-    height: 400px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     justify-items: center;
-    margin: auto;
+
+    width: 350px;
+    height: 400px;
+    margin: 50px auto 0;
     border: 2px solid #e7d8be;
     border-radius: 5px;
     background-color: #fff9f2;
@@ -13,7 +14,7 @@
 }
 
 #introText {
-    padding-bottom: 20px;
+    padding-bottom: 18px;
 }
 
 #introText p {
@@ -30,7 +31,7 @@
 }
 
 span {
-    font-size: 24px;
+    font-size: 22px;
     color: #744d26;
 }
 
