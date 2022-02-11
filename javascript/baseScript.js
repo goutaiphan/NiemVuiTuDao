@@ -11,21 +11,20 @@ if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobil
 
     if (width < 450) {
         widthRatio = width < 360
-            ? widthRatio * 1.2
+            ? widthRatio
             : widthRatio
         document.body.style.width = width + 'px';
-        document.body.style.marginTop = 25 * heightRatio + 'px';
-    } else if (width < 1000) {
-        widthRatio = widthRatio * 0.85;
-        document.body.style.marginTop = 180 * heightRatio + 'px';
+        //document.body.style.marginTop = 0 * heightRatio + 'px';
     } else {
-        widthRatio = widthRatio * 0.85;
-        document.body.style.marginTop = 220 * heightRatio + 'px';
+        widthRatio = widthRatio * 0.7;
+        document.body.style.marginTop = width < 1000
+            ? 150 * heightRatio + 'px'
+            : 200 * heightRatio + 'px'
     }
     document.body.style.transform = `scale(${widthRatio})`;
 
 } else {
-    document.body.style.marginTop = '80px';
+    document.body.style.marginTop = '60px';
 }
 
 let titleArea = document.getElementById('titleArea');
