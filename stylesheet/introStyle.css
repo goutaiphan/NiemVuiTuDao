@@ -14,12 +14,12 @@
 }
 
 #introText {
-    padding-bottom: 18px;
+    padding-bottom: 20px;
 }
 
 #introText p {
     margin: auto;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1.6;
     opacity: 0;
 }
@@ -31,7 +31,7 @@
 }
 
 span {
-    font-size: 22px;
+    font-size: 24px;
     color: #744d26;
 }
 
