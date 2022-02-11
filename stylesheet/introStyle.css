@@ -24,15 +24,15 @@
     opacity: 0;
 }
 
+span {
+    font-size: 24px;
+    color: #744d26;
+}
+
 #tieuDan {
     width: 50%;
     top: -60px;
     opacity: 0;
-}
-
-span {
-    font-size: 24px;
-    color: #744d26;
 }
 
 #tieuDan {
