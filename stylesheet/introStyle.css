@@ -16,7 +16,7 @@
 
 .introBoard.resize {
     height: 500px;
-    padding: 0 40px 60px;
+    padding: 0 20px 60px;
     transition: all 1s linear;
 }
 
