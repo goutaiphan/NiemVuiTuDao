@@ -61,5 +61,12 @@ function startIntroArea() {
         registerButton.innerHTML = 'Xác nhận';
         introBoard.classList.add('resize');
         introArea.style.marginTop = '0';
+
+        registerInput.oninput = function (event) {
+            if (event.key) {
+                alert(true);
+            }
+
+        }
     }
 }
