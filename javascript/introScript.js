@@ -62,11 +62,12 @@ function startIntroArea() {
         introBoard.classList.add('resize');
         introArea.style.marginTop = '0';
 
+        let array2 = ['OK', 'Enter', 'Return'];
+
         registerInput.oninput = function (event) {
-            if (event.key === 'OK') {
+            if (array2.includes(event.key)) {
                 alert(true);
             }
-
         }
     }
 }
