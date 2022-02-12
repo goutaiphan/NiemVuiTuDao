@@ -64,10 +64,9 @@ function startIntroArea() {
         introArea.style.marginTop = '0';
 
         let array2 = ['OK', 'Enter', 'Return'];
-
         registerInput.onkeydown = function (event) {
             if (array2.includes(event.key))
-                registerInput.setAttribute('style', 'display:none');
+                document.activeElement.blur();
         }
     }
 }
