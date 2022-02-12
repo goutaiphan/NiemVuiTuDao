@@ -34,6 +34,7 @@ function startIntroArea() {
                 introText.innerHTML = array0[i];
                 introText.classList.remove('remove');
             } else {
+                window.onclick = null;
                 introBoard.removeChild(introText);
                 startRegisterArea();
             }
@@ -64,10 +65,9 @@ function startIntroArea() {
 
         let array2 = ['OK', 'Enter', 'Return'];
 
-        registerInput.oninput = function (event) {
-            if (array2.includes(event.key)) {
-                alert(true);
-            }
+        registerInput.onkeydown = function (event) {
+            if (array2.includes(event.key))
+                registerInput.setAttribute('style', 'display:none');
         }
     }
 }
