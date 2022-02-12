@@ -66,7 +66,7 @@ function startIntroArea() {
         let array2 = ['OK', 'Enter', 'Return'];
         registerInput.onkeydown = function (event) {
             if (array2.includes(event.key))
-                document.activeElement.blur();
+                registerInput.blur();
         }
     }
 }
