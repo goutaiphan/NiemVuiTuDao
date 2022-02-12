@@ -20,7 +20,7 @@ function startIntroArea() {
     let array0 = ['Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.',
         'Mến chúc quý đạo hữu một năm mới nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>',
         'Nhân dịp Thánh Lễ của <span>Đức Ngọc Hoàng Thượng Đế,</span>',
-        '<span>Tiểu Dần</span> thân mời quý huynh tỷ cùng tham gia<br>chương trình hỏi đáp <span><br>Niềm vui tu Đạo</span>',
+        '<span>Tiểu Dần</span> thân mời<br>quý huynh tỷ cùng tham gia<br>chương trình hỏi đáp <span><br>Niềm vui tu Đạo</span>',
         'để cùng nhau<br><span>tưởng nhớ</span> về Ngài,',
         'vị <span>Cha Lành từ ái</span><br>của muôn sinh.'];
 
