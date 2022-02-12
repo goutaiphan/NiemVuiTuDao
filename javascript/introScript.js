@@ -63,7 +63,7 @@ function startIntroArea() {
         introArea.style.marginTop = '0';
 
         registerInput.oninput = function (event) {
-            if (event.key) {
+            if (event.key === 'OK') {
                 alert(true);
             }
 
