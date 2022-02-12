@@ -24,5 +24,4 @@ if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobil
 
 } else {
     document.body.style.marginTop = '60px';
-    introArea.style.marginTop = '40px';
 }

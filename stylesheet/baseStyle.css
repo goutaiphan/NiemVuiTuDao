@@ -9,6 +9,7 @@
     -webkit-tap-highlight-color: transparent;
     font-family: 'Lora', serif;
     font-size: 18.5px;
+    text-align: center;
 }
 
 body {
@@ -16,7 +17,6 @@ body {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    text-align: center;
 
     width: 450px;
     height: max-content;
