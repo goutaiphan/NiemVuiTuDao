@@ -1,32 +1,47 @@
 export {startIntroArea};
 
+import {deAccent} from "./functionScript.js";
+
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import {getDatabase, update, ref, onValue} from
+import {getDatabase, set, get, ref, onValue, child} from
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCv-ktuvhdCSTp38qjBzDucEhRXGq8lyNU",
-    authDomain: "niemvuitudao1.firebaseapp.com",
-    databaseURL: "https://niemvuitudao1-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "niemvuitudao1",
-    storageBucket: "niemvuitudao1.appspot.com",
-    messagingSenderId: "51572688322",
-    appId: "1:51572688322:web:3c4e276312c1e40519c25b",
-    measurementId: "G-JYT7DGZ3ZQ"
-};
+// let firebaseConfig = {
+//     apiKey: "AIzaSyCv-ktuvhdCSTp38qjBzDucEhRXGq8lyNU",
+//     authDomain: "niemvuitudao1.firebaseapp.com",
+//     projectId: "niemvuitudao1",
+//     storageBucket: "niemvuitudao1.appspot.com",
+//     messagingSenderId: "51572688322",
+//     appId: "1:51572688322:web:3c4e276312c1e40519c25b",
+//     measurementId: "G-JYT7DGZ3ZQ"
+// };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase();
-
-const starCountRef = ref(database, 'user/');
-onValue(starCountRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
+const app1 = initializeApp({
+    databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
 });
 
-function writeUserName(userName) {
-    update(ref(database, 'user/'), {
-        userName
+const app2 = initializeApp({
+    databaseURL: "https://niemvuitudao1-default-rtdb.asia-southeast1.firebasedatabase.app/"
+}, 'app2');
+
+const userDatabase = getDatabase(app1);
+const scoreDatabase = getDatabase(app2);
+
+let databaseRef = ref(userDatabase);
+
+function readUserData() {
+    onValue(databaseRef, (snapshot) => {
+        let data = snapshot.val();
+        console.log(data);
+    });
+}
+
+readUserData();
+
+function writeUserData(userID, userPassword) {
+    let userRef = ref(userDatabase, userID);
+    set(userRef, {
+        userPassword: userPassword
     });
 }
 
@@ -74,7 +89,7 @@ function startIntroArea() {
 }
 
 function startRegisterArea() {
-    let array1 = ['Xin cho <span>Tiểu Dần</span> được biết quý danh của huynh tỷ.',
+    let array1 = ['Quý huynh tỷ vui lòng<br><span>đăng nhập</span> để bắt đầu.',
         'Cảm ơn Tĩnh Tâm đã đăng ký tham gia chương trình Niềm vui tu Đạo',
         'Quý đạo hữu đã sẵn sàng bắt đầu chương trình chứ?'];
 
@@ -83,38 +98,147 @@ function startRegisterArea() {
     registerText.className = 'registerText';
     registerText.innerHTML = array1[0];
 
-    let registerInput = document.createElement('input');
-    introBoard.appendChild(registerInput);
-    registerInput.className = 'registerInput';
-    registerInput.placeholder = 'Quý danh';
+    let userID = document.createElement('input');
+    introBoard.appendChild(userID);
+    userID.className = 'userData userID';
+    userID.placeholder = 'Tài khoản';
+
+    let userPassword = document.createElement('input');
+    introBoard.appendChild(userPassword);
+    userPassword.className = 'userData userPassword';
+    userPassword.placeholder = 'Mật khẩu';
+    userPassword.type = 'password';
 
     let registerButton = document.createElement('p');
     introBoard.appendChild(registerButton);
     registerButton.className = 'registerButton';
-    registerButton.innerHTML = 'Xác nhận';
+    registerButton.innerHTML = 'Đăng nhập';
     introBoard.classList.add('resize');
     introArea.style.marginTop = '0';
 
-    registerInput.onkeydown = function (event) {
-        registerInput.setCustomValidity('');
-        if (event.key.match(/[^\d\w\s\u0080-\u024F\u0300-\u036F\u1E00-\u1Eff\u1DC4]/))
-            event.preventDefault();
-        if (event.key === 'Clear') registerInput.value = '';
-        if (['OK', 'Enter', 'Return'].includes(event.key)) validate(registerInput);
+    userID.onkeydown = function (event) {
+        userID.setCustomValidity('');
+        if (['Enter', 'Return'].includes(event.key)) (userPassword.focus())
     }
+
+    userID.onblur = function () {
+        userID.value = deAccent(userID.value);
+        if (userID.value.length < 5 || userID.value.length > 15) {
+            userID.setCustomValidity('Tối thiểu 5 ký tự, tối đa 15 ký tự.');
+            userID.reportValidity();
+        } else {
+            checkUserID(userID.value);
+        }
+    }
+
+    userPassword.onkeydown = function () {
+        userPassword.setCustomValidity('');
+    }
+    userPassword.onblur = function () {
+
+    }
+
     registerButton.onclick = function () {
-        validate(registerInput);
+        console.log(userPassword.value);
+        //checkUserID(userID.value);
+        //writeUserData(userID.value, userPassword.value);
     }
+
+    function checkUserID(userID) {
+        let userRef = ref(userDatabase, userID);
+        get(userRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                registerText.innerHTML = 'Quý huynh tỷ vui lòng<br><span>đăng nhập</span> để bắt đầu.';
+                registerButton.innerHTML = 'Đăng nhập';
+            } else {
+                registerText.innerHTML = 'Tài khoản <span>không tồn tại</span>, quý huynh tỷ vui lòng đăng ký.'
+                registerButton.innerHTML = 'Đăng ký';
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+    // userID.onkeydown = function (event) {
+    //     userID.setCustomValidity('');
+    //     if (event.key.match(/[^\d\w]/)) {
+    //         userID.setCustomValidity('Chỉ bao gồm chữ và số.')
+    //         userID.reportValidity();
+    //     }
+    // }
+    //
+    // userID.onkeyup = function (event) {
+    //     userID.value = deAccent(userID.value);
+    // }
+
+    // let userBirthday = document.createElement('div');
+    // introBoard.appendChild(userBirthday);
+    // userBirthday.className = 'userData userBirthday';
+    //
+    // let array = ['dd', 'mm', 'yyyy'];
+    // for (let i = 0; i < array.length; i++) {
+    //     let child = document.createElement('input');
+    //     userBirthday.appendChild(child);
+    //     child.placeholder = array[i];
+    // }
+    //
+    // for (let i = 0; i < 2; i++) {
+    //     let separator = document.createElement('p');
+    //     userBirthday.appendChild(separator);
+    //     separator.innerHTML = '-';
+    // }
+    // userBirthday.onfocus = function () {
+    //     userBirthday.type = 'date';
+    //     userBirthday.required = ''
+    // }
+    // userBirthday.onblur = function () {
+    //     userBirthday.type = 'text';
+    // }
+
+    // userBirthday.onkeydown = function (event) {
+    //     if (event.key.match(/[^\d]/) && !['Tab'].includes(event.key))
+    //         event.preventDefault();
+    //     if (['Clear', 'Backspace', 'Delete'].includes(event.key)) userBirthday.value = '';
+    //     if (['Enter', 'Return', 'OK'].includes(event.key)) (userName.focus())
+    // }
+
+    // userBirthday.onkeyup = function () {
+    //     let inputValue = this.value;
+    //     if (inputValue.match(/^\d{2}$/) !== null) {
+    //         this.value = inputValue + '-';
+    //     } else if (inputValue.match(/^\d{2}-\d{2}$/) !== null) {
+    //         this.value = inputValue + '-';
+    //     }
+    // }
+    //
+    //
+    // let userName = document.createElement('input');
+    // introBoard.appendChild(userName);
+    // userName.className = 'userData userName';
+    // userName.placeholder = 'Quý danh';
 }
 
-function validate(registerInput) {
-    registerInput.blur();
-    registerInput.value = registerInput.value.trim().replace(/\s+/g, ' ');
-    if (registerInput.value.length > 20) {
-        registerInput.setCustomValidity('Quý danh không quá 20 ký tự.');
-    } else if (registerInput.value.length === 0) {
-        registerInput.setCustomValidity('Quý danh không hợp lệ.');
+//     userName.onkeydown = function (event) {
+//         userName.setCustomValidity('');
+//         if (event.key.match(/[^\d\w\s\u0080-\u024F\u0300-\u036F\u1E00-\u1Eff\u1DC4]/))
+//             event.preventDefault();
+//         if (event.key === 'Clear') userName.value = '';
+//         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(userID, userName, userBirthday);
+//     }
+//     registerButton.onclick = function () {
+//         validate(userID, userName, userBirthday);
+//     }
+// }
+
+function validate(userID, userName, userBirthday) {
+    userName.blur();
+    userName.value = userName.value.trim().replace(/\s+/g, ' ');
+    if (userName.value.length > 20) {
+        userName.setCustomValidity('Quý danh không quá 20 ký tự.');
+    } else if (userName.value.length === 0) {
+        userName.setCustomValidity('Quý danh không hợp lệ.');
     }
-    registerInput.reportValidity();
-    writeUserName(registerInput.value);
+    userName.reportValidity();
+    console.log(typeof (userBirthday.value));
+    writeUserData(userID.value, userName.value, userBirthday.value);
 }

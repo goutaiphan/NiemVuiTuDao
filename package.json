@@ -1,0 +1,7 @@
+{
+  "name": "NiemVuiTuDao",
+  "version": "1.0.0",
+  "dependencies": {
+    "@syncfusion/ej2-inputs": "^19.4.48"
+  }
+}

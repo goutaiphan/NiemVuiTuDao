@@ -15,13 +15,14 @@
 }
 
 .introBoard.resize {
+    width: 350px;
     height: 500px;
     padding: 0 20px 60px;
     transition: all 1s linear;
 }
 
 .introText, .registerText {
-    font-size: 22px;
+    font-size: 21px;
     line-height: 1.6;
     word-wrap: break-word;
     opacity: 0;
@@ -38,18 +39,18 @@ span {
     opacity: 0;
 }
 
-.registerInput {
+.userData {
     width: 90%;
     height: 60px;
-    margin: 5px auto 60px;
-    padding: 9px 20px 0;
+    margin: 0 auto 20px;
+    padding: 10px 0 0;
     border-bottom: 2px solid #e7d8be;
-    font-size: 22px;
+    font-size: 20px;
 }
 
-.registerInput::placeholder {
-    font-size: 22px;
-    color: lightgray;
+.input::placeholder {
+    font-size: 21px;
+    color: darkgray;
 }
 
 .registerButton {
@@ -59,8 +60,8 @@ span {
     justify-items: center;
 
     width: 90%;
-    height: 55px;
-    margin: 0 auto;
+    height: 53px;
+    margin: 40px auto 0;
     background-color: #e7d8be;
     border-radius: 5px;
     font-size: 20px;
