@@ -29,10 +29,10 @@ infoButton.className = 'infoButton';
 infoButton.innerHTML = 'Đăng nhập/Đăng ký';
 infoButton.classList.add('unready');
 
-const app = initializeApp({
+let app = initializeApp({
     databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
 });
-const userDatabase = getDatabase(app);
+let userDatabase = getDatabase(app);
 let userRef = ref(userDatabase);
 
 function startInfoArea() {
