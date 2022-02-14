@@ -17,13 +17,13 @@
     height: 60px;
     margin: 0 auto 20px;
     padding: 10px 0 0;
-    color: gray;
+    color: black;
     font-size: 21px;
     border-bottom: 2px solid darkgray;
 }
 
 ::placeholder {
-    color: gray;
+    color: darkgray;
 }
 
 .userID.correct, .userPassword.correct {
