@@ -32,8 +32,8 @@
 }
 
 .userID.incorrect, .userPassword.incorrect {
-    color: #813b3b;
-    border-color: #7e4b4b;
+    color: #813b6b;
+    border-color: #7c4069;
 }
 
 .infoButton {
