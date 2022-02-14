@@ -110,22 +110,31 @@ function startInfoArea() {
                     } else if (snapshot.val() === userPassword.value) {
                         userPassword.classList.add('correct');
                         userPassword.classList.remove('incorrect');
-                        setTimeout(function () {
-                            infoButton.classList.add('ready');
-                            infoButton.classList.remove('unready');
-                        }, 200)
+                        startInfoButton();
                     }
                 });
             } else {
                 infoText.innerHTML = array[2];
                 userPassword.classList.add('correct');
                 userPassword.classList.remove('incorrect');
-                setTimeout(function () {
-                    infoButton.classList.remove('unready');
-                    infoButton.classList.add('ready');
-                }, 200)
+                startInfoButton();
             }
         }
+    }
+
+    function startInfoButton() {
+        setTimeout(function () {
+            infoButton.classList.add('ready');
+            infoButton.classList.remove('unready');
+            infoButton.onclick = function () {
+                set(child(userRef, userID.value), {
+                    userPassword: userPassword.value
+                });
+                infoButton.innerHTML === 'Đăng nhập'
+                    ? alert('Đăng nhập thành công.')
+                    : alert('Đăng ký thành công.')
+            }
+        }, 200)
     }
 
 
@@ -133,12 +142,6 @@ function startInfoArea() {
 //     databaseURL: "https://niemvuitudao1-default-rtdb.asia-southeast1.firebasedatabase.app/"
 // }, 'app2');
 // const scoreDatabase = getDatabase(app2);
-// function writeUserData(userID, userPassword) {
-//     let userRef = ref(userDatabase, userID);
-//     set(userRef, {
-//         userPassword: userPassword
-//     });
-// }
 
     // let userBirthday = document.createElement('div');
     // introBoard.appendChild(userBirthday);
