@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vonage/server-sdk": "^2.10.7-beta-2",
+    "messagebird": "^3.7.2"
+  }
+}

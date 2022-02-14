@@ -69,7 +69,11 @@ userPassword.onkeydown = function (event) {
 }
 
 userPassword.onblur = function () {
-    if (userPassword.value) checkUserPassword()
+    if (userID.value.length === 0) {
+        userID.focus();
+    } else {
+        if (userPassword.value) checkUserPassword()
+    }
 }
 
 function checkUserID() {
