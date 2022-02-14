@@ -25,7 +25,7 @@ function stopTitleArea() {
 
     titleArea.style.animation = 'fadeOut 0.5s linear forwards';
     setTimeout(function () {
-        document.body.removeChild(titleArea);
+        titleArea.remove();
         startIntroArea();
     }, 500);
 }

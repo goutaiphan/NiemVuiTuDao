@@ -21,55 +21,17 @@
     transition: all 1s linear;
 }
 
-.introText, .registerText {
+.introText {
     font-size: 21px;
     line-height: 1.6;
     word-wrap: break-word;
     opacity: 0;
 }
 
-span {
-    font-size: 22px;
-    color: #744d26;
-}
-
 .tieuDan {
     width: 50%;
     margin: -70px 0 0;
     opacity: 0;
-}
-
-.userData {
-    width: 90%;
-    height: 60px;
-    margin: 0 auto 20px;
-    padding: 10px 0 0;
-    border-bottom: 2px solid #e7d8be;
-    font-size: 20px;
-}
-
-.input::placeholder {
-    font-size: 21px;
-    color: darkgray;
-}
-
-.registerButton {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    justify-items: center;
-
-    width: 90%;
-    height: 53px;
-    margin: 40px auto 0;
-    background-color: #e7d8be;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.registerButton:active {
-    transform: translate(0, 5px);
 }
 
 .tieuDan {
@@ -80,7 +42,7 @@ span {
     animation: slideTop 0.5s 2s linear forwards;
 }
 
-.introText, .registerText {
+.introText {
     animation: fadeIn 0.5s linear forwards;
 }
 

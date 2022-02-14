@@ -1,0 +1,65 @@
+.introBoard.resize {
+    width: 370px;
+    height: 500px;
+    padding: 0 20px 60px;
+    transition: all 1s linear;
+}
+
+.infoText {
+    font-size: 21px;
+    line-height: 1.6;
+    word-wrap: break-word;
+    opacity: 0;
+}
+
+.userID, .userPassword {
+    width: 90%;
+    height: 60px;
+    margin: 0 auto 20px;
+    padding: 10px 0 0;
+    color: gray;
+    font-size: 20px;
+    border-bottom: 2px solid darkgray;
+}
+
+::placeholder {
+    color: gray;
+}
+
+.userID.correct, .userPassword.correct {
+    color: #416c33;
+    border-color: #56754b;
+}
+
+.userID.incorrect, .userPassword.incorrect {
+    color: #813b3b;
+    border-color: #7e4b4b;
+}
+
+.infoButton {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    justify-items: center;
+
+    width: 90%;
+    height: 53px;
+    margin: 40px auto 0;
+    background-color: #e7d8be;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.infoButton.unready {
+    color: darkgray;
+    background: lightgray;
+}
+
+.infoButton.ready:active {
+    transform: translate(0, 5px);
+}
+
+.infoText {
+    animation: fadeIn 0.5s linear forwards;
+}
