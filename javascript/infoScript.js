@@ -6,7 +6,7 @@ import {getDatabase, set, get, ref, child} from
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let introArea = document.getElementById('introArea');
-let array = ['Quý huynh tỷ vui lòng <span>đăng nhập</span> hoặc <span>đăng ký</span> để tham gia.',
+let array = ['Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
     'Tài khoản <span>tồn tại</span>, quý huynh tỷ vui lòng <span>đăng nhập.</span>',
     'Tài khoản <span>chưa tồn tại</span>, quý huynh tỷ vui lòng <span>đăng ký.</span>',
     'Tối thiểu 6 ký tự, đối đa 16 ký tự.'];
