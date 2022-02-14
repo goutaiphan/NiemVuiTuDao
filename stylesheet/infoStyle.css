@@ -1,6 +1,6 @@
 .introBoard.resize {
     width: 370px;
-    height: 500px;
+    height: 510px;
     padding: 0 20px 65px;
     transition: all 1s linear;
 }
@@ -13,7 +13,7 @@
 }
 
 .userID, .userPassword {
-    width: 90%;
+    width: 85%;
     height: 60px;
     margin: 0 auto 20px;
     padding: 10px 0 0;
@@ -42,7 +42,7 @@
     justify-content: center;
     justify-items: center;
 
-    width: 90%;
+    width: 85%;
     height: 54px;
     margin: 43px auto 0;
     background-color: #e7d8be;
