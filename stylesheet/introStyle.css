@@ -15,14 +15,14 @@
 }
 
 .introBoard.resize {
-    width: 350px;
+    width: 370px;
     height: 500px;
     padding: 0 20px 60px;
     transition: all 1s linear;
 }
 
 .introText, .registerText {
-    font-size: 22px;
+    font-size: 21px;
     line-height: 1.6;
     word-wrap: break-word;
     opacity: 0;

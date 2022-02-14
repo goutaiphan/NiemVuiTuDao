@@ -1,20 +1,8 @@
 export {startIntroArea};
-
 import {deAccent} from "./functionScript.js";
-
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import {getDatabase, set, get, ref, onValue, child} from
+import {getDatabase, set, get, ref, onValue} from
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
-
-// let firebaseConfig = {
-//     apiKey: "AIzaSyCv-ktuvhdCSTp38qjBzDucEhRXGq8lyNU",
-//     authDomain: "niemvuitudao1.firebaseapp.com",
-//     projectId: "niemvuitudao1",
-//     storageBucket: "niemvuitudao1.appspot.com",
-//     messagingSenderId: "51572688322",
-//     appId: "1:51572688322:web:3c4e276312c1e40519c25b",
-//     measurementId: "G-JYT7DGZ3ZQ"
-// };
 
 const app1 = initializeApp({
     databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
@@ -61,7 +49,7 @@ introText.className = 'introText';
 let array0 = ['Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.',
     'Mến chúc quý đạo hữu<br>một năm mới nhiều <span>sức khỏe</span>, thường <span>an lạc</span> và <span>tinh tấn.</span>',
     'Nhân dịp Thánh Lễ của <span>Đức Ngọc Hoàng Thượng Đế,</span>',
-    '<span>Tiểu Dần</span> thân mời<br>quý huynh tỷ cùng tham gia<br>chương trình hỏi đáp <span><br>Niềm vui tu Đạo</span>',
+    '<span>Tiểu Dần</span> thân mời<br>quý đạo hữu cùng tham gia<br>chương trình hỏi đáp <span><br>Niềm vui tu Đạo</span>',
     'để cùng nhau<br><span>tưởng nhớ</span> về Ngài,',
     'vị <span>Cha Lành từ ái</span><br>của muôn sinh.'];
 
@@ -89,7 +77,10 @@ function startIntroArea() {
 }
 
 function startRegisterArea() {
-    let array1 = ['Quý huynh tỷ vui lòng<br><span>đăng nhập</span> để bắt đầu.',
+    let array1 = ['Quý huynh tỷ vui lòng<br><span>đăng nhập</span> để tham gia.',
+        'Tài khoản <span>không tồn tại</span>, quý huynh tỷ vui lòng đăng ký.',
+        'Mật khẩu <span>không chính xác</span>, quý huynh tỷ vui lòng nhập lại.',
+        'Tối thiểu 6 ký tự, đối đa 16 ký tự.',
         'Cảm ơn Tĩnh Tâm đã đăng ký tham gia chương trình Niềm vui tu Đạo',
         'Quý đạo hữu đã sẵn sàng bắt đầu chương trình chứ?'];
 
@@ -123,19 +114,18 @@ function startRegisterArea() {
 
     userID.onblur = function () {
         userID.value = deAccent(userID.value);
-        if (userID.value.length < 5 || userID.value.length > 15) {
-            userID.setCustomValidity('Tối thiểu 5 ký tự, tối đa 15 ký tự.');
-            userID.reportValidity();
-        } else {
-            checkUserID(userID.value);
-        }
+        checkUserID();
     }
 
-    userPassword.onkeydown = function () {
+    userPassword.onkeydown = function (event) {
         userPassword.setCustomValidity('');
+        if (['Enter', 'Return'].includes(event.key)) (userPassword.blur());
     }
-    userPassword.onblur = function () {
 
+    userPassword.onblur = function () {
+        if (userID.value.length > 0) {
+            checkUserPassword();
+        }
     }
 
     registerButton.onclick = function () {
@@ -144,19 +134,39 @@ function startRegisterArea() {
         //writeUserData(userID.value, userPassword.value);
     }
 
-    function checkUserID(userID) {
-        let userRef = ref(userDatabase, userID);
-        get(userRef).then((snapshot) => {
-            if (snapshot.exists()) {
-                registerText.innerHTML = 'Quý huynh tỷ vui lòng<br><span>đăng nhập</span> để bắt đầu.';
-                registerButton.innerHTML = 'Đăng nhập';
-            } else {
-                registerText.innerHTML = 'Tài khoản <span>không tồn tại</span>, quý huynh tỷ vui lòng đăng ký.'
-                registerButton.innerHTML = 'Đăng ký';
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
+    function checkUserID() {
+        if (userID.value.length < 6 || userID.value.length > 16) {
+            userID.setCustomValidity(array1[3]);
+            userID.reportValidity();
+        } else {
+            let userRef = ref(userDatabase, userID.value);
+            get(userRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    registerText.innerHTML = array1[0];
+                    registerButton.innerHTML = 'Đăng nhập';
+                } else {
+                    registerText.innerHTML = array1[1];
+                    registerButton.innerHTML = 'Đăng ký';
+                }
+            })
+        }
+    }
+
+    function checkUserPassword() {
+        if (userPassword.value.length < 6 || userPassword.value.length > 16) {
+            userPassword.setCustomValidity(array1[3]);
+            userPassword.reportValidity();
+        } else {
+            checkUserID();
+            let userRef = ref(userDatabase, userID.value + '/userPassword');
+            get(userRef).then((snapshot) => {
+                if (snapshot.val() !== userPassword.value) {
+                    registerText.innerHTML = array1[2];
+                } else {
+                    registerText.innerHTML = array1[0];
+                }
+            })
+        }
     }
 
     // userID.onkeydown = function (event) {
