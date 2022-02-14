@@ -17,13 +17,13 @@
     height: 60px;
     margin: 0 auto 20px;
     padding: 10px 0 0;
-    color: black;
+    color: gray;
     font-size: 21px;
-    border-bottom: 2px solid #dcccba;
+    border-bottom: 2px solid darkgray;
 }
 
 ::placeholder {
-    color: black;
+    color: gray;
 }
 
 .userID.correct, .userPassword.correct {
@@ -32,8 +32,8 @@
 }
 
 .userID.incorrect, .userPassword.incorrect {
-    color: #813b6b;
-    border-color: #7c4069;
+    color: #3b3e81;
+    border-color: #41447a;
 }
 
 .infoButton {
