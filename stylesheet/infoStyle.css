@@ -19,7 +19,7 @@
     padding: 10px 0 0;
     color: gray;
     font-size: 21px;
-    border-bottom: 2px solid darkgray;
+    border-bottom: 2px solid #b4b4b4;
 }
 
 ::placeholder {
@@ -28,12 +28,12 @@
 
 .userID.correct, .userPassword.correct {
     color: #416c33;
-    border-color: #668a59;
+    border-color: #99a694;
 }
 
 .userID.incorrect, .userPassword.incorrect {
     color: #3b3e81;
-    border-color: #41447a;
+    border-color: #878798;
 }
 
 .infoButton {
@@ -52,7 +52,7 @@
 }
 
 .infoButton.unready {
-    color: dimgray;
+    color: gray;
     background: lightgray;
 }
 
