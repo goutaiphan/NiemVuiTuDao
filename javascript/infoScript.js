@@ -106,6 +106,7 @@ function startInfoArea() {
                     } else if (snapshot.val() !== userPassword.value) {
                         userPassword.classList.add('incorrect');
                         userPassword.classList.remove('correct');
+                        navigator.vibrate(200);
                     } else if (snapshot.val() === userPassword.value) {
                         userPassword.classList.add('correct');
                         userPassword.classList.remove('incorrect');
