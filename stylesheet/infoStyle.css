@@ -23,8 +23,7 @@
 }
 
 .inputPassword {
-    letter-spacing: 5px;
-    font-size: 23px;
+    letter-spacing: 4px;
 }
 
 ::placeholder {
