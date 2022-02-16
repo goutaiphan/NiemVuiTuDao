@@ -75,13 +75,12 @@ inputPassword.onkeydown = function (event) {
     setInfoButton(false);
     inputPassword.setCustomValidity('');
     inputPassword.classList.remove('correct', 'incorrect');
+    if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
     if (['Enter', 'Return'].includes(event.key)) (inputPassword.blur());
 }
 
 inputPassword.onblur = function () {
-    if (inputEmail.value.length === 0) {
-        inputEmail.focus();
-    } else {
+    if (inputEmail.value.length !== 0) {
         if (inputPassword.value) checkUserPassword()
     }
 }
@@ -117,8 +116,8 @@ function checkUserEmail() {
 }
 
 function checkUserPassword() {
-    if (inputPassword.value.length < 6) {
-        inputPassword.setCustomValidity('Mật khẩu tối thiểu 6 ký tự.');
+    if (inputPassword.value.length !== 8) {
+        inputPassword.setCustomValidity('Mật khẩu 8 ký tự.');
         inputPassword.reportValidity();
     } else {
         if (infoButton.innerHTML === 'Đăng nhập') {
