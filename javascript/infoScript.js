@@ -21,6 +21,7 @@ infoText.innerHTML = array[0];
 
 let inputEmail = document.createElement('input');
 inputEmail.className = 'inputEmail';
+inputEmail.inputMode = 'email';
 inputEmail.placeholder = 'Email';
 
 let inputPassword = document.createElement('input');
