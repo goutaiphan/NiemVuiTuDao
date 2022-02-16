@@ -27,7 +27,6 @@ let inputPassword = document.createElement('input');
 inputPassword.className = 'inputPassword';
 inputPassword.type = 'password';
 inputPassword.placeholder = 'Mật khẩu';
-inputPassword.pattern = "\d*";
 inputPassword.inputMode = 'numeric';
 
 let infoButton = document.createElement('p');
