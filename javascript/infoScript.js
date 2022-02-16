@@ -1,28 +1,33 @@
 export {startInfoArea};
 import {introBoard} from "./introScript.js";
 import {deAccent} from "./functionScript.js";
+import {Email} from "./emailScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import {getDatabase, set, get, ref, child} from
+import {
+    getDatabase, set, get, ref, child, query,
+    orderByChild, equalTo, limitToFirst
+} from
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let introArea = document.getElementById('introArea');
 let array = ['Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
     'Tài khoản <span>tồn tại</span>, quý huynh tỷ vui lòng <span>đăng nhập.</span>',
     'Tài khoản <span>chưa tồn tại</span>, quý huynh tỷ vui lòng <span>đăng ký.</span>',
-    'Tối thiểu 6 ký tự, đối đa 16 ký tự.'];
+    'Mã xác thực đã được gửi tới email trên, quý huynh tỷ vui lòng sử dụng để đăng ký.'];
 
 let infoText = document.createElement('p');
 infoText.className = 'infoText';
 infoText.innerHTML = array[0];
 
-let userID = document.createElement('input');
-userID.className = 'userID';
-userID.placeholder = 'Tài khoản';
+let inputEmail = document.createElement('input');
+inputEmail.className = 'inputEmail';
+inputEmail.placeholder = 'Email';
 
-let userPassword = document.createElement('input');
-userPassword.className = 'userPassword';
-userPassword.type = 'password';
-userPassword.placeholder = 'Mật khẩu';
+let inputPassword = document.createElement('input');
+inputPassword.className = 'inputPassword';
+inputPassword.type = 'password';
+inputPassword.placeholder = 'Mật khẩu';
+inputPassword.pattern = "\d*";
 
 let infoButton = document.createElement('p');
 infoButton.className = 'infoButton';
@@ -37,86 +42,103 @@ let userRef = ref(userDatabase);
 
 function startInfoArea() {
     introBoard.appendChild(infoText);
-    introBoard.appendChild(userID);
-    introBoard.appendChild(userPassword);
+    introBoard.appendChild(inputEmail);
+    introBoard.appendChild(inputPassword);
     introBoard.appendChild(infoButton);
     introBoard.classList.add('resize');
     introArea.style.marginTop = '0';
 }
 
-userID.onkeydown = function (event) {
+inputEmail.onkeydown = function (event) {
     infoText.innerHTML = array[0];
     infoButton.innerHTML = 'Đăng nhập/Đăng ký';
     setInfoButton(false);
 
-    userID.setCustomValidity('');
-    userID.classList.remove('correct', 'incorrect');
-    userPassword.value = '';
-    userPassword.classList.remove('correct', 'incorrect');
-    if (['Enter', 'Return'].includes(event.key)) (userPassword.focus())
+    inputEmail.setCustomValidity('');
+    inputEmail.classList.remove('correct', 'incorrect');
+    inputPassword.value = '';
+    inputPassword.classList.remove('correct', 'incorrect');
+    if (['Enter', 'Return'].includes(event.key)) (inputPassword.focus())
 }
 
-userID.onblur = function () {
-    userID.value = deAccent(userID.value);
-    if (userID.value) checkUserID();
+inputEmail.onblur = function () {
+    inputEmail.value = inputEmail.value
+        .replaceAll(' ', '')
+        .replace(/(@)+/g, '@')
+        .replace(/(\.)+/g, '.');
+    if (inputEmail.value) checkUserEmail();
 }
 
-userPassword.onkeydown = function (event) {
+inputPassword.onkeydown = function (event) {
     setInfoButton(false);
-    userPassword.setCustomValidity('');
-    userPassword.classList.remove('correct', 'incorrect');
-    if (['Enter', 'Return'].includes(event.key)) (userPassword.blur());
+    inputPassword.setCustomValidity('');
+    inputPassword.classList.remove('correct', 'incorrect');
+    if (['Enter', 'Return'].includes(event.key)) (inputPassword.blur());
 }
 
-userPassword.onblur = function () {
-    if (userID.value.length === 0) {
-        userID.focus();
+inputPassword.onblur = function () {
+    if (inputEmail.value.length === 0) {
+        inputEmail.focus();
     } else {
-        if (userPassword.value) checkUserPassword()
+        if (inputPassword.value) checkUserPassword()
     }
 }
 
-function checkUserID() {
-    if (userID.value.length < 6 || userID.value.length > 16) {
-        userID.setCustomValidity(array[array.length - 1]);
-        userID.reportValidity();
+function getUserData() {
+    let q = query(userRef, orderByChild('userEmail'), equalTo(inputEmail.value));
+    get(q).then(snapshot => {
+        snapshot.val()
+            ? snapshot.forEach(function (snapshot) {
+                localStorage.setItem('userData', JSON.stringify(snapshot.toJSON()));
+            })
+            : localStorage.removeItem('userData');
+    })
+}
+
+function checkUserEmail() {
+    if (!inputEmail.value.match(/@./)) {
+        inputEmail.setCustomValidity('Email cần chứa dấu @ và dấu .');
+        inputEmail.reportValidity();
     } else {
-        get(child(userRef, userID.value)).then(snapshot => {
-            if (snapshot.val()) {
+        getUserData();
+        setTimeout(function () {
+            if (localStorage.getItem('userData')) {
                 infoText.innerHTML = array[1];
                 infoButton.innerHTML = 'Đăng nhập';
             } else {
                 infoText.innerHTML = array[2];
                 infoButton.innerHTML = 'Đăng ký';
             }
-            userID.classList.add('correct');
-        })
+            inputEmail.classList.add('correct');
+        }, 500);
     }
 }
 
 function checkUserPassword() {
-    if (userPassword.value.length < 6 || userPassword.value.length > 16) {
-        userPassword.setCustomValidity(array[array.length - 1]);
-        userPassword.reportValidity();
+    if (inputPassword.value.length < 6) {
+        inputPassword.setCustomValidity('Mật khẩu tối thiểu 6 ký tự.');
+        inputPassword.reportValidity();
     } else {
         if (infoButton.innerHTML === 'Đăng nhập') {
             infoText.innerHTML = array[1];
-            get(child(userRef, userID.value + '/userPassword')).then(snapshot => {
-                if (snapshot.val() === null) {
-                } else if (snapshot.val() !== userPassword.value) {
-                    userPassword.classList.add('incorrect');
-                    userPassword.classList.remove('correct');
-                    navigator.vibrate(500);
-                } else if (snapshot.val() === userPassword.value) {
-                    userPassword.classList.add('correct');
-                    userPassword.classList.remove('incorrect');
+            getUserData();
+            setTimeout(function () {
+                let userData = JSON.parse(localStorage.getItem('userData'));
+                console.log(userData);
+                if (userData.userPassword === inputPassword.value) {
+                    inputPassword.classList.add('correct');
+                    inputPassword.classList.remove('incorrect');
                     setInfoButton(true)
+                } else {
+                    inputPassword.classList.add('incorrect');
+                    inputPassword.classList.remove('correct');
+                    navigator.vibrate(500);
                 }
-            });
+            }, 500)
         } else {
             infoText.innerHTML = array[2];
-            userPassword.classList.add('correct');
-            userPassword.classList.remove('incorrect');
+            inputPassword.classList.add('correct');
+            inputPassword.classList.remove('incorrect');
             setInfoButton(true)
         }
     }
@@ -128,19 +150,37 @@ function setInfoButton(validity) {
             infoButton.classList.add('ready');
             infoButton.classList.remove('unready');
             infoButton.onclick = function () {
-                set(child(userRef, userID.value), {
-                    userPassword: userPassword.value
-                });
                 infoButton.innerHTML === 'Đăng nhập'
                     ? alert('Đăng nhập thành công.')
                     : alert('Đăng ký thành công.')
             }
+            // set(child(userRef, inputEmail.value), {
+            //     userPassword: inputPassword.value
+            // });
         }, 200)
     } else {
         infoButton.classList.add('unready');
         infoButton.classList.remove('ready');
         infoButton.onclick = null;
     }
+}
+
+let message = 'Mến chào quý đạo hữu.<br>Mã xác thực đăng ký tài khoản tại Tàng Kinh Các Đại Đạo là:<br>' +
+    '<h1>123456</h1>' +
+    'Quý đạo hữu vui lòng sử dụng mã số này để đăng ký tài khoản.<br>Xin trân trọng cảm ơn.';
+
+function sendEmail() {
+    Email.send({
+        Host: "smtp.gmail.com",
+        Username: 'tangkinhcacdaidao@gmail.com',
+        Password: 'fyvqhyflpfyjospa',
+        From: 'tangkinhcacdaidao@gmail.com',
+        To: 'sb.phanquocthai@gmail.com',
+        Subject: 'Mã xác thực đăng ký tài khoản',
+        Body: message,
+    }).then(function (error) {
+        console.log(error.message);
+    });
 }
 
 // const app2 = initializeApp({
@@ -199,9 +239,9 @@ function setInfoButton(validity) {
 //         if (event.key.match(/[^\d\w\s\u0080-\u024F\u0300-\u036F\u1E00-\u1Eff\u1DC4]/))
 //             event.preventDefault();
 //         if (event.key === 'Clear') userName.value = '';
-//         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(userID, userName, userBirthday);
+//         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(inputEmail, userName, userBirthday);
 //     }
 //     infoButton.onclick = function () {
-//         validate(userID, userName, userBirthday);
+//         validate(inputEmail, userName, userBirthday);
 //     }
 // }

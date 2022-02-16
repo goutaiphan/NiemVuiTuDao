@@ -1,6 +1,24 @@
 {
   "dependencies": {
-    "@vonage/server-sdk": "^2.10.7-beta-2",
-    "messagebird": "^3.7.2"
-  }
+    "firebase": "^9.6.6",
+    "nodemailer": "^6.7.2"
+  },
+  "name": "niemvuitudao",
+  "version": "1.0.0",
+  "main": "infoScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goutaiphan/NiemVuiTuDao.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goutaiphan/NiemVuiTuDao/issues"
+  },
+  "homepage": "https://github.com/goutaiphan/NiemVuiTuDao#readme",
+  "description": ""
 }

@@ -12,7 +12,7 @@
     opacity: 0;
 }
 
-.userID, .userPassword {
+.inputEmail, .inputPassword {
     width: 85%;
     height: 60px;
     margin: 0 auto 20px;
@@ -22,16 +22,20 @@
     border-bottom: 2px solid #b4b4b4;
 }
 
+.inputPassword {
+    visibility: collapse;
+}
+
 ::placeholder {
     color: gray;
 }
 
-.userID.correct, .userPassword.correct {
+.inputEmail.correct, .inputPassword.correct {
     color: #416c33;
     border-color: #99a694;
 }
 
-.userID.incorrect, .userPassword.incorrect {
+.inputEmail.incorrect, .inputPassword.incorrect {
     color: #3b3e81;
     border-color: #878798;
 }
