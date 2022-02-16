@@ -29,6 +29,7 @@ inputPassword.className = 'inputPassword';
 inputPassword.type = 'password';
 inputPassword.placeholder = 'Mật khẩu';
 inputPassword.inputMode = 'numeric';
+inputPassword.maxLength = 8;
 
 let infoButton = document.createElement('p');
 infoButton.className = 'infoButton';

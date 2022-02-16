@@ -23,11 +23,15 @@
 }
 
 .inputPassword {
-
+    letter-spacing: 2px;
 }
 
 ::placeholder {
     color: gray;
+}
+
+.inputPassword::placeholder {
+    letter-spacing: 0
 }
 
 .inputEmail.correct, .inputPassword.correct {
