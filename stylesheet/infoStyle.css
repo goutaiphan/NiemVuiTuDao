@@ -23,7 +23,8 @@
 }
 
 .inputPassword {
-    letter-spacing: 2px;
+    letter-spacing: 5px;
+    font-size: 23px;
 }
 
 ::placeholder {
@@ -31,7 +32,8 @@
 }
 
 .inputPassword::placeholder {
-    letter-spacing: 0
+    font-size: 21px;
+    letter-spacing: 0;
 }
 
 .inputEmail.correct, .inputPassword.correct {
