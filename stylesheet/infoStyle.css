@@ -17,7 +17,7 @@
     font-family: 'PlayfairDisplay', serif;
     font-size: 37px;
     transform: scale(1.05, 1);
-    line-height: 1.5;
+    line-height: 1.4;
 
     background-image: linear-gradient(to right, #363636, #744d26 90%);
     -webkit-background-clip: text;
