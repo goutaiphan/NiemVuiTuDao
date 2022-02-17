@@ -54,6 +54,7 @@
 }
 
 .inputNumber::placeholder {
+    padding: 12px 0 0;
     letter-spacing: 0;
 }
 
