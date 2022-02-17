@@ -65,7 +65,8 @@ inputEmail.onblur = function () {
     inputEmail.value = inputEmail.value
         .replaceAll(' ', '')
         .replace(/(@)+/g, '@')
-        .replace(/(\.)+/g, '.');
+        .replace(/(\.)+/g, '.')
+        .toLowerCase();
     if (inputEmail.value) checkUserEmail();
 }
 
