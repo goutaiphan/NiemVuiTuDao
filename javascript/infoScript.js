@@ -53,7 +53,6 @@ function startInfoArea() {
     introBoard.appendChild(inputNumber);
     introBoard.appendChild(infoText);
     introBoard.classList.add('resize');
-    introArea.style.marginTop = '-20px';
 }
 
 inputEmail.onkeydown = function (event) {
