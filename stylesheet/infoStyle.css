@@ -5,7 +5,7 @@
     justify-content: start;
 
     width: 360px;
-    height: 540px;
+    height: 545px;
     margin: -50px 0 0;
     padding: 0 20px 50px;
     transition: all 1s linear;
@@ -16,7 +16,7 @@
     margin: 48px auto 20px;
 
     font-family: 'PlayfairDisplay', serif;
-    font-size: 36px;
+    font-size: 36.5px;
     transform: scale(1.05, 1);
     line-height: 1.45;
 
