@@ -1,5 +1,6 @@
 #titleArea p {
   opacity: 0;
+  font-size: 19px;
 }
 
 #titleArea p:nth-child(-n+4) {
