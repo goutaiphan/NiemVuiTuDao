@@ -8,7 +8,6 @@ let array = ['Niềm', 'vui', 'tu', 'Đạo',
 for (let i = 0; i < array.length; i++) {
     let text = document.createElement('p');
     titleArea.appendChild(text);
-
     text.innerHTML = array[i];
     if (i === array.length - 1) {
         text.onclick = stopTitleArea;

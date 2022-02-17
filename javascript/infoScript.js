@@ -1,7 +1,6 @@
 export {startInfoArea};
-import {introBoard} from "./introScript.js";
-import {deAccent} from "./functionScript.js";
-import {Email} from "./emailScript.js";
+import {introBoard, introBackground} from "./introScript.js";
+import {deAccent, randomize, sendEmail} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
     getDatabase, set, get, ref, child, query,
@@ -11,9 +10,16 @@ import {
 
 let introArea = document.getElementById('introArea');
 let array = ['Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
-    'Tài khoản <span>tồn tại</span>, quý huynh tỷ vui lòng <span>đăng nhập.</span>',
-    'Tài khoản <span>chưa tồn tại</span>, quý huynh tỷ vui lòng <span>đăng ký.</span>',
-    'Mã xác thực đã được gửi tới email trên, quý huynh tỷ vui lòng sử dụng để đăng ký.'];
+    'Tài khoản <span>tồn tại,</span><br>quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>',
+    'Tài khoản <span>chưa tồn tại,</span><br>quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>',
+    '<span>Mật khẩu</span> chưa chính xác, quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>',
+    '<span>Mã xác thực</span> đã được gửi tới <span>email,</span>' +
+    'quý huynh tỷ vui lòng sử dụng để <span>xác thực</span> tài khoản.',
+    'Thông tin <span>chưa chính xác,</span> quý huynh tỷ vui lòng kiểm tra lại <span>mã xác thực</span> được gửi qua <span>email.</span>'];
+
+let infoTitle = document.createElement('p');
+infoTitle.className = 'infoTitle';
+infoTitle.innerHTML = 'Tàng Kinh Các<br>Đại Đạo';
 
 let infoText = document.createElement('p');
 infoText.className = 'infoText';
@@ -24,12 +30,11 @@ inputEmail.className = 'inputEmail';
 inputEmail.inputMode = 'email';
 inputEmail.placeholder = 'Email';
 
-let inputPassword = document.createElement('input');
-inputPassword.className = 'inputPassword';
-inputPassword.type = 'password';
-inputPassword.placeholder = 'Mật khẩu';
-inputPassword.inputMode = 'numeric';
-inputPassword.maxLength = 8;
+let inputNumber = document.createElement('input');
+inputNumber.className = 'inputNumber';
+inputNumber.type = 'password';
+inputNumber.inputMode = 'numeric';
+setInputSection('password');
 
 let infoButton = document.createElement('p');
 infoButton.className = 'infoButton';
@@ -43,24 +48,19 @@ let userDatabase = getDatabase(app);
 let userRef = ref(userDatabase);
 
 function startInfoArea() {
-    introBoard.appendChild(infoText);
+    introBoard.appendChild(infoTitle);
     introBoard.appendChild(inputEmail);
-    introBoard.appendChild(inputPassword);
-    introBoard.appendChild(infoButton);
+    introBoard.appendChild(inputNumber);
+    introBoard.appendChild(infoText);
     introBoard.classList.add('resize');
-    introArea.style.marginTop = '0';
+    introBackground.classList.add('resize');
+    introArea.style.marginTop = '-20px';
 }
 
 inputEmail.onkeydown = function (event) {
-    infoText.innerHTML = array[0];
-    infoButton.innerHTML = 'Đăng nhập/Đăng ký';
-    setInfoButton(false);
-
+    setInputSection('password');
     inputEmail.setCustomValidity('');
-    inputEmail.classList.remove('correct', 'incorrect');
-    inputPassword.value = '';
-    inputPassword.classList.remove('correct', 'incorrect');
-    if (['Enter', 'Return'].includes(event.key)) (inputPassword.focus())
+    if (['Enter', 'Return'].includes(event.key)) (inputNumber.focus())
 }
 
 inputEmail.onblur = function () {
@@ -71,18 +71,15 @@ inputEmail.onblur = function () {
     if (inputEmail.value) checkUserEmail();
 }
 
-inputPassword.onkeydown = function (event) {
-    setInfoButton(false);
-    inputPassword.setCustomValidity('');
-    inputPassword.classList.remove('correct', 'incorrect');
+inputNumber.onkeydown = function (event) {
+    inputNumber.setCustomValidity('');
+    inputNumber.classList.remove('correct', 'incorrect');
     if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
-    if (['Enter', 'Return'].includes(event.key)) (inputPassword.blur());
+    if (['Enter', 'Return'].includes(event.key)) (inputNumber.blur());
 }
 
-inputPassword.onblur = function () {
-    if (inputEmail.value.length !== 0) {
-        if (inputPassword.value) checkUserPassword()
-    }
+inputNumber.onblur = function () {
+    if (inputEmail.value.length !== 0 && inputNumber.value) checkUserPassword();
 }
 
 function getUserData() {
@@ -97,8 +94,8 @@ function getUserData() {
 }
 
 function checkUserEmail() {
-    if (!inputEmail.value.match(/@./)) {
-        inputEmail.setCustomValidity('Email cần chứa dấu @ và dấu .');
+    if (!inputEmail.value.match(/\S+@\S+\.\S+/)) {
+        inputEmail.setCustomValidity('Cấu trúc email không hợp lệ.');
         inputEmail.reportValidity();
     } else {
         getUserData();
@@ -108,7 +105,15 @@ function checkUserEmail() {
                 infoButton.innerHTML = 'Đăng nhập';
             } else {
                 infoText.innerHTML = array[2];
-                infoButton.innerHTML = 'Đăng ký';
+                //setInputSection('otp');
+
+                let otp = randomize(1000, 9999);
+                localStorage.setItem('otp', otp);
+                let emailBody = '<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>' +
+                    `<h1>${otp}<br></h1>` +
+                    'Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.';
+                emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
+                // sendEmail(inputEmail.value, 'Mã xác thực tài khoản', emailBody);
             }
             inputEmail.classList.add('correct');
         }, 500);
@@ -116,9 +121,9 @@ function checkUserEmail() {
 }
 
 function checkUserPassword() {
-    if (inputPassword.value.length !== 8) {
-        inputPassword.setCustomValidity('Mật khẩu 8 ký tự.');
-        inputPassword.reportValidity();
+    if (inputNumber.value.length !== 8) {
+        inputNumber.setCustomValidity('Mật khẩu 8 ký tự.');
+        inputNumber.reportValidity();
     } else {
         if (infoButton.innerHTML === 'Đăng nhập') {
             infoText.innerHTML = array[1];
@@ -126,27 +131,44 @@ function checkUserPassword() {
             setTimeout(function () {
                 let userData = JSON.parse(localStorage.getItem('userData'));
                 console.log(userData);
-                if (userData.userPassword === inputPassword.value) {
-                    inputPassword.classList.add('correct');
-                    inputPassword.classList.remove('incorrect');
+                if (userData.userPassword === inputNumber.value) {
+                    inputNumber.classList.add('correct');
+                    inputNumber.classList.remove('incorrect');
+                    introBoard.appendChild(infoButton);
                     setInfoButton(true)
                 } else {
-                    inputPassword.classList.add('incorrect');
-                    inputPassword.classList.remove('correct');
+                    inputNumber.classList.add('incorrect');
+                    inputNumber.classList.remove('correct');
+                    infoText.innerHTML = array[3];
                     navigator.vibrate(500);
                 }
             }, 500)
         } else {
             infoText.innerHTML = array[2];
-            inputPassword.classList.add('correct');
-            inputPassword.classList.remove('incorrect');
+            inputNumber.classList.add('correct');
+            inputNumber.classList.remove('incorrect');
             setInfoButton(true)
         }
     }
 }
 
-function setInfoButton(validity) {
-    if (validity === true) {
+function setInputSection(type) {
+    if (type === 'password') {
+        infoText.innerHTML = array[0];
+        inputNumber.placeholder = 'Mật khẩu';
+        inputNumber.maxLength = 8;
+        inputNumber.value = '';
+        inputEmail.classList.remove('correct', 'incorrect');
+        inputNumber.classList.remove('correct', 'incorrect');
+    } else {
+        infoText.innerHTML = array[2];
+        inputNumber.placeholder = 'Mã xác thực';
+        inputNumber.maxLength = 4;
+    }
+}
+
+function setInfoButton(type) {
+    if (type === true) {
         setTimeout(function () {
             infoButton.classList.add('ready');
             infoButton.classList.remove('unready');
@@ -156,7 +178,7 @@ function setInfoButton(validity) {
                     : alert('Đăng ký thành công.')
             }
             // set(child(userRef, inputEmail.value), {
-            //     userPassword: inputPassword.value
+            //     userPassword: inputNumber.value
             // });
         }, 200)
     } else {
@@ -164,24 +186,6 @@ function setInfoButton(validity) {
         infoButton.classList.remove('ready');
         infoButton.onclick = null;
     }
-}
-
-let message = 'Mến chào quý đạo hữu.<br>Mã xác thực đăng ký tài khoản tại Tàng Kinh Các Đại Đạo là:<br>' +
-    '<h1>123456</h1>' +
-    'Quý đạo hữu vui lòng sử dụng mã số này để đăng ký tài khoản.<br>Xin trân trọng cảm ơn.';
-
-function sendEmail() {
-    Email.send({
-        Host: "smtp.gmail.com",
-        Username: 'tangkinhcacdaidao@gmail.com',
-        Password: 'fyvqhyflpfyjospa',
-        From: 'tangkinhcacdaidao@gmail.com',
-        To: 'sb.phanquocthai@gmail.com',
-        Subject: 'Mã xác thực đăng ký tài khoản',
-        Body: message,
-    }).then(function (error) {
-        console.log(error.message);
-    });
 }
 
 // const app2 = initializeApp({

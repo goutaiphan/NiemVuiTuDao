@@ -1,17 +1,20 @@
-export {startIntroArea, introBoard};
+export {startIntroArea, introBoard, introBackground};
 import {startInfoArea} from "./infoScript.js";
 
 let introArea = document.getElementById('introArea');
 introArea.style.marginTop = '40px';
 
-let introBoard = document.createElement('p');
+let introBoard = document.createElement('div');
 introBoard.className = 'introBoard';
 
-let tieuDan = document.createElement('img');
-tieuDan.className = 'tieuDan';
-tieuDan.src = './media/TigerFace.png';
+let introBackground = document.createElement('div');
+introBoard.appendChild(introBackground)
+introBackground.className = 'introBackground';
 
-let introText = document.createElement('p');
+let tieuDan = document.createElement('div');
+tieuDan.className = 'tieuDan';
+
+let introText = document.createElement('div');
 introText.className = 'introText';
 
 let array0 = ['Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.',

@@ -1,17 +1,29 @@
 .introBoard {
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
     justify-content: center;
-    justify-items: center;
 
-    width: 350px;
-    height: 400px;
+    width: 364px;
+    height: 404px;
     margin: auto;
     padding: 0 30px 40px;
-    border: 2px solid #dcccba;
-    border-radius: 5px;
-    background-color: #fff9f2;
+    border-radius: 6px;
+    background-image: linear-gradient(to top right, #a28d79, #dcccba 80%);
     opacity: 0;
+}
+
+.introBackground {
+    width: 360px;
+    height: 400px;
+    border-radius: 4px;
+    background-color: #fff9f2;
+
+    position: absolute;
+    inset: 0;
+    left: 2px;
+    top: 2px;
+    z-index: -1;
 }
 
 .introBoard.resize {
@@ -29,8 +41,11 @@
 }
 
 .tieuDan {
-    width: 50%;
-    margin: -70px 0 0;
+    width: 200px;
+    height: 200px;
+    margin: -70px auto 0;
+    background-image: url('../media/TigerFace.png');
+    background-size: contain;
     opacity: 0;
 }
 

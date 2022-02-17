@@ -25,6 +25,6 @@ body {
 }
 
 span {
-    font-size: 22px;
-    color: #744d26;
+    font-size: inherit;
+    color: #5d3b1a;
 }

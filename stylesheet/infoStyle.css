@@ -1,18 +1,44 @@
 .introBoard.resize {
-    width: 360px;
-    height: 510px;
-    padding: 0 20px 65px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: start;
+
+    width: 364px;
+    height: 534px;
+    padding: 0 20px 50px;
     transition: all 1s linear;
 }
 
-.infoText {
-    font-size: 21px;
-    line-height: 1.6;
-    word-wrap: break-word;
-    opacity: 0;
+.introBackground.resize {
+    width: 360px;
+    height: 530px;
 }
 
-.inputEmail, .inputPassword {
+.infoTitle {
+    width: 95%;
+    margin: 48px auto 20px;
+
+    font-family: 'PlayfairDisplay', serif;
+    font-size: 35.5px;
+    transform: scale(1.05, 1);
+    line-height: 1.45;
+
+    background-image: linear-gradient(to right, #363636, #744d26 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.infoText {
+    margin: 32px 0 0;
+    padding: 0 15px 0;
+    font-size: 20px;
+    line-height: 1.6;
+    word-wrap: break-word;
+    opacity: 1;
+}
+
+.inputEmail, .inputNumber {
     width: 85%;
     height: 60px;
     margin: 0 auto 20px;
@@ -22,27 +48,26 @@
     border-bottom: 2px solid #b4b4b4;
 }
 
-.inputPassword {
-    letter-spacing: 4px;
-}
-
 ::placeholder {
     color: gray;
 }
 
-.inputPassword::placeholder {
-    font-size: 21px;
+.inputNumber {
+    letter-spacing: 3px;
+}
+
+.inputNumber::placeholder {
     letter-spacing: 0;
 }
 
-.inputEmail.correct, .inputPassword.correct {
+.inputEmail.correct, .inputNumber.correct {
     color: #416c33;
-    border-color: #99a694;
+    border-bottom: 2px solid #8b9f85;
 }
 
-.inputEmail.incorrect, .inputPassword.incorrect {
+.inputEmail.incorrect, .inputNumber.incorrect {
     color: #3b3e81;
-    border-color: #878798;
+    border-bottom: 2px solid #878798;
 }
 
 .infoButton {
