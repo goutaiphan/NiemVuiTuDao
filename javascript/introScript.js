@@ -1,4 +1,4 @@
-export {startIntroArea, introBoard, introBackground};
+export {startIntroArea, introBoard};
 import {startInfoArea} from "./infoScript.js";
 
 let introArea = document.getElementById('introArea');
@@ -6,10 +6,6 @@ introArea.style.marginTop = '40px';
 
 let introBoard = document.createElement('div');
 introBoard.className = 'introBoard';
-
-let introBackground = document.createElement('div');
-introBoard.appendChild(introBackground)
-introBackground.className = 'introBackground';
 
 let tieuDan = document.createElement('div');
 tieuDan.className = 'tieuDan';

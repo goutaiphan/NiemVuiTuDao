@@ -1,5 +1,5 @@
 export {startInfoArea};
-import {introBoard, introBackground} from "./introScript.js";
+import {introBoard} from "./introScript.js";
 import {deAccent, randomize, sendEmail} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -53,7 +53,6 @@ function startInfoArea() {
     introBoard.appendChild(inputNumber);
     introBoard.appendChild(infoText);
     introBoard.classList.add('resize');
-    introBackground.classList.add('resize');
     introArea.style.marginTop = '-20px';
 }
 

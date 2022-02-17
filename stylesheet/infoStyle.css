@@ -4,15 +4,10 @@
     align-items: center;
     justify-content: start;
 
-    width: 364px;
-    height: 534px;
-    padding: 0 20px 50px;
-    transition: all 1s linear;
-}
-
-.introBackground.resize {
     width: 360px;
     height: 530px;
+    padding: 0 20px 50px;
+    transition: all 1s linear;
 }
 
 .infoTitle {
@@ -20,7 +15,7 @@
     margin: 48px auto 20px;
 
     font-family: 'PlayfairDisplay', serif;
-    font-size: 35.5px;
+    font-size: 36px;
     transform: scale(1.05, 1);
     line-height: 1.45;
 
@@ -32,8 +27,8 @@
 .infoText {
     margin: 32px 0 0;
     padding: 0 15px 0;
-    font-size: 20px;
-    line-height: 1.6;
+    font-size: 19px;
+    line-height: 1.7;
     word-wrap: break-word;
     opacity: 1;
 }

@@ -4,33 +4,14 @@
     align-items: center;
     justify-content: center;
 
-    width: 364px;
-    height: 404px;
-    margin: auto;
-    padding: 0 30px 40px;
-    border-radius: 6px;
-    background-image: linear-gradient(to top right, #a28d79, #dcccba 80%);
-    opacity: 0;
-}
-
-.introBackground {
     width: 360px;
     height: 400px;
-    border-radius: 4px;
-    background-color: #fff9f2;
-
-    position: absolute;
-    inset: 0;
-    left: 2px;
-    top: 2px;
-    z-index: -1;
-}
-
-.introBoard.resize {
-    width: 370px;
-    height: 500px;
-    padding: 0 20px 60px;
-    transition: all 1s linear;
+    margin: auto;
+    padding: 0 30px 40px;
+    border-radius: 5px;
+    border: 2.5px solid #c9bcb1;
+    background-color: #fff9f3;
+    opacity: 0;
 }
 
 .introText {
