@@ -9,13 +9,19 @@ import {
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let introArea = document.getElementById('introArea');
-let array = ['Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
-    'Tài khoản <span>tồn tại,</span><br>quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>',
-    'Tài khoản <span>chưa tồn tại,</span><br>quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>',
-    '<span>Mật khẩu</span> chưa chính xác, quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>',
-    '<span>Mã xác thực</span> đã được gửi tới <span>email,</span>' +
-    'quý huynh tỷ vui lòng sử dụng để <span>xác thực</span> tài khoản.',
-    'Thông tin <span>chưa chính xác,</span> quý huynh tỷ vui lòng kiểm tra lại <span>mã xác thực</span> được gửi qua <span>email.</span>'];
+let array = {
+    normal: 'Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
+    signIn: 'Tài khoản <span>tồn tại,</span><br>' +
+        'quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>',
+    signUp: 'Tài khoản <span>chưa tồn tại,</span><br>' +
+        'quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>',
+    verify: '<span>Mã xác thực</span> đã được gửi tới <span>email,</span>' +
+        'quý huynh tỷ vui lòng sử dụng để xác thực tài khoản.',
+    wrongPassword: '<span>Mật khẩu</span> chưa chính xác,<br>' +
+        'quý huynh tỷ vui lòng xem lại thông tin được lưu trữ qua <span>email.</span>',
+    wrongOTP: '<span>Mã xác thực</span>chưa chính xác,' +
+        '<br>quý huynh tỷ vui lòng xem lại thông tin được gửi qua <span>email.</span>'
+};
 
 let infoTitle = document.createElement('p');
 infoTitle.className = 'infoTitle';
@@ -23,7 +29,7 @@ infoTitle.innerHTML = 'Tàng Kinh Các<br>Đại Đạo';
 
 let infoText = document.createElement('p');
 infoText.className = 'infoText';
-infoText.innerHTML = array[0];
+infoText.innerHTML = array.normal;
 
 let inputEmail = document.createElement('input');
 inputEmail.className = 'inputEmail';
@@ -58,7 +64,7 @@ function startInfoArea() {
 inputEmail.onkeydown = function (event) {
     setInputSection('password');
     inputEmail.setCustomValidity('');
-    if (['Enter', 'Return'].includes(event.key)) (inputNumber.focus())
+    if (['Enter', 'Return'].includes(event.key)) (inputEmail.blur())
 }
 
 inputEmail.onblur = function () {
@@ -100,10 +106,10 @@ function checkUserEmail() {
         getUserData();
         setTimeout(function () {
             if (localStorage.getItem('userData')) {
-                infoText.innerHTML = array[1];
+                infoText.innerHTML = array.signIn;
                 infoButton.innerHTML = 'Đăng nhập';
             } else {
-                infoText.innerHTML = array[2];
+                infoText.innerHTML = array.signUp;
                 //setInputSection('otp');
 
                 let otp = randomize(1000, 9999);
@@ -153,16 +159,16 @@ function checkUserPassword() {
 
 function setInputSection(type) {
     if (type === 'password') {
-        infoText.innerHTML = array[0];
+        infoText.innerHTML = array.normal;
         inputNumber.placeholder = 'Mật khẩu';
         inputNumber.maxLength = 8;
         inputNumber.value = '';
         inputEmail.classList.remove('correct', 'incorrect');
         inputNumber.classList.remove('correct', 'incorrect');
     } else {
-        infoText.innerHTML = array[2];
-        inputNumber.placeholder = 'Mã xác thực';
-        inputNumber.maxLength = 4;
+        // infoText.innerHTML = array.verify;
+        // inputNumber.placeholder = 'Mã xác thực';
+        // inputNumber.maxLength = 4;
     }
 }
 
