@@ -1,6 +1,5 @@
 #titleArea p {
   opacity: 0;
-  font-size: 19px;
 }
 
 #titleArea p:nth-child(-n+4) {
@@ -16,10 +15,12 @@
 
 #titleArea p:nth-child(5) {
   margin: 65px auto 10px;
+  font-size: 19.5px;
 }
 
 #titleArea p:nth-child(6) {
   margin: auto auto 60px;
+  font-size: 19.5px;
 }
 
 #titleArea p:nth-child(7) {
@@ -30,6 +31,7 @@
   width: 190px;
   height: 50px;
   margin: auto;
+  font-size: 19px;
   border-radius: 5px;
   color: #36648B;
   background-color: #d6eafd;
