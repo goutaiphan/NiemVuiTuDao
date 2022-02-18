@@ -21,25 +21,26 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
+        visibility: hidden;
     }
     to {
         opacity: 1;
+        visibility: visible;
     }
 }
 
 @keyframes fadeOut {
     from {
         opacity: 1;
+        visibility: visible;
     }
     to {
         opacity: 0;
+        visibility: hidden;
     }
 }
 
 @keyframes zoomIn {
-    from {
-        opacity: 1;
-    }
     to {
         opacity: 1;
         transform: scale(1.07);
@@ -47,11 +48,7 @@
 }
 
 @keyframes bounce {
-    from {
-        opacity: 1;
-    }
     to {
-        opacity: 1;
         transform: translate(0, 15px);
     }
 }
@@ -59,10 +56,12 @@
 @keyframes slideRight {
     from {
         opacity: 0;
+        visibility: hidden;
         transform: translate(-20px, 0);
     }
     to {
         opacity: 1;
+        visibility: visible;
         transform: translate(0, 0);
     }
 }
@@ -70,10 +69,12 @@
 @keyframes slideLeft {
     from {
         opacity: 0;
+        visibility: hidden;
         transform: translate(20px, 0);
     }
     to {
         opacity: 1;
+        visibility: visible;
         transform: translate(0, 0);
     }
 }
@@ -81,10 +82,12 @@
 @keyframes slideTop {
     from {
         opacity: 0;
+        visibility: hidden;
         transform: translate(0, 20px);
     }
     to {
         opacity: 1;
+        visibility: visible;
         transform: translate(0, 0);
     }
 }

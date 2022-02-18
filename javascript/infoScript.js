@@ -1,5 +1,3 @@
-export {startInfoArea};
-import {introBoard} from "./introScript.js";
 import {deAccent, randomize, sendEmail} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -8,19 +6,19 @@ import {
 } from
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
-let introArea = document.getElementById('introArea');
 let array = {
     normal: 'Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
     signIn: 'Tài khoản <span>tồn tại,</span><br>' +
         'quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>',
     signUp: 'Tài khoản <span>chưa tồn tại,</span><br>' +
         'quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>',
-    verify: '<span>Mã xác thực</span> đã được gửi tới <span>email,</span>' +
+    verify: '<span>Mã xác thực</span> đã được gửi qua <span>email,</span>' +
         'quý huynh tỷ vui lòng sử dụng để xác thực tài khoản.',
     wrongPassword: '<span>Mật khẩu</span> chưa chính xác,<br>' +
-        'quý huynh tỷ vui lòng xem lại thông tin được lưu trữ qua <span>email.</span>',
+        'quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>',
     wrongOTP: '<span>Mã xác thực</span>chưa chính xác,' +
-        '<br>quý huynh tỷ vui lòng xem lại thông tin được gửi qua <span>email.</span>'
+        'quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>',
+    rightOTP: 'Xác thực tài khoản thành công, quý đạo hữu vui lòng điền mật khẩu để đăng ký.'
 };
 
 let infoTitle = document.createElement('p');
@@ -30,6 +28,11 @@ infoTitle.innerHTML = 'Tàng Kinh Các<br>Đại Đạo';
 let infoText = document.createElement('p');
 infoText.className = 'infoText';
 infoText.innerHTML = array.normal;
+
+let infoButton = document.createElement('p');
+infoButton.className = 'infoButton';
+infoButton.innerHTML = 'Đăng nhập/Đăng ký';
+infoButton.classList.add('unready');
 
 let inputEmail = document.createElement('input');
 inputEmail.className = 'inputEmail';
@@ -41,11 +44,6 @@ inputNumber.className = 'inputNumber';
 inputNumber.type = 'password';
 inputNumber.inputMode = 'numeric';
 setInputSection('password');
-
-let infoButton = document.createElement('p');
-infoButton.className = 'infoButton';
-infoButton.innerHTML = 'Đăng nhập/Đăng ký';
-infoButton.classList.add('unready');
 
 let app = initializeApp({
     databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
@@ -130,8 +128,6 @@ function checkUserPassword() {
         inputNumber.setCustomValidity('Mật khẩu 8 ký tự.');
         inputNumber.reportValidity();
     } else {
-        if (infoButton.innerHTML === 'Đăng nhập') {
-            infoText.innerHTML = array[1];
             getUserData();
             setTimeout(function () {
                 let userData = JSON.parse(localStorage.getItem('userData'));
@@ -139,27 +135,30 @@ function checkUserPassword() {
                 if (userData.userPassword === inputNumber.value) {
                     inputNumber.classList.add('correct');
                     inputNumber.classList.remove('incorrect');
+                    infoText.remove();
                     introBoard.appendChild(infoButton);
-                    setInfoButton(true)
+                    setInfoButton(true);
                 } else {
                     inputNumber.classList.add('incorrect');
                     inputNumber.classList.remove('correct');
-                    infoText.innerHTML = array[3];
+                    infoText.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);
                 }
             }, 500)
-        } else {
-            infoText.innerHTML = array[2];
-            inputNumber.classList.add('correct');
-            inputNumber.classList.remove('incorrect');
-            setInfoButton(true)
-        }
+
+            // infoText.innerHTML = array.signUp;
+            // inputNumber.classList.add('correct');
+            // inputNumber.classList.remove('incorrect');
+            // setInfoButton(true);
+
     }
 }
 
 function setInputSection(type) {
     if (type === 'password') {
         infoText.innerHTML = array.normal;
+        infoButton.remove();
+
         inputNumber.placeholder = 'Mật khẩu';
         inputNumber.maxLength = 8;
         inputNumber.value = '';

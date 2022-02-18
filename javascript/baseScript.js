@@ -1,7 +1,6 @@
 // alert(screen.width + '/' + screen.height + ','
 //     + outerWidth + '/' + outerHeight);
 
-let introArea = document.getElementById('introArea');
 if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
@@ -13,7 +12,6 @@ if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobil
             ? widthRatio
             : widthRatio
         document.body.style.width = width + 'px';
-        introArea.style.marginTop = '40px';
     } else {
         widthRatio = widthRatio * 0.7;
         document.body.style.marginTop = width < 1000

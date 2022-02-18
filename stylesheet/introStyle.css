@@ -11,14 +11,18 @@
     border-radius: 5px;
     border: 2px solid #c9bcb1;
     background-color: #fdf9f1;
+
     opacity: 0;
+    visibility: hidden;
 }
 
 .introText {
     font-size: 21px;
     line-height: 1.7;
     word-wrap: break-word;
+
     opacity: 0;
+    visibility: hidden;
 }
 
 .tieuDan {
@@ -27,11 +31,9 @@
     margin: -70px auto 0;
     background-image: url('../media/TigerFace.png');
     background-size: contain;
-    opacity: 0;
-}
 
-.tieuDan {
-    animation: fadeIn 0.7s 0.5s linear forwards, bounce 0.7s 1.2s ease-in alternate infinite;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .introBoard {
@@ -44,4 +46,9 @@
 
 .introText.remove {
     animation: fadeOut 0.5s linear forwards;
+    visibility: visible;
+}
+
+.tieuDan {
+    animation: fadeIn 0.7s 0.5s linear forwards, bounce 0.7s 1.2s ease-in alternate infinite;
 }
