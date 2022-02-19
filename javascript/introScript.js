@@ -54,7 +54,7 @@ introBoard.onanimationend = function () {
                 introArea.remove();
                 tieuDan.remove();
                 startInfoArea();
-            }, 2.5 * 1000)
+            }, 3 * 1000)
         }
     }
 }
