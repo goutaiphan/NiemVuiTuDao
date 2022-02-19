@@ -1,4 +1,14 @@
-export {deAccent, randomize, sendEmail};
+export {setVisibility, deAccent, randomize, sendEmail};
+
+function setVisibility(element, type) {
+    if (type === true) {
+        element.style.opacity = '1';
+        element.style.visibility = 'visible';
+    } else {
+        element.style.opacity = '0';
+        element.style.visibility = 'hidden';
+    }
+}
 
 function deAccent(string) {
     return string.normalize('NFD')

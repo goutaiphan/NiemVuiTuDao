@@ -1,7 +1,7 @@
-export {startIntroArea, introBoard};
+export {startIntroArea, tieuDan};
 import {startInfoArea} from "./infoScript.js";
+import {setVisibility} from "./functionScript.js";
 
-let introArea = document.getElementById('introArea');
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
     `Mến chúc quý đạo hữu<br>một năm mới nhiều<br><span>sức khỏe</span>, thường <span>an lạc</span><br>
     và <span>tinh tấn.</span>`,
@@ -21,28 +21,40 @@ introText.className = 'introText';
 introText.innerHTML = array[0];
 introBoard.append(introText);
 
+let introArea = document.createElement('div');
+introArea.id = 'introArea';
+introArea.style.marginTop = '45px';
+introArea.append(introBoard);
+
 function startIntroArea() {
-    introArea.style.marginTop = '45px';
-    introArea.append(introBoard);
-    introArea.append(tieuDan);
+    document.body.append(introArea);
+    document.body.append(tieuDan);
+    introBoard.style.animation = 'slideTop 0.5s 2s linear forwards';
+    tieuDan.style.animation = 'fadeIn 0.7s 0.5s linear forwards, bounce 0.7s 1.2s ease-in alternate infinite';
 }
 
 let i = 0;
 introBoard.onanimationend = function () {
+    setVisibility(introBoard, true);
+    setVisibility(tieuDan, true);
+
     window.onclick = function () {
-        i++;
         window.onclick = null;
-        introText.classList.add('hide');
-        introText.onanimationend = function () {
-            if (i < array.length) {
+        i++;
+        if (i < array.length) {
+            introText.style.animation = 'fadeOut 0.5s linear forwards';
+            introText.onanimationend = function () {
                 introText.innerHTML = array[i];
-                introText.classList.add('show');
-                introText.classList.remove('hide');
-            } else {
-                window.onclick = null;
-                introText.remove();
-                startInfoArea();
+                introText.style.animation = 'fadeIn 0.5s linear forwards';
             }
-        };
+        } else {
+            introText.style.animation = 'fadeOut 1s 0.5s linear forwards';
+            introBoard.style.animation = 'minimize 2.5s ease-in-out forwards';
+            setTimeout(function () {
+                introArea.remove();
+                tieuDan.remove();
+                startInfoArea();
+            }, 2.5 * 1000)
+        }
     }
 }

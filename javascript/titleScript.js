@@ -1,6 +1,9 @@
 import {startIntroArea} from "./introScript.js";
 
-let titleArea = document.getElementById('titleArea');
+let titleArea = document.createElement('div');
+titleArea.id = 'titleArea';
+document.body.append(titleArea);
+
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
     'Đức Ngọc Hoàng Thượng Đế',
@@ -14,14 +17,17 @@ for (let i = 0; i < array.length; i++) {
     titleArea.append(child);
 }
 
-let children = titleArea.children;
-children[0].classList.add('show');
-for (let i = 0; i < children.length - 1; i++) {
-    children[i].onanimationend = function () {
-        children[i + 1].classList.add('show');
+let childArray = titleArea.children;
+let fadeIn = 'fadeIn 0.5s linear forwards';
+childArray[0].style.animation = fadeIn;
+for (let i = 0; i < childArray.length - 1; i++) {
+    childArray[i].onanimationend = function () {
+        if (i !== 4) childArray[i + 1].style.animation = fadeIn;
         if (i === 3) {
-            children[i + 2].classList.add('show');
+            childArray[4].style.animation = 'slideRight 0.7s ease-out forwards';
+            childArray[5].style.animation = 'slideLeft 0.7s ease-out forwards';
         }
+        if (i === 5) childArray[6].style.animation = fadeIn + ', zoomIn 0.5s 0.5s ease-in alternate infinite';
     }
 }
 
@@ -37,5 +43,5 @@ function stopTitleArea() {
     setTimeout(function () {
         titleArea.remove();
         startIntroArea();
-    }, 500);
+    }, 0.5 * 1000);
 }

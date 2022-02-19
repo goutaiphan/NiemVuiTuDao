@@ -1,22 +1,24 @@
-.introBoard.resize {
+#infoArea {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: start;
 
-    width: 360px;
-    height: 545px;
+    width: 400px;
+    margin: -20px;
+    position: relative;
+}
+
+.tieuDan.infoArea {
     margin: -60px 0 0;
-    padding: 0 20px 50px;
-    transition: all 1s linear;
 }
 
 .infoTitle {
     width: 95%;
-    margin: 48px auto 20px;
+    margin: 0 auto 50px;
 
     font-family: 'PlayfairDisplay', serif;
-    font-size: 39px;
+    font-size: 45px;
     transform: scale(1.05, 1);
     line-height: 1.45;
 
@@ -25,24 +27,25 @@
     -webkit-text-fill-color: transparent;
 }
 
-.infoEmail {
-    width: 85%;
-    height: 60px;
-    margin: 0 0 18px;
-    padding: 12px 0 0;
-    color: gray;
-    font-size: 21px;
-    border-bottom: 2px solid #b4b4b4;
+.infoBoard {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: start;
+
+    width: 350px;
+    height: 320px;
+    margin: 0 0 50px;
+    padding: 20px 0 40px;
+    border-radius: 5px;
+    border: 2px solid #c9bcb1;
+    background-color: #fdf9f1;
 }
 
-.infoMiddle {
-    width: 85%;
+.infoEmail, .infoPassword, .infoOTP {
+    width: 75%;
+    height: 60px;
     margin: 0 0 20px;
-}
-
-.infoPassword, .infoOTP {
-    width: 100%;
-    height: 60px;
     padding: 12px 0 0;
     color: gray;
     font-size: 21px;
@@ -77,37 +80,20 @@
     border-bottom: 2px solid #878798;
 }
 
-.infoBottom {
-    width: 90%;
-    margin: 32px 0 0;
-    padding: 0 15px 0;
-}
-
-.infoText {
-    position: absolute;
-    inset: 0;
-
-    font-size: 19.5px;
-    line-height: 1.6;
-    word-wrap: break-word;
-}
-
 .infoButton {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     justify-items: center;
 
+    width: 75%;
     height: 55px;
-    position: absolute;
-    inset: 0;
-    margin: 11px auto 0;
+    margin: 32px 0 0;
 
-    font-size: 20px;
+    font-size: 19.5px;
     color: #4f3419;
     background-color: #e7d8be;
     border-radius: 30px;
-    visibility: hidden;
     cursor: pointer;
 }
 
@@ -133,4 +119,11 @@
 .infoButton.hide {
     visibility: hidden;
 
+}
+
+.infoText {
+    padding: 0 40px 0;
+    font-size: 20px;
+    line-height: 1.6;
+    word-wrap: break-word;
 }

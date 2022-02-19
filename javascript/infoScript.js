@@ -1,6 +1,6 @@
 export {startInfoArea};
-import {introBoard} from "./introScript.js";
-import {deAccent, randomize, sendEmail} from "./functionScript.js";
+import {tieuDan} from "./introScript.js";
+import {deAccent, randomize, sendEmail, setVisibility} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
     getDatabase, set, get, ref, child, query,
@@ -9,7 +9,7 @@ import {
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let array = {
-    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span><br>để tham gia chương trình.`,
+    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span> để tham gia chương trình.`,
     signIn: `Tài khoản <span>tồn tại,</span><br>
         quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>`,
     signUp: `Tài khoản <span>chưa tồn tại,</span><br>
@@ -42,23 +42,21 @@ infoOTP.className = 'infoOTP';
 infoOTP.inputMode = 'numeric';
 infoOTP.placeholder = 'Mã xác thực';
 
-let infoMiddle = document.createElement('div');
-infoMiddle.className = 'infoMiddle';
-infoMiddle.append(infoPassword);
-infoMiddle.append(infoOTP);
+let infoButton = document.createElement('div');
+infoButton.className = 'infoButton';
+infoButton.innerHTML = 'Đăng nhập/Đăng ký';
+
+let infoBoard = document.createElement('div');
+infoBoard.className = 'infoBoard';
+infoBoard.append(infoEmail, infoPassword, infoOTP, infoButton);
 
 let infoText = document.createElement('div');
 infoText.className = 'infoText';
 infoText.innerHTML = array.normal;
 
-let infoButton = document.createElement('div');
-infoButton.className = 'infoButton';
-infoButton.innerHTML = 'Đăng nhập/Đăng ký';
-
-let infoBottom = document.createElement('div');
-infoBottom.className = 'infoBottom';
-infoBottom.append(infoText);
-infoBottom.append(infoButton);
+let infoArea = document.createElement('div');
+infoArea.id = 'infoArea';
+infoArea.append(infoTitle, infoBoard, infoText)
 
 let app = initializeApp({
     databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
@@ -74,11 +72,9 @@ let userRef = ref(userDatabase);
 // emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
 
 function startInfoArea() {
-    introBoard.append(infoTitle);
-    introBoard.append(infoEmail);
-    introBoard.append(infoMiddle);
-    introBoard.append(infoBottom);
-    introBoard.classList.add('resize');
+    document.body.append(infoArea);
+    //infoArea.style.animation = 'maximize 0.5s linear forwards';
+    setVisibility(tieuDan, false);
 }
 
 infoEmail.onkeydown = function (event) {
@@ -87,8 +83,6 @@ infoEmail.onkeydown = function (event) {
     infoPassword.value = ''
     infoPassword.classList.remove('signIn', 'signUp');
     localStorage.setItem('infoGroup', 'normal');
-    setInfoText(true);
-    setInfoButton(false);
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur())
 }
 
@@ -103,9 +97,7 @@ infoEmail.onblur = function () {
 
 infoPassword.onkeydown = function (event) {
     infoPassword.setCustomValidity('');
-    infoPassword.classList.remove('signIn','signUp');
-    setInfoText(true);
-    setInfoButton(false);
+    infoPassword.classList.remove('signIn', 'signUp');
     if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
 }
 
@@ -163,8 +155,6 @@ function checkUserPassword() {
                 if (userData.userPassword === infoPassword.value) {
                     infoPassword.classList.add('signIn');
                     infoPassword.classList.remove('signUp');
-                    setInfoText(false);
-                    setInfoButton(true);
                 } else {
                     infoText.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);

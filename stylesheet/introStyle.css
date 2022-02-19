@@ -5,7 +5,7 @@
     justify-content: center;
 
     width: 360px;
-    height: 400px;
+    height: 390px;
     margin: auto;
     padding: 0 30px 40px;
     border-radius: 5px;
@@ -30,20 +30,4 @@
 
     opacity: 0;
     visibility: hidden;
-}
-
-.introBoard {
-    -webkit-animation: slideTop 0.5s 2s linear forwards;
-}
-
-.introText.show {
-    animation: fadeIn 0.5s linear forwards;
-}
-
-.introText.hide {
-    animation: fadeOut 0.5s linear forwards;
-}
-
-.tieuDan {
-    animation: fadeIn 0.7s 0.5s linear forwards, bounce 0.7s 1.2s ease-in alternate infinite;
 }

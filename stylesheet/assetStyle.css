@@ -91,3 +91,28 @@
         transform: translate(0, 0);
     }
 }
+
+@keyframes minimize {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+        padding: 0;
+    }
+}
+
+@keyframes maximize {
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        height: max-content;
+        opacity: 1;
+        visibility: visible;
+    }
+}
