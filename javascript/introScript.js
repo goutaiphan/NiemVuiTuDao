@@ -48,16 +48,16 @@ introBoard.onanimationend = function () {
                 introText.style.animation = 'fadeIn 0.5s linear forwards';
             }
         } else {
+            introBoard.style.animation = 'minimize 2s ease-in-out forwards';
             introText.style.animation = 'fadeOut 0.5s 0.5s linear forwards';
             introText.onanimationend = function () {
                 introText.remove();
+                setTimeout(function () {
+                    introArea.remove();
+                    tieuDan.remove();
+                    startInfoArea();
+                }, 2.5 * 1000)
             }
-            introBoard.style.animation = 'minimize 2s ease-in-out forwards';
-            setTimeout(function () {
-                introArea.remove();
-                tieuDan.remove();
-                startInfoArea();
-            }, 3 * 1000)
         }
     }
 }

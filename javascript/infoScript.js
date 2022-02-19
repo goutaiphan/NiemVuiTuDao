@@ -58,7 +58,7 @@ infoText.innerHTML = array.normal;
 
 let infoArea = document.createElement('div');
 infoArea.id = 'infoArea';
-infoArea.append(infoTitle, infoBoard, infoText)
+infoArea.append(infoTitle, infoBoard, infoText);
 
 let app = initializeApp({
     databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
