@@ -23,7 +23,7 @@ introBoard.append(introText);
 
 let introArea = document.createElement('div');
 introArea.id = 'introArea';
-introArea.style.marginTop = '45px';
+introArea.style.marginTop = '50px';
 introArea.append(introBoard);
 
 function startIntroArea() {

@@ -82,7 +82,7 @@ function startInfoArea() {
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
     infoPassword.value = '';
-    setInfoGroup('normal');
+    setInfoText('normal');
     setInfoButton(false);
     infoEmail.classList.remove('signIn', 'signUp');
     infoPassword.classList.remove('signIn', 'signUp');
@@ -100,7 +100,7 @@ infoEmail.onblur = function () {
 
 infoPassword.onkeydown = function (event) {
     infoPassword.setCustomValidity('');
-    setInfoGroup(localStorage.getItem('infoGroup'));
+    setInfoText(localStorage.getItem('infoGroup'));
     setInfoButton(false);
     infoPassword.classList.remove('signIn', 'signUp');
     if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
@@ -136,7 +136,7 @@ function checkUserEmail() {
         setTimeout(function () {
             let infoGroup = localStorage.getItem('infoGroup');
             infoEmail.classList.add(infoGroup);
-            setInfoGroup(infoGroup);
+            setInfoText(infoGroup);
         }, 0.5 * 1000);
     }
 }
@@ -169,7 +169,7 @@ function checkUserPassword() {
     }
 }
 
-function setInfoGroup(type) {
+function setInfoText(type) {
     infoText.innerHTML = array[type];
     infoButton.innerHTML = type.replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
