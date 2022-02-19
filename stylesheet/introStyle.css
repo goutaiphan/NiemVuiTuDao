@@ -23,11 +23,10 @@
 }
 
 .tieuDan {
-    width: 190px;
-    height: 190px;
+    width: 180px;
+    height: 180px;
     margin: -70px auto 0;
     background-image: url('../media/TigerFace.png');
-    background-size: contain;
 
     opacity: 0;
     visibility: hidden;

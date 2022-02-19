@@ -7,7 +7,7 @@
     font-family: 'Lora', serif;
     text-align: center;
     background-color: transparent;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
 
     -webkit-tap-highlight-color: transparent;
