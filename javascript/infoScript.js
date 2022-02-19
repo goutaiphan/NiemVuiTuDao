@@ -10,7 +10,7 @@ import {
 
 let array = {
     normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span> để tham gia chương trình.`,
-    signIn: `Tài khoản <span>tồn tại,</span><br>
+    signIn: `Tài khoản đã <span>tồn tại,</span><br>
         quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>`,
     signUp: `Tài khoản <span>chưa tồn tại,</span><br>
         quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>`,
@@ -22,7 +22,8 @@ let array = {
         quý huynh tỷ có thể <span>đăng nhập</span><br>để tham gia chương trình.`,
     wrongOTP: `Mã xác thực <span>chưa chính xác,</span>
         quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
-    rightOTP: `Xác thực tài khoản thành công, quý đạo hữu vui lòng điền mật khẩu để đăng ký.`
+    rightOTP: `Tài khoản đã <span>xác thực,<span><br>
+           quý đạo hữu vui lòng điền mật khẩu để <span>đăng ký.</span>`
 };
 
 let infoTitle = document.createElement('div');
