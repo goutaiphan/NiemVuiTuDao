@@ -40,15 +40,16 @@ introBoard.onanimationend = function () {
 
     window.onclick = function () {
         window.onclick = null;
-        i++;
-        if (i < array.length) {
+        console.log(i);
+        if (i < array.length - 1) {
+            i++;
             introText.style.animation = 'fadeOut 0.5s linear forwards';
             introText.onanimationend = function () {
                 introText.innerHTML = array[i];
                 introText.style.animation = 'fadeIn 0.5s linear forwards';
             }
         } else {
-            introText.style.animation = 'fadeOut 1s 0.5s linear forwards';
+            introText.style.animation = 'fadeOut 0.5s 2s linear forwards';
             introBoard.style.animation = 'minimize 2.5s ease-in-out forwards';
             setTimeout(function () {
                 introArea.remove();
