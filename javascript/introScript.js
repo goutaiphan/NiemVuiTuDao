@@ -40,7 +40,6 @@ introBoard.onanimationend = function () {
 
     window.onclick = function () {
         window.onclick = null;
-        console.log(i);
         if (i < array.length - 1) {
             i++;
             introText.style.animation = 'fadeOut 0.5s linear forwards';
@@ -49,8 +48,11 @@ introBoard.onanimationend = function () {
                 introText.style.animation = 'fadeIn 0.5s linear forwards';
             }
         } else {
-            introText.style.animation = 'fadeOut 0.5s 2s linear forwards';
-            introBoard.style.animation = 'minimize 2.5s ease-in-out forwards';
+            introText.style.animation = 'fadeOut 0.5s 0.5s linear forwards';
+            introText.onanimationend = function () {
+                introText.remove();
+            }
+            introBoard.style.animation = 'minimize 2s ease-in-out forwards';
             setTimeout(function () {
                 introArea.remove();
                 tieuDan.remove();
