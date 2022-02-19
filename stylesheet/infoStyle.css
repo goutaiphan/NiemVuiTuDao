@@ -16,7 +16,7 @@
     margin: 48px auto 20px;
 
     font-family: 'PlayfairDisplay', serif;
-    font-size: 36.5px;
+    font-size: 37px;
     transform: scale(1.05, 1);
     line-height: 1.45;
 
@@ -28,7 +28,7 @@
 .infoEmail {
     width: 85%;
     height: 60px;
-    margin: 0 0 20px;
+    margin: 0 0 18px;
     padding: 12px 0 0;
     color: gray;
     font-size: 21px;
@@ -98,14 +98,16 @@
     justify-content: center;
     justify-items: center;
 
+    height: 55px;
     position: absolute;
     inset: 0;
-    margin: 10px auto 0;
+    margin: 11px auto 0;
 
-    height: 54px;
-    background-color: #e7d8be;
-    border-radius: 5px;
     font-size: 20px;
+    color: #4f3419;
+    background-color: #e7d8be;
+    border-radius: 30px;
+    visibility: hidden;
     cursor: pointer;
 }
 

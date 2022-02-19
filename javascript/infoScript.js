@@ -9,18 +9,18 @@ import {
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let array = {
-    normal: 'Quý huynh tỷ vui lòng <span>đăng nhập/đăng ký</span> để tham gia.',
-    signIn: 'Tài khoản <span>tồn tại,</span><br>' +
-        'quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>',
-    signUp: 'Tài khoản <span>chưa tồn tại,</span><br>' +
-        'quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>',
-    verify: '<span>Mã xác thực</span> đã được gửi qua <span>email,</span>' +
-        'quý huynh tỷ vui lòng sử dụng để xác thực tài khoản.',
-    wrongPassword: '<span>Mật khẩu</span> chưa chính xác,<br>' +
-        'quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>',
-    wrongOTP: '<span>Mã xác thực</span>chưa chính xác,' +
-        'quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>',
-    rightOTP: 'Xác thực tài khoản thành công, quý đạo hữu vui lòng điền mật khẩu để đăng ký.'
+    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span><br>để tham gia chương trình.`,
+    signIn: `Tài khoản <span>tồn tại,</span><br>
+        quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>`,
+    signUp: `Tài khoản <span>chưa tồn tại,</span><br>
+        quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>`,
+    verify: `<span>Mã xác thực</span> đã được gửi qua <span>email,</span>
+        quý huynh tỷ vui lòng sử dụng để xác thực tài khoản.`,
+    wrongPassword: `<span>Mật khẩu</span> chưa chính xác,<br>
+        quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>`,
+    wrongOTP: `<span>Mã xác thực</span>chưa chính xác,
+        quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>`,
+    rightOTP: `Xác thực tài khoản thành công, quý đạo hữu vui lòng điền mật khẩu để đăng ký.`
 };
 
 let infoTitle = document.createElement('div');
@@ -66,31 +66,30 @@ let app = initializeApp({
 let userDatabase = getDatabase(app);
 let userRef = ref(userDatabase);
 
+// let otp = randomize(1000, 9999);
+// localStorage.setItem('otp', otp);
+// let emailBody = `<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
+//                     <h1>${otp}<br></h1>
+//                     Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
+// emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
+
 function startInfoArea() {
     introBoard.append(infoTitle);
     introBoard.append(infoEmail);
     introBoard.append(infoMiddle);
     introBoard.append(infoBottom);
     introBoard.classList.add('resize');
-    setInfoButton(false);
 }
-
-// infoText.innerHTML = array.normal;
-// infoEmail.classList.remove('signIn', 'signUp');
-// infoPassword.classList.remove('signIn', 'signUp');
-// infoButton.classList.add('hide');
-// infoButton.classList.remove('show');
-// infoText.classList.add('show');
-// infoText.classList.remove('hide');
 
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
-    if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur())
     infoEmail.classList.remove('signIn', 'signUp');
-    infoPassword.classList.remove('signIn','signUp');
     infoPassword.value = ''
-    infoText.innerHTML = array.normal;
+    infoPassword.classList.remove('signIn', 'signUp');
+    localStorage.setItem('infoGroup', 'normal');
+    setInfoText(true);
     setInfoButton(false);
+    if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur())
 }
 
 infoEmail.onblur = function () {
@@ -104,17 +103,17 @@ infoEmail.onblur = function () {
 
 infoPassword.onkeydown = function (event) {
     infoPassword.setCustomValidity('');
-    // if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
-    if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
-
+    infoPassword.classList.remove('signIn','signUp');
     setInfoText(true);
     setInfoButton(false);
-    infoPassword.classList.remove('signIn','signUp');
+    if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
 }
 
 infoPassword.onblur = function () {
     if (infoEmail.value.length !== 0 && infoPassword.value) checkUserPassword();
 }
+
+// if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
 
 function getUserData() {
     let q = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
@@ -144,12 +143,6 @@ function checkUserEmail() {
                 infoText.innerHTML = array.signUp;
                 infoEmail.classList.add('signUp');
 
-                let otp = randomize(1000, 9999);
-                localStorage.setItem('otp', otp);
-                let emailBody = `<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
-                    <h1>${otp}<br></h1>
-                    Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
-                emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
                 // sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
             }
         }, 500);
@@ -162,7 +155,6 @@ function checkUserPassword() {
         infoPassword.reportValidity();
     } else {
         let infoGroup = localStorage.getItem('infoGroup');
-        console.log(infoGroup);
         if (infoGroup === 'signIn') {
             getUserData();
             setTimeout(function () {
@@ -179,7 +171,6 @@ function checkUserPassword() {
                 }
             }, 500)
         } else {
-            console.log(true);
             infoPassword.classList.add('signUp');
             infoPassword.classList.remove('signIn');
         }
@@ -189,7 +180,7 @@ function checkUserPassword() {
 function setInfoText(type) {
     let infoGroup = localStorage.getItem('infoGroup');
     infoText.innerHTML = array[infoGroup];
-    if (type === true) {
+    if (type === true || type === 'normal') {
         infoText.classList.add('show');
         infoText.classList.remove('hide');
     } else {
@@ -203,11 +194,11 @@ function setInfoButton(type) {
         setTimeout(function () {
             infoButton.classList.add('show');
             infoButton.classList.remove('hide');
-            infoButton.onclick = function () {
-                infoButton.innerHTML === 'Đăng nhập'
-                    ? alert('Đăng nhập thành công.')
-                    : alert('Đăng ký thành công.')
-            }
+            // infoButton.onclick = function () {
+            //     infoButton.innerHTML === 'Đăng nhập'
+            //         ? alert('Đăng nhập thành công.')
+            //         : alert('Đăng ký thành công.')
+            // }
             // set(child(userRef, infoEmail.value), {
             //     userPassword: infoPassword.value
             // });
