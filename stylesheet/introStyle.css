@@ -20,9 +20,6 @@
     font-size: 21px;
     line-height: 1.7;
     word-wrap: break-word;
-
-    opacity: 0;
-    visibility: hidden;
 }
 
 .tieuDan {
@@ -37,14 +34,14 @@
 }
 
 .introBoard {
-    animation: slideTop 0.5s 2s linear forwards;
+    -webkit-animation: slideTop 0.5s 2s linear forwards;
 }
 
-.introText {
+.introText.show {
     animation: fadeIn 0.5s linear forwards;
 }
 
-.introText.remove {
+.introText.hide {
     animation: fadeOut 0.5s linear forwards;
     visibility: visible;
 }

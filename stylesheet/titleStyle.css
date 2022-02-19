@@ -43,18 +43,18 @@
     cursor: pointer;
 }
 
-.titleArea:nth-child(-n+4).appear {
+.titleArea:nth-child(-n+4).show {
     animation: fadeIn 0.5s linear forwards;
 }
 
-.titleArea:nth-child(5).appear {
+.titleArea:nth-child(5).show {
     animation: slideRight 0.7s ease-out forwards;
 }
 
-.titleArea:nth-child(6).appear {
+.titleArea:nth-child(6).show {
     animation: slideLeft 0.7s ease-out forwards;
 }
 
-.titleArea:nth-child(7).appear {
+.titleArea:nth-child(7).show {
     animation: fadeIn 0.5s linear forwards, zoomIn 0.5s 0.5s ease-in alternate infinite;
 }

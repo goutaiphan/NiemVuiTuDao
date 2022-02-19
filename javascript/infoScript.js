@@ -1,3 +1,5 @@
+export {startInfoArea};
+import {introBoard} from "./introScript.js";
 import {deAccent, randomize, sendEmail} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -21,29 +23,42 @@ let array = {
     rightOTP: 'Xác thực tài khoản thành công, quý đạo hữu vui lòng điền mật khẩu để đăng ký.'
 };
 
-let infoTitle = document.createElement('p');
+let infoTitle = document.createElement('div');
 infoTitle.className = 'infoTitle';
 infoTitle.innerHTML = 'Tàng Kinh Các<br>Đại Đạo';
 
-let infoText = document.createElement('p');
+let infoEmail = document.createElement('input');
+infoEmail.className = 'infoEmail';
+infoEmail.inputMode = 'email';
+infoEmail.placeholder = 'Email';
+
+let infoPassword = document.createElement('input');
+infoPassword.className = 'infoPassword';
+infoPassword.type = 'password';
+infoPassword.placeholder = 'Mật khẩu';
+
+let infoOTP = document.createElement('input');
+infoOTP.className = 'infoOTP';
+infoOTP.inputMode = 'numeric';
+infoOTP.placeholder = 'Mã xác thực';
+
+let infoMiddle = document.createElement('div');
+infoMiddle.className = 'infoMiddle';
+infoMiddle.append(infoPassword);
+infoMiddle.append(infoOTP);
+
+let infoText = document.createElement('div');
 infoText.className = 'infoText';
 infoText.innerHTML = array.normal;
 
-let infoButton = document.createElement('p');
+let infoButton = document.createElement('div');
 infoButton.className = 'infoButton';
 infoButton.innerHTML = 'Đăng nhập/Đăng ký';
-infoButton.classList.add('unready');
 
-let inputEmail = document.createElement('input');
-inputEmail.className = 'inputEmail';
-inputEmail.inputMode = 'email';
-inputEmail.placeholder = 'Email';
-
-let inputNumber = document.createElement('input');
-inputNumber.className = 'inputNumber';
-inputNumber.type = 'password';
-inputNumber.inputMode = 'numeric';
-setInputSection('password');
+let infoBottom = document.createElement('div');
+infoBottom.className = 'infoBottom';
+infoBottom.append(infoText);
+infoBottom.append(infoButton);
 
 let app = initializeApp({
     databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
@@ -52,41 +67,57 @@ let userDatabase = getDatabase(app);
 let userRef = ref(userDatabase);
 
 function startInfoArea() {
-    introBoard.appendChild(infoTitle);
-    introBoard.appendChild(inputEmail);
-    introBoard.appendChild(inputNumber);
-    introBoard.appendChild(infoText);
+    introBoard.append(infoTitle);
+    introBoard.append(infoEmail);
+    introBoard.append(infoMiddle);
+    introBoard.append(infoBottom);
     introBoard.classList.add('resize');
+    setInfoButton(false);
 }
 
-inputEmail.onkeydown = function (event) {
-    setInputSection('password');
-    inputEmail.setCustomValidity('');
-    if (['Enter', 'Return'].includes(event.key)) (inputEmail.blur())
+// infoText.innerHTML = array.normal;
+// infoEmail.classList.remove('signIn', 'signUp');
+// infoPassword.classList.remove('signIn', 'signUp');
+// infoButton.classList.add('hide');
+// infoButton.classList.remove('show');
+// infoText.classList.add('show');
+// infoText.classList.remove('hide');
+
+infoEmail.onkeydown = function (event) {
+    infoEmail.setCustomValidity('');
+    if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur())
+    infoEmail.classList.remove('signIn', 'signUp');
+    infoPassword.classList.remove('signIn','signUp');
+    infoPassword.value = ''
+    infoText.innerHTML = array.normal;
+    setInfoButton(false);
 }
 
-inputEmail.onblur = function () {
-    inputEmail.value = inputEmail.value
+infoEmail.onblur = function () {
+    infoEmail.value = infoEmail.value
         .replaceAll(' ', '')
         .replace(/(@)+/g, '@')
         .replace(/(\.)+/g, '.')
         .toLowerCase();
-    if (inputEmail.value) checkUserEmail();
+    if (infoEmail.value) checkUserEmail();
 }
 
-inputNumber.onkeydown = function (event) {
-    inputNumber.setCustomValidity('');
-    inputNumber.classList.remove('correct', 'incorrect');
-    if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
-    if (['Enter', 'Return'].includes(event.key)) (inputNumber.blur());
+infoPassword.onkeydown = function (event) {
+    infoPassword.setCustomValidity('');
+    // if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
+    if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
+
+    setInfoText(true);
+    setInfoButton(false);
+    infoPassword.classList.remove('signIn','signUp');
 }
 
-inputNumber.onblur = function () {
-    if (inputEmail.value.length !== 0 && inputNumber.value) checkUserPassword();
+infoPassword.onblur = function () {
+    if (infoEmail.value.length !== 0 && infoPassword.value) checkUserPassword();
 }
 
 function getUserData() {
-    let q = query(userRef, orderByChild('userEmail'), equalTo(inputEmail.value));
+    let q = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
     get(q).then(snapshot => {
         snapshot.val()
             ? snapshot.forEach(function (snapshot) {
@@ -97,98 +128,93 @@ function getUserData() {
 }
 
 function checkUserEmail() {
-    if (!inputEmail.value.match(/\S+@\S+\.\S+/)) {
-        inputEmail.setCustomValidity('Cấu trúc email không hợp lệ.');
-        inputEmail.reportValidity();
+    if (!infoEmail.value.match(/\S+@\S+\.\S+/)) {
+        infoEmail.setCustomValidity('Cấu trúc email không hợp lệ.');
+        infoEmail.reportValidity();
     } else {
         getUserData();
         setTimeout(function () {
             if (localStorage.getItem('userData')) {
+                localStorage.setItem('infoGroup', 'signIn');
                 infoText.innerHTML = array.signIn;
+                infoEmail.classList.add('signIn');
                 infoButton.innerHTML = 'Đăng nhập';
             } else {
+                localStorage.setItem('infoGroup', 'signUp');
                 infoText.innerHTML = array.signUp;
-                //setInputSection('otp');
+                infoEmail.classList.add('signUp');
 
                 let otp = randomize(1000, 9999);
                 localStorage.setItem('otp', otp);
-                let emailBody = '<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>' +
-                    `<h1>${otp}<br></h1>` +
-                    'Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.';
+                let emailBody = `<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
+                    <h1>${otp}<br></h1>
+                    Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
                 emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
-                // sendEmail(inputEmail.value, 'Mã xác thực tài khoản', emailBody);
+                // sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
             }
-            inputEmail.classList.add('correct');
         }, 500);
     }
 }
 
 function checkUserPassword() {
-    if (inputNumber.value.length !== 8) {
-        inputNumber.setCustomValidity('Mật khẩu 8 ký tự.');
-        inputNumber.reportValidity();
+    if (infoPassword.value.length < 8) {
+        infoPassword.setCustomValidity('Mật khẩu tối thiểu 8 ký tự.');
+        infoPassword.reportValidity();
     } else {
+        let infoGroup = localStorage.getItem('infoGroup');
+        console.log(infoGroup);
+        if (infoGroup === 'signIn') {
             getUserData();
             setTimeout(function () {
                 let userData = JSON.parse(localStorage.getItem('userData'));
                 console.log(userData);
-                if (userData.userPassword === inputNumber.value) {
-                    inputNumber.classList.add('correct');
-                    inputNumber.classList.remove('incorrect');
-                    infoText.remove();
-                    introBoard.appendChild(infoButton);
+                if (userData.userPassword === infoPassword.value) {
+                    infoPassword.classList.add('signIn');
+                    infoPassword.classList.remove('signUp');
+                    setInfoText(false);
                     setInfoButton(true);
                 } else {
-                    inputNumber.classList.add('incorrect');
-                    inputNumber.classList.remove('correct');
                     infoText.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);
                 }
             }, 500)
-
-            // infoText.innerHTML = array.signUp;
-            // inputNumber.classList.add('correct');
-            // inputNumber.classList.remove('incorrect');
-            // setInfoButton(true);
-
+        } else {
+            console.log(true);
+            infoPassword.classList.add('signUp');
+            infoPassword.classList.remove('signIn');
+        }
     }
 }
 
-function setInputSection(type) {
-    if (type === 'password') {
-        infoText.innerHTML = array.normal;
-        infoButton.remove();
-
-        inputNumber.placeholder = 'Mật khẩu';
-        inputNumber.maxLength = 8;
-        inputNumber.value = '';
-        inputEmail.classList.remove('correct', 'incorrect');
-        inputNumber.classList.remove('correct', 'incorrect');
+function setInfoText(type) {
+    let infoGroup = localStorage.getItem('infoGroup');
+    infoText.innerHTML = array[infoGroup];
+    if (type === true) {
+        infoText.classList.add('show');
+        infoText.classList.remove('hide');
     } else {
-        // infoText.innerHTML = array.verify;
-        // inputNumber.placeholder = 'Mã xác thực';
-        // inputNumber.maxLength = 4;
+        infoText.classList.add('hide');
+        infoText.classList.remove('show');
     }
 }
 
 function setInfoButton(type) {
     if (type === true) {
         setTimeout(function () {
-            infoButton.classList.add('ready');
-            infoButton.classList.remove('unready');
+            infoButton.classList.add('show');
+            infoButton.classList.remove('hide');
             infoButton.onclick = function () {
                 infoButton.innerHTML === 'Đăng nhập'
                     ? alert('Đăng nhập thành công.')
                     : alert('Đăng ký thành công.')
             }
-            // set(child(userRef, inputEmail.value), {
-            //     userPassword: inputNumber.value
+            // set(child(userRef, infoEmail.value), {
+            //     userPassword: infoPassword.value
             // });
         }, 200)
     } else {
-        infoButton.classList.add('unready');
-        infoButton.classList.remove('ready');
-        infoButton.onclick = null;
+        infoButton.classList.add('hide');
+        infoButton.classList.remove('show');
     }
 }
 
@@ -198,19 +224,19 @@ function setInfoButton(type) {
 // const scoreDatabase = getDatabase(app2);
 
 // let userBirthday = document.createElement('div');
-// introBoard.appendChild(userBirthday);
+// introBoard.append(userBirthday);
 // userBirthday.className = 'userData userBirthday';
 //
 // let array = ['dd', 'mm', 'yyyy'];
 // for (let i = 0; i < array.length; i++) {
 //     let child = document.createElement('input');
-//     userBirthday.appendChild(child);
+//     userBirthday.append(child);
 //     child.placeholder = array[i];
 // }
 //
 // for (let i = 0; i < 2; i++) {
 //     let separator = document.createElement('p');
-//     userBirthday.appendChild(separator);
+//     userBirthday.append(separator);
 //     separator.innerHTML = '-';
 // }
 // userBirthday.onfocus = function () {
@@ -239,7 +265,7 @@ function setInfoButton(type) {
 //
 //
 // let userName = document.createElement('input');
-// introBoard.appendChild(userName);
+// introBoard.append(userName);
 // userName.className = 'userData userName';
 // userName.placeholder = 'Quý danh';
 
@@ -248,9 +274,9 @@ function setInfoButton(type) {
 //         if (event.key.match(/[^\d\w\s\u0080-\u024F\u0300-\u036F\u1E00-\u1Eff\u1DC4]/))
 //             event.preventDefault();
 //         if (event.key === 'Clear') userName.value = '';
-//         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(inputEmail, userName, userBirthday);
+//         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(infoEmail, userName, userBirthday);
 //     }
 //     infoButton.onclick = function () {
-//         validate(inputEmail, userName, userBirthday);
+//         validate(infoEmail, userName, userBirthday);
 //     }
 // }
