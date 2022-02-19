@@ -34,9 +34,9 @@
     justify-content: start;
 
     width: 350px;
-    height: 330px;
+    height: 340px;
     margin: 0 0 50px;
-    padding: 22px 0 0 ;
+    padding: 25px 0 0 ;
     border-radius: 5px;
     border: 2px solid #c9bcb1;
     background-color: #fdf9f1;
@@ -88,42 +88,27 @@
 
     width: 75%;
     height: 55px;
-    margin: 38px 0 0;
+    margin: 40px 0 0;
 
     font-size: 19.5px;
-    color: #4f3419;
-    background-color: #e7d8be;
     border-radius: 5px;
+    color: gray;
+    background-color: lightgray;
     cursor: pointer;
 }
 
-.infoButton:active {
+.infoButton.active {
+    color: #4f3419;
+    background-color: #e7d8be;
+}
+
+.infoButton.active:active {
     transform: translate(0, 5px);
-}
-
-.infoText.show {
-    visibility: visible;
-
-}
-
-.infoText.hide {
-    visibility: hidden;
-
-}
-
-.infoButton.show {
-    visibility: visible;
-
-}
-
-.infoButton.hide {
-    visibility: hidden;
-
 }
 
 .infoText {
     padding: 0 40px 0;
     font-size: 20px;
-    line-height: 1.6;
+    line-height: 1.65;
     word-wrap: break-word;
 }

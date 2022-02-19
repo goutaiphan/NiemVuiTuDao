@@ -16,10 +16,12 @@ let array = {
         quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>`,
     verify: `<span>Mã xác thực</span> đã được gửi qua <span>email,</span>
         quý huynh tỷ vui lòng sử dụng để xác thực tài khoản.`,
-    wrongPassword: `<span>Mật khẩu</span> chưa chính xác,<br>
-        quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>`,
-    wrongOTP: `<span>Mã xác thực</span>chưa chính xác,
-        quý huynh tỷ vui lòng xem lại thông tin tài khoản qua <span>email.</span>`,
+    wrongPassword: `Mật khẩu <span>chưa chính xác,</span><br>
+        quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
+    rightPassword: `Mật khẩu <span>chính xác,</span><br>
+        quý huynh tỷ có thể <span>đăng nhập</span><br>để tham gia chương trình.`,
+    wrongOTP: `Mã xác thực <span>chưa chính xác,</span>
+        quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
     rightOTP: `Xác thực tài khoản thành công, quý đạo hữu vui lòng điền mật khẩu để đăng ký.`
 };
 
@@ -70,20 +72,21 @@ let userRef = ref(userDatabase);
 //                     <h1>${otp}<br></h1>
 //                     Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
 // emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
+// sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
 
 function startInfoArea() {
     document.body.append(infoArea);
-    //infoArea.style.animation = 'maximize 0.5s linear forwards';
-    setVisibility(tieuDan, false);
+    localStorage.setItem('infoGroup', 'normal');
 }
 
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
+    infoPassword.value = '';
+    setInfoGroup('normal');
+    setInfoButton(false);
     infoEmail.classList.remove('signIn', 'signUp');
-    infoPassword.value = ''
     infoPassword.classList.remove('signIn', 'signUp');
-    localStorage.setItem('infoGroup', 'normal');
-    if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur())
+    if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
 }
 
 infoEmail.onblur = function () {
@@ -97,6 +100,8 @@ infoEmail.onblur = function () {
 
 infoPassword.onkeydown = function (event) {
     infoPassword.setCustomValidity('');
+    setInfoGroup(localStorage.getItem('infoGroup'));
+    setInfoButton(false);
     infoPassword.classList.remove('signIn', 'signUp');
     if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
 }
@@ -110,11 +115,15 @@ infoPassword.onblur = function () {
 function getUserData() {
     let q = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
     get(q).then(snapshot => {
-        snapshot.val()
-            ? snapshot.forEach(function (snapshot) {
+        if (snapshot.val()) {
+            snapshot.forEach(function (snapshot) {
                 localStorage.setItem('userData', JSON.stringify(snapshot.toJSON()));
+                localStorage.setItem('infoGroup', 'signIn');
             })
-            : localStorage.removeItem('userData');
+        } else {
+            localStorage.removeItem('userData');
+            localStorage.setItem('infoGroup', 'signUp');
+        }
     })
 }
 
@@ -125,19 +134,10 @@ function checkUserEmail() {
     } else {
         getUserData();
         setTimeout(function () {
-            if (localStorage.getItem('userData')) {
-                localStorage.setItem('infoGroup', 'signIn');
-                infoText.innerHTML = array.signIn;
-                infoEmail.classList.add('signIn');
-                infoButton.innerHTML = 'Đăng nhập';
-            } else {
-                localStorage.setItem('infoGroup', 'signUp');
-                infoText.innerHTML = array.signUp;
-                infoEmail.classList.add('signUp');
-
-                // sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
-            }
-        }, 500);
+            let infoGroup = localStorage.getItem('infoGroup');
+            infoEmail.classList.add(infoGroup);
+            setInfoGroup(infoGroup);
+        }, 0.5 * 1000);
     }
 }
 
@@ -146,30 +146,35 @@ function checkUserPassword() {
         infoPassword.setCustomValidity('Mật khẩu tối thiểu 8 ký tự.');
         infoPassword.reportValidity();
     } else {
-        let infoGroup = localStorage.getItem('infoGroup');
-        if (infoGroup === 'signIn') {
-            getUserData();
-            setTimeout(function () {
-                let userData = JSON.parse(localStorage.getItem('userData'));
+        getUserData();
+        setTimeout(function () {
+            let userData = JSON.parse(localStorage.getItem('userData'));
+            let infoGroup = localStorage.getItem('infoGroup');
+            if (infoGroup === 'signIn') {
                 console.log(userData);
                 if (userData.userPassword === infoPassword.value) {
+                    infoText.innerHTML = array.rightPassword;
                     infoPassword.classList.add('signIn');
                     infoPassword.classList.remove('signUp');
+                    setInfoButton(true);
                 } else {
                     infoText.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);
                 }
-            }, 500)
-        } else {
-            infoPassword.classList.add('signUp');
-            infoPassword.classList.remove('signIn');
-        }
+            } else {
+                infoPassword.classList.add('signUp');
+                infoPassword.classList.remove('signIn');
+            }
+        }, 0.5 * 1000)
     }
 }
 
-function setInfoText(type) {
-    let infoGroup = localStorage.getItem('infoGroup');
-    infoText.innerHTML = array[infoGroup];
+function setInfoGroup(type) {
+    infoText.innerHTML = array[type];
+    infoButton.innerHTML = type.replace('normal', 'Đăng nhập/Đăng ký')
+        .replace('signIn', 'Đăng nhập')
+        .replace('signUp', 'Đăng ký');
+
     if (type === true || type === 'normal') {
         infoText.classList.add('show');
         infoText.classList.remove('hide');
@@ -181,21 +186,17 @@ function setInfoText(type) {
 
 function setInfoButton(type) {
     if (type === true) {
-        setTimeout(function () {
-            infoButton.classList.add('show');
-            infoButton.classList.remove('hide');
-            // infoButton.onclick = function () {
-            //     infoButton.innerHTML === 'Đăng nhập'
-            //         ? alert('Đăng nhập thành công.')
-            //         : alert('Đăng ký thành công.')
-            // }
-            // set(child(userRef, infoEmail.value), {
-            //     userPassword: infoPassword.value
-            // });
-        }, 200)
+        infoButton.classList.add('active');
+        // infoButton.onclick = function () {
+        //     infoButton.innerHTML === 'Đăng nhập'
+        //         ? alert('Đăng nhập thành công.')
+        //         : alert('Đăng ký thành công.')
+        // }
+        // set(child(userRef, infoEmail.value), {
+        //     userPassword: infoPassword.value
+        // });
     } else {
-        infoButton.classList.add('hide');
-        infoButton.classList.remove('show');
+        infoButton.classList.remove('active');
     }
 }
 
