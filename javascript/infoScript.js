@@ -104,6 +104,8 @@ infoPassword.onkeydown = function (event) {
 }
 
 infoPassword.onfocus = function () {
+    infoPassword.scrollIntoView();
+
     infoPassword.value = '';
     infoPassword.classList.remove('signIn', 'signUp');
     infoEmail.style.pointerEvents = 'none';
