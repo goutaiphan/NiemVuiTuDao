@@ -78,8 +78,6 @@ infoEmail.onkeydown = function (event) {
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
 }
 
-alert('a'.charCodeAt(0));
-
 infoEmail.onfocus = function () {
     infoEmail.value = '';
     infoEmail.classList.remove('signIn', 'signUp');
@@ -128,7 +126,7 @@ infoPassword.onblur = function () {
 for (let i = 0; i < infoOTP.children.length; i++) {
     child(i).oninput = function (event) {
         if (event === 'deleteContentBackward') {
-            console.log(true);
+            alert(true);
         }
     }
 
