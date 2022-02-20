@@ -30,7 +30,7 @@
     justify-content: start;
 
     width: 350px;
-    height: 340px;
+    height: 345px;
     margin: 0 0 50px;
     padding: 25px 0 0 ;
     border-radius: 5px;
@@ -38,7 +38,7 @@
     background-color: #fdf9f1;
 }
 
-.infoEmail, .infoPassword, .infoOTP {
+.infoEmail, .infoPassword {
     width: 75%;
     height: 60px;
     margin: 0 0 20px;
@@ -48,22 +48,45 @@
     border-bottom: 2px solid #b4b4b4;
 }
 
-.infoOTP {
-    position: absolute;
-    inset: 0;
-    visibility: hidden;
-}
-
 ::placeholder {
     color: gray;
 }
 
-.infoPassword, .infoOTP {
+.infoPassword {
     letter-spacing: 3px;
 }
 
-.infoPassword::placeholder, .infoOTP::placeholder {
+.infoPassword::placeholder {
     letter-spacing: 0;
+}
+
+.infoOTP {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 75%;
+    height: max-content;
+
+    position: absolute;
+    margin: 225px auto 0;
+    inset: 0;
+    z-index: 1;
+    background-color: #fdf9f1;
+
+    visibility: hidden;
+}
+
+.infoOTP input {
+    width: 55px;
+    height: 55px;
+
+    color: gray;
+    font-size: 21px;
+    border: 2px solid #b4b4b4;
+    border-radius: 5px;
+    background-color: lightgray;
 }
 
 .infoEmail.signIn, .infoPassword.signIn {
@@ -90,12 +113,12 @@
     border-radius: 5px;
     color: gray;
     background-color: lightgray;
-    cursor: pointer;
 }
 
 .infoButton.active {
     color: #4f3419;
     background-color: #e7d8be;
+    cursor: pointer;
 }
 
 .infoButton.active:active {

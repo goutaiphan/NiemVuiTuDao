@@ -9,21 +9,19 @@ import {
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let array = {
-    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span> để tham gia chương trình.`,
-    signIn: `Tài khoản đã <span>tồn tại,</span><br>
+    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span> để<br>tham gia chương trình.`,
+    signIn: `Tài khoản <span>đã tồn tại,</span><br>
         quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>`,
-    signUp: `Tài khoản <span>chưa tồn tại,</span><br>
-        quý huynh tỷ vui lòng điền mật khẩu để <span>đăng ký.</span>`,
-    verify: `<span>Mã xác thực</span> đã được gửi qua <span>email,</span>
-        quý huynh tỷ vui lòng sử dụng để xác thực tài khoản.`,
     wrongPassword: `Mật khẩu <span>chưa chính xác,</span><br>
         quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
     rightPassword: `Mật khẩu <span>chính xác,</span><br>
-        quý huynh tỷ có thể <span>đăng nhập</span><br>để tham gia chương trình.`,
-    wrongOTP: `Mã xác thực <span>chưa chính xác,</span>
+        quý huynh tỷ có thể <span>đăng nhập</span> để<br>tham gia chương trình.`,
+    signUp: `<span>Mã xác thực</span> đã gửi qua <span>email,</span><br>
+        quý huynh tỷ vui lòng sử dụng để<br><span>xác thực</span> tài khoản.`,
+    wrongOTP: `Mã xác thực <span>chưa chính xác,</span><br>
         quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
-    rightOTP: `Tài khoản đã <span>xác thực,<span><br>
-           quý đạo hữu vui lòng điền mật khẩu để <span>đăng ký.</span>`
+    rightOTP: `Tài khoản <span>đã xác thực,</span><br>
+        quý đạo hữu có thể <span>đăng ký</span> để<br>tham gia chương trình.`
 };
 
 let infoTitle = document.createElement('div');
@@ -40,10 +38,14 @@ infoPassword.className = 'infoPassword';
 infoPassword.type = 'password';
 infoPassword.placeholder = 'Mật khẩu';
 
-let infoOTP = document.createElement('input');
+let infoOTP = document.createElement('div');
 infoOTP.className = 'infoOTP';
-infoOTP.inputMode = 'numeric';
-infoOTP.placeholder = 'Mã xác thực';
+for (let i = 0; i < 4; i++) {
+    let child = document.createElement('input');
+    child.inputMode = 'numeric';
+    child.maxLength = 1;
+    infoOTP.append(child);
+}
 
 let infoButton = document.createElement('div');
 infoButton.className = 'infoButton';
@@ -67,27 +69,24 @@ let app = initializeApp({
 let userDatabase = getDatabase(app);
 let userRef = ref(userDatabase);
 
-// let otp = randomize(1000, 9999);
-// localStorage.setItem('otp', otp);
-// let emailBody = `<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
-//                     <h1>${otp}<br></h1>
-//                     Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
-// emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
-// sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
-
 function startInfoArea() {
     document.body.append(infoArea);
-    localStorage.setItem('infoGroup', 'normal');
 }
 
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
-    infoPassword.value = '';
-    setInfoText('normal');
-    setInfoButton(false);
-    infoEmail.classList.remove('signIn', 'signUp');
-    infoPassword.classList.remove('signIn', 'signUp');
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
+}
+
+infoEmail.onfocus = function () {
+    infoEmail.value = '';
+    infoEmail.classList.remove('signIn', 'signUp');
+    infoPassword.value = '';
+    infoPassword.classList.remove('signIn', 'signUp');
+
+    infoText.innerHTML = array['normal'];
+    setInfoButton('normal', false);
+    setInfoOTP(false);
 }
 
 infoEmail.onblur = function () {
@@ -96,68 +95,130 @@ infoEmail.onblur = function () {
         .replace(/(@)+/g, '@')
         .replace(/(\.)+/g, '.')
         .toLowerCase();
-    if (infoEmail.value) checkUserEmail();
+    if (infoEmail.value) checkEmail();
 }
 
 infoPassword.onkeydown = function (event) {
     infoPassword.setCustomValidity('');
-    setInfoText(localStorage.getItem('infoGroup'));
-    setInfoButton(false);
-    infoPassword.classList.remove('signIn', 'signUp');
     if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
 }
 
-infoPassword.onblur = function () {
-    if (infoEmail.value.length !== 0 && infoPassword.value) checkUserPassword();
+infoPassword.onfocus = function () {
+    infoPassword.value = '';
+    infoPassword.classList.remove('signIn', 'signUp');
+    infoEmail.style.pointerEvents = 'none';
+
+    let infoSection = sessionStorage.getItem('infoSection');
+    setInfoButton(infoSection, false);
+    let finalOTP = sessionStorage.getItem('finalOTP');
+    finalOTP === 'rightOTP'
+        ? infoText.innerHTML = array[finalOTP]
+        : infoText.innerHTML = array[infoSection];
 }
 
-// if (event.key.match(/[^\d]/) && !['Backspace', 'Delete'].includes(event.key)) event.preventDefault();
+infoPassword.onblur = function () {
+    infoEmail.style.pointerEvents = 'visible';
+    if (infoEmail.value.length !== 0 && infoPassword.value) checkPassword();
+}
+
+for (let i = 0; i < infoOTP.children.length; i++) {
+    child(i).onkeydown = function (event) {
+        if (event.key.match(/[^\d]/)) event.preventDefault();
+        if (['Backspace', 'Delete'].includes(event.key)) {
+            child(0).focus();
+            for (let j = 0; j < infoOTP.children.length; j++) {
+                infoOTP.children[j].value = '';
+            }
+        }
+        if (['Enter', 'Return'].includes(event.key)) {
+            child(i).blur();
+        }
+    }
+
+    child(i).oninput = function () {
+        if (child(i).value) {
+            i < 3 ? child(i + 1).focus() : child(i).blur();
+        }
+    }
+
+    child(i).onfocus = function () {
+        if (i > 0 && child(i - 1).value === '') {
+            child(i).focus();
+        }
+    }
+
+    child(3).onblur = function () {
+        let finalOTP = '';
+        for (let j = 0; j < infoOTP.children.length; j++) {
+            finalOTP += infoOTP.children[j].value;
+        }
+        sessionStorage.setItem('finalOTP', finalOTP);
+        checkOTP();
+    }
+
+    function child(index) {
+        return infoOTP.children[index];
+    }
+}
 
 function getUserData() {
     let q = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
     get(q).then(snapshot => {
         if (snapshot.val()) {
             snapshot.forEach(function (snapshot) {
-                localStorage.setItem('userData', JSON.stringify(snapshot.toJSON()));
-                localStorage.setItem('infoGroup', 'signIn');
+                sessionStorage.setItem('userData', JSON.stringify(snapshot.toJSON()));
+                sessionStorage.setItem('infoSection', 'signIn');
             })
         } else {
-            localStorage.removeItem('userData');
-            localStorage.setItem('infoGroup', 'signUp');
+            sessionStorage.removeItem('userData');
+            sessionStorage.setItem('infoSection', 'signUp');
         }
     })
 }
 
-function checkUserEmail() {
+function checkEmail() {
     if (!infoEmail.value.match(/\S+@\S+\.\S+/)) {
         infoEmail.setCustomValidity('Cấu trúc email không hợp lệ.');
         infoEmail.reportValidity();
     } else {
         getUserData();
         setTimeout(function () {
-            let infoGroup = localStorage.getItem('infoGroup');
-            infoEmail.classList.add(infoGroup);
-            setInfoText(infoGroup);
+            let infoSection = sessionStorage.getItem('infoSection');
+            infoEmail.classList.add(infoSection);
+            infoText.innerHTML = array[infoSection];
+            setInfoButton(infoSection, false);
+
+            if (infoSection === 'signUp') {
+                setInfoOTP(true);
+                let userOTP = randomize(1000, 9999);
+                sessionStorage.setItem('userOTP', userOTP);
+                sessionStorage.removeItem('finalOTP');
+                let emailBody = `<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
+                    <h1>${userOTP}<br></h1>
+                    Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
+                emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
+                sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
+            }
         }, 0.5 * 1000);
     }
 }
 
-function checkUserPassword() {
+function checkPassword() {
     if (infoPassword.value.length < 8) {
         infoPassword.setCustomValidity('Mật khẩu tối thiểu 8 ký tự.');
         infoPassword.reportValidity();
     } else {
         getUserData();
         setTimeout(function () {
-            let userData = JSON.parse(localStorage.getItem('userData'));
-            let infoGroup = localStorage.getItem('infoGroup');
-            if (infoGroup === 'signIn') {
+            let userData = JSON.parse(sessionStorage.getItem('userData'));
+            let infoSection = sessionStorage.getItem('infoSection');
+            if (infoSection === 'signIn') {
                 console.log(userData);
-                if (userData.userPassword === infoPassword.value) {
+                if (infoPassword.value === userData.userPassword) {
                     infoText.innerHTML = array.rightPassword;
                     infoPassword.classList.add('signIn');
                     infoPassword.classList.remove('signUp');
-                    setInfoButton(true);
+                    setInfoButton(infoSection, true);
                 } else {
                     infoText.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);
@@ -165,39 +226,51 @@ function checkUserPassword() {
             } else {
                 infoPassword.classList.add('signUp');
                 infoPassword.classList.remove('signIn');
+                setInfoButton(infoSection, true);
             }
-        }, 0.5 * 1000)
+        }, 0.5 * 1000);
     }
 }
 
-function setInfoText(type) {
-    infoText.innerHTML = array[type];
-    infoButton.innerHTML = type.replace('normal', 'Đăng nhập/Đăng ký')
+function checkOTP() {
+    let userOTP = sessionStorage.getItem('userOTP');
+    let finalOTP = sessionStorage.getItem('finalOTP');
+    if (finalOTP !== userOTP) {
+        infoText.innerHTML = array['wrongOTP'];
+    } else {
+        infoText.innerHTML = array['rightOTP'];
+        setInfoOTP(false);
+        sessionStorage.setItem('finalOTP', 'rightOTP');
+    }
+}
+
+function setInfoOTP(type) {
+    setVisibility(infoOTP, type);
+    if (type === true) {
+        for (let j = 0; j < infoOTP.children.length; j++) {
+            infoOTP.children[j].value = '';
+        }
+    }
+}
+
+function setInfoButton(infoSection, type) {
+    infoButton.innerHTML = infoSection.replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
         .replace('signUp', 'Đăng ký');
 
-    if (type === true || type === 'normal') {
-        infoText.classList.add('show');
-        infoText.classList.remove('hide');
-    } else {
-        infoText.classList.add('hide');
-        infoText.classList.remove('show');
-    }
-}
-
-function setInfoButton(type) {
     if (type === true) {
         infoButton.classList.add('active');
-        // infoButton.onclick = function () {
-        //     infoButton.innerHTML === 'Đăng nhập'
-        //         ? alert('Đăng nhập thành công.')
-        //         : alert('Đăng ký thành công.')
-        // }
-        // set(child(userRef, infoEmail.value), {
-        //     userPassword: infoPassword.value
-        // });
+        infoButton.onclick = function () {
+            infoButton.innerHTML === 'Đăng nhập'
+                ? alert('Đăng nhập thành công.')
+                : alert('Đăng ký thành công.')
+            // set(child(userRef, infoEmail.value), {
+            //     userPassword: infoPassword.value
+            // });
+        }
     } else {
         infoButton.classList.remove('active');
+        infoButton.onclick = null;
     }
 }
 
@@ -259,7 +332,3 @@ function setInfoButton(type) {
 //         if (event.key === 'Clear') userName.value = '';
 //         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(infoEmail, userName, userBirthday);
 //     }
-//     infoButton.onclick = function () {
-//         validate(infoEmail, userName, userBirthday);
-//     }
-// }
