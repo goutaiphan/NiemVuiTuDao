@@ -1,4 +1,5 @@
 export {startIntroArea, tieuDan};
+import {heightRatio} from "./baseScript.js";
 import {startInfoArea} from "./infoScript.js";
 import {setVisibility} from "./functionScript.js";
 
