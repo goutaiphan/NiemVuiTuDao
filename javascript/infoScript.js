@@ -75,7 +75,7 @@ function startInfoArea() {
 
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
-    alert(event.keyCode);
+    alert(event.charCode);
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
 }
 
