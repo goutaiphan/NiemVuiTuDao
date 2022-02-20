@@ -75,12 +75,7 @@ function startInfoArea() {
 
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
-    //alert(event.keyCode);
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
-}
-
-infoEmail.onkeyup = function (event) {
-    alert(event.keyCode);
 }
 
 alert('a'.charCodeAt(0));
@@ -131,6 +126,12 @@ infoPassword.onblur = function () {
 }
 
 for (let i = 0; i < infoOTP.children.length; i++) {
+    child(i).oninput = function (event) {
+        if (event === 'deleteContentBackward') {
+            console.log(true);
+        }
+    }
+
     child(i).onkeydown = function (event) {
         if (event.key.match(/[^\d]/)) event.preventDefault();
         if (['Backspace', 'Delete'].includes(event.key) || event.code === '8') {
