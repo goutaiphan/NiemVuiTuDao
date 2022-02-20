@@ -83,6 +83,7 @@ infoEmail.onfocus = function () {
     infoEmail.classList.remove('signIn', 'signUp');
     infoPassword.value = '';
     infoPassword.classList.remove('signIn', 'signUp');
+    infoPassword.style.pointerEvents = 'none';
 
     infoText.innerHTML = array['normal'];
     setInfoButton('normal', false);
@@ -90,6 +91,7 @@ infoEmail.onfocus = function () {
 }
 
 infoEmail.onblur = function () {
+    infoPassword.style.pointerEvents = 'visible';
     infoEmail.value = infoEmail.value
         .replaceAll(' ', '')
         .replace(/(@)+/g, '@')
@@ -104,10 +106,6 @@ infoPassword.onkeydown = function (event) {
 }
 
 infoPassword.onfocus = function () {
-    // window.scrollTop = 700;
-    document.body.animate({
-        scrollTop: 700
-    }, 1000);
     infoPassword.value = '';
     infoPassword.classList.remove('signIn', 'signUp');
     infoEmail.style.pointerEvents = 'none';
@@ -128,7 +126,7 @@ infoPassword.onblur = function () {
 for (let i = 0; i < infoOTP.children.length; i++) {
     child(i).onkeydown = function (event) {
         if (event.key.match(/[^\d]/)) event.preventDefault();
-        if (['Backspace', 'Delete'].includes(event.key)) {
+        if (['Backspace', 'Delete'].includes(event.key) || event.code === '8') {
             child(0).focus();
             for (let j = 0; j < infoOTP.children.length; j++) {
                 infoOTP.children[j].value = '';
