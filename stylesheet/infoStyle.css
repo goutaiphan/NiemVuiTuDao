@@ -1,12 +1,5 @@
 #infoArea {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: start;
-
-    width: 400px;
     margin: -35px;
-    position: relative;
 }
 
 .infoTitle {
@@ -32,7 +25,7 @@
     width: 350px;
     height: 345px;
     margin: 0 0 52px;
-    padding: 25px 0 0 ;
+    padding: 25px 0 0;
     border-radius: 5px;
     border: 2px solid #c9bcb1;
     background-color: #fdf9f1;
@@ -128,6 +121,6 @@
 .infoText {
     padding: 0 40px 0;
     font-size: 20px;
-    line-height: 1.65;
+    line-height: 1.7;
     word-wrap: break-word;
 }
