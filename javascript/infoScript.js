@@ -83,6 +83,7 @@ infoEmail.onkeyup = function (event) {
     alert(event.keyCode);
     alert(event.code);
     alert(event.charCode);
+    alert(event.key);
 }
 
 infoEmail.onfocus = function () {
