@@ -125,7 +125,7 @@ infoPassword.onblur = function () {
 
 for (let i = 0; i < infoOTP.children.length; i++) {
     child(i).oninput = function (event) {
-        if (event === 'deleteContentBackward') {
+        if (event.inputType === 'deleteContentBackward') {
             alert(true);
         }
     }
