@@ -73,7 +73,7 @@ function startInfoArea() {
     document.body.append(infoArea);
 }
 
-infoEmail.onkeydown = function (event) {
+infoEmail.onkeyup = function (event) {
     infoEmail.setCustomValidity('');
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
 }
@@ -100,7 +100,7 @@ infoEmail.onblur = function () {
     if (infoEmail.value) checkEmail();
 }
 
-infoPassword.onkeydown = function (event) {
+infoPassword.onkeyup = function (event) {
     infoPassword.setCustomValidity('');
     if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
 }
@@ -124,7 +124,7 @@ infoPassword.onblur = function () {
 }
 
 for (let i = 0; i < infoOTP.children.length; i++) {
-    child(i).onkeydown = function (event) {
+    child(i).onkeyup = function (event) {
         if (event.key.match(/[^\d]/)) event.preventDefault();
         if (['Backspace', 'Delete'].includes(event.key) || event.code === '8') {
             child(0).focus();
@@ -305,7 +305,7 @@ function setInfoButton(infoSection, type) {
 //     userBirthday.type = 'text';
 // }
 
-// userBirthday.onkeydown = function (event) {
+// userBirthday.onkeyup = function (event) {
 //     if (event.key.match(/[^\d]/) && !['Tab'].includes(event.key))
 //         event.preventDefault();
 //     if (['Clear', 'Backspace', 'Delete'].includes(event.key)) userBirthday.value = '';
@@ -327,7 +327,7 @@ function setInfoButton(infoSection, type) {
 // userName.className = 'userData userName';
 // userName.placeholder = 'Quý danh';
 
-//     userName.onkeydown = function (event) {
+//     userName.onkeyup = function (event) {
 //         userName.setCustomValidity('');
 //         if (event.key.match(/[^\d\w\s\u0080-\u024F\u0300-\u036F\u1E00-\u1Eff\u1DC4]/))
 //             event.preventDefault();
