@@ -18,7 +18,7 @@ let array = {
     signUp: `<span>Mã xác thực</span> đã gửi qua <span>email,</span><br>
         quý huynh tỷ vui lòng sử dụng để<br><span>xác thực</span> tài khoản.`,
     wrongOTP: `Mã xác thực <span>chưa chính xác,</span><br>
-        quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
+        quý huynh tỷ vui lòng <span>xem lại</span><br>thông tin tài khoản qua email.`,
     rightOTP: `Tài khoản <span>đã xác thực,</span><br>
         quý đạo hữu có thể <span>đăng ký</span> để<br>tham gia chương trình.`
 };
