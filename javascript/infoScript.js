@@ -3,17 +3,16 @@ import {tieuDan} from "./introScript.js";
 import {deAccent, randomize, sendEmail, setVisibility} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
-    getDatabase, set, get, ref, child, query,
-    orderByChild, equalTo, limitToFirst
+    getDatabase, set, get, ref, query, orderByChild, equalTo, limitToFirst
 } from
         "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let array = {
     normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span> để<br>tham gia chương trình.`,
     signIn: `Tài khoản <span>đã tồn tại,</span><br>
-        quý huynh tỷ vui lòng điền mật khẩu để <span>đăng nhập.</span>`,
+        quý huynh tỷ vui lòng điền<br>mật khẩu để <span>đăng nhập.</span>`,
     wrongPassword: `Mật khẩu <span>chưa chính xác,</span><br>
-        quý huynh tỷ vui lòng <span>xem lại</span> thông tin tài khoản qua email.`,
+        quý huynh tỷ vui lòng <span>xem lại</span><br>thông tin tài khoản qua email.`,
     rightPassword: `Mật khẩu <span>chính xác,</span><br>
         quý huynh tỷ có thể <span>đăng nhập</span> để<br>tham gia chương trình.`,
     signUp: `<span>Mã xác thực</span> đã gửi qua <span>email,</span><br>
@@ -124,33 +123,25 @@ infoPassword.onblur = function () {
 }
 
 for (let i = 0; i < infoOTP.children.length; i++) {
+    function child(index) {
+        return infoOTP.children[index];
+    }
+
     child(i).oninput = function (event) {
-        if (event.inputType === 'deleteContentBackward') {
-            alert(true);
-        }
-    }
-
-    child(i).onkeydown = function (event) {
-        if (event.key.match(/[^\d]/)) event.preventDefault();
-        if (['Backspace', 'Delete'].includes(event.key) || event.code === '8') {
-            child(0).focus();
-            for (let j = 0; j < infoOTP.children.length; j++) {
-                infoOTP.children[j].value = '';
-            }
-        }
-        if (['Enter', 'Return'].includes(event.key)) {
-            child(i).blur();
-        }
-    }
-
-    child(i).oninput = function () {
+        child(i).value = child(i).value.replace(/[^\d]/g, '');
         if (child(i).value) {
             i < 3 ? child(i + 1).focus() : child(i).blur();
+        }
+        if (event.inputType === 'deleteContentBackward') {
+            for (let j = 0; j < infoOTP.children.length; j++) {
+                child(0).focus();
+                child(j).value = '';
+            }
         }
     }
 
     child(i).onfocus = function () {
-        if (i > 0 && child(i - 1).value === '') {
+        if (i > 0 && !child(i - 1).value) {
             child(i - 1).focus();
         }
     }
@@ -158,14 +149,10 @@ for (let i = 0; i < infoOTP.children.length; i++) {
     child(3).onblur = function () {
         let finalOTP = '';
         for (let j = 0; j < infoOTP.children.length; j++) {
-            finalOTP += infoOTP.children[j].value;
+            finalOTP += child(j).value;
         }
         sessionStorage.setItem('finalOTP', finalOTP);
         checkOTP();
-    }
-
-    function child(index) {
-        return infoOTP.children[index];
     }
 }
 
@@ -216,27 +203,23 @@ function checkPassword() {
         infoPassword.setCustomValidity('Mật khẩu tối thiểu 8 ký tự.');
         infoPassword.reportValidity();
     } else {
-        getUserData();
-        setTimeout(function () {
-            let userData = JSON.parse(sessionStorage.getItem('userData'));
-            let infoSection = sessionStorage.getItem('infoSection');
-            if (infoSection === 'signIn') {
-                console.log(userData);
-                if (infoPassword.value === userData.userPassword) {
-                    infoText.innerHTML = array.rightPassword;
-                    infoPassword.classList.add('signIn');
-                    infoPassword.classList.remove('signUp');
-                    setInfoButton(infoSection, true);
-                } else {
-                    infoText.innerHTML = array.wrongPassword;
-                    navigator.vibrate(500);
-                }
-            } else {
-                infoPassword.classList.add('signUp');
-                infoPassword.classList.remove('signIn');
+        let userData = JSON.parse(sessionStorage.getItem('userData'));
+        let infoSection = sessionStorage.getItem('infoSection');
+        if (infoSection === 'signIn') {
+            if (infoPassword.value === userData.userPassword) {
+                infoText.innerHTML = array.rightPassword;
+                infoPassword.classList.add('signIn');
+                infoPassword.classList.remove('signUp');
                 setInfoButton(infoSection, true);
+            } else {
+                infoText.innerHTML = array.wrongPassword;
+                navigator.vibrate(500);
             }
-        }, 0.5 * 1000);
+        } else {
+            infoPassword.classList.add('signUp');
+            infoPassword.classList.remove('signIn');
+            setInfoButton(infoSection, true);
+        }
     }
 }
 

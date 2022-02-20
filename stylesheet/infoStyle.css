@@ -119,7 +119,8 @@
 }
 
 .infoText {
-    padding: 0 40px 0;
+    margin: auto;
+    padding: 0 20px 0;
     font-size: 20px;
     line-height: 1.7;
     word-wrap: break-word;
