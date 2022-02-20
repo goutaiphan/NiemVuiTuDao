@@ -145,7 +145,7 @@ for (let i = 0; i < infoOTP.children.length; i++) {
 
     child(i).onfocus = function () {
         if (i > 0 && child(i - 1).value === '') {
-            child(i).focus();
+            child(i - 1).focus();
         }
     }
 
