@@ -1,5 +1,4 @@
 export {startIntroArea, tieuDan};
-import {heightRatio} from "./baseScript.js";
 import {startInfoArea} from "./infoScript.js";
 import {setVisibility} from "./functionScript.js";
 
@@ -24,7 +23,6 @@ introBoard.append(introText);
 
 let introArea = document.createElement('div');
 introArea.id = 'introArea';
-introArea.style.marginTop = '50px';
 introArea.append(introBoard);
 
 function startIntroArea() {

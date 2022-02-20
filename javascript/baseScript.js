@@ -1,12 +1,12 @@
 // alert(screen.width + '/' + screen.height + ','
 //     + outerWidth + '/' + outerHeight);
-export {heightRatio};
-let width = Math.min(screen.width, screen.height);
-let height = Math.max(screen.width, screen.height);
-let widthRatio = width / 450;
-let heightRatio = height / 850;
 
 if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+    let width = Math.min(screen.width, screen.height);
+    let height = Math.max(screen.width, screen.height);
+    let widthRatio = width / 450;
+    let heightRatio = height / 850;
+
     if (width < 450) {
         widthRatio = width < 360
             ? widthRatio

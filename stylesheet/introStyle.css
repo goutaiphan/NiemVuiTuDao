@@ -1,3 +1,7 @@
+#introArea {
+    margin-top: 50px;
+}
+
 .introBoard {
     display: flex;
     flex-flow: column nowrap;
