@@ -79,6 +79,7 @@ infoEmail.onkeydown = function (event) {
 }
 
 infoEmail.onfocus = function () {
+    infoEmail.scrollIntoView();
     infoEmail.value = '';
     infoEmail.classList.remove('signIn', 'signUp');
     infoPassword.value = '';
@@ -105,7 +106,6 @@ infoPassword.onkeydown = function (event) {
 
 infoPassword.onfocus = function () {
     infoPassword.scrollIntoView();
-
     infoPassword.value = '';
     infoPassword.classList.remove('signIn', 'signUp');
     infoEmail.style.pointerEvents = 'none';
@@ -144,6 +144,7 @@ for (let i = 0; i < infoOTP.children.length; i++) {
     }
 
     child(i).onfocus = function () {
+        child(i).scrollIntoView();
         if (i > 0 && child(i - 1).value === '') {
             child(i).focus();
         }
