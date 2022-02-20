@@ -75,12 +75,12 @@ function startInfoArea() {
 
 infoEmail.onkeydown = function (event) {
     infoEmail.setCustomValidity('');
-    alert(event.key);
+    alert(event.keyCode);
     if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
 }
 
 infoEmail.onkeyup = function (event) {
-    alert(event.key);
+    alert(event.keyCode);
 }
 
 infoEmail.onfocus = function () {
