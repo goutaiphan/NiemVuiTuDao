@@ -81,10 +81,9 @@ infoEmail.onkeydown = function (event) {
 
 infoEmail.onkeyup = function (event) {
     alert(event.keyCode);
-    alert(event.code);
-    alert(event.charCode);
-    alert(event.key);
 }
+
+alert('a'.charCodeAt(0));
 
 infoEmail.onfocus = function () {
     infoEmail.value = '';
