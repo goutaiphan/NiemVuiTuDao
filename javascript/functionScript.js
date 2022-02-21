@@ -59,7 +59,9 @@ function sendEmail(emailReceiver, emailSubject, emailBody) {
         To: emailReceiver,
         Subject: emailSubject,
         Body: emailBody,
-    }).then(function (error) {
+    }).then(function () {
         console.log('Đã gửi thư thành công.');
+    }).catch(function (error) {
+        console.log(error.message);
     });
 }
