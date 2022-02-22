@@ -1,6 +1,6 @@
 export {startInfoArea};
 import {tieuDan} from "./introScript.js";
-import {deAccent, randomize, sendEmail, setVisibility} from "./functionScript.js";
+import {toTitleCase, randomize, sendEmail, setVisibility} from "./functionScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
     getDatabase, get, update, ref, query, child, orderByChild, equalTo, limitToFirst
@@ -31,11 +31,11 @@ let array = {
     wrongOTP: `Mã xác thực <span>chưa chính xác,</span><br>
         quý huynh tỷ vui lòng <span>kiểm tra</span><br>thông tin tài khoản qua email.`,
     rightOTP: `Tài khoản <span>đã xác thực,</span><br>
-        quý đạo hữu có thể <span>đăng ký</span> để<br>tham gia chương trình.`,
-    offline: `Kết nối mạng <span>bị gián đoạn,</span><br>
-        quý huynh tỷ vui lòng <span>kiểm tra</span><br>hệ thống mạng.`,
+        quý đạo hữu vui lòng điền <span>mật khẩu</span><br>để tiếp tục việc đăng ký.`,
     identify: `Quý huynh tỷ vui lòng điền<br><span>quý danh</span> và <span>sinh nhật</span><br>
-        để hoàn thành việc đăng ký.`
+        để hoàn thành việc đăng ký.`,
+    offline: `Kết nối mạng <span>bị gián đoạn,</span><br>
+        quý huynh tỷ vui lòng <span>kiểm tra</span><br>hệ thống mạng.`
 };
 
 let infoTitle = document.createElement('div');
@@ -46,6 +46,7 @@ let infoEmail = document.createElement('input');
 infoEmail.className = 'infoEmail';
 infoEmail.inputMode = 'email';
 infoEmail.placeholder = 'Email';
+infoEmail.style.textTransform = 'lowercase';
 
 let infoPassword = document.createElement('input');
 infoPassword.className = 'infoPassword';
@@ -68,10 +69,13 @@ infoButton.innerHTML = 'Đăng nhập/Đăng ký';
 let infoName = document.createElement('input');
 infoName.className = 'infoName';
 infoName.placeholder = 'Quý danh';
+infoEmail.style.textTransform = 'capitalize';
 
 let infoBirthday = document.createElement('input');
 infoBirthday.className = 'infoBirthday';
-infoBirthday.placeholder = 'Sinh nhật';
+infoBirthday.inputMode = 'numeric';
+infoBirthday.placeholder = 'dd-mm-yyyy';
+infoBirthday.maxLength = 10;
 
 let infoBoard = document.createElement('div');
 infoBoard.className = 'infoBoard';
@@ -87,19 +91,15 @@ infoArea.append(infoTitle, infoBoard, infoText);
 
 function startInfoArea() {
     document.body.append(infoArea);
-    setTimeout(function () {
-
-    }, 1000)
 }
 
 infoEmail.onkeydown = function (event) {
-    infoEmail.setCustomValidity('');
-    if (['Enter', 'Return'].includes(event.key)) (infoEmail.blur());
+    this.setCustomValidity('');
+    if (['Enter', 'Return'].includes(event.key)) (this.blur());
 }
 
 infoEmail.onfocus = function () {
-    infoEmail.value = '';
-    infoEmail.classList.remove('signIn', 'signUp');
+    this.classList.remove('signIn', 'signUp');
     infoPassword.value = '';
     infoPassword.classList.remove('signIn', 'signUp');
     infoPassword.style.pointerEvents = 'none';
@@ -114,27 +114,25 @@ infoEmail.onfocus = function () {
 
 infoEmail.onblur = function () {
     infoPassword.style.pointerEvents = 'visible';
-    infoEmail.value = infoEmail.value
+    this.value = infoEmail.value
         .replaceAll(' ', '')
         .replace(/(@)+/g, '@')
-        .replace(/(\.)+/g, '.')
-        .toLowerCase();
-    if (infoEmail.value) checkEmail();
+        .replace(/(\.)+/g, '.');
+    if (this.value) checkEmail();
 }
 
 infoPassword.onkeydown = function (event) {
-    infoPassword.setCustomValidity('');
-    if (['Enter', 'Return'].includes(event.key)) (infoPassword.blur());
+    this.setCustomValidity('');
+    if (['Enter', 'Return'].includes(event.key)) (this.blur());
 }
 
 infoPassword.onfocus = function () {
-    infoPassword.value = '';
-    infoPassword.classList.remove('signIn', 'signUp');
+    this.classList.remove('signIn', 'signUp');
     infoEmail.style.pointerEvents = 'none';
 
     if (!infoEmail.value) infoEmail.focus();
     if (infoEmail.className === 'infoEmail') {
-        infoPassword.blur();
+        this.blur();
         if (infoEmail.value) checkEmail();
     }
     if (navigator.onLine) {
@@ -149,7 +147,7 @@ infoPassword.onfocus = function () {
 
 infoPassword.onblur = function () {
     infoEmail.style.pointerEvents = 'visible';
-    if (infoPassword.value) checkPassword();
+    if (this.value) checkPassword();
 }
 
 for (let i = 0; i < infoOTP.children.length; i++) {
@@ -172,9 +170,79 @@ for (let i = 0; i < infoOTP.children.length; i++) {
     }
 }
 
+infoName.onkeydown = function (event) {
+    this.setCustomValidity('');
+    if (['Enter', 'Return'].includes(event.key)) this.blur();
+}
+
+infoName.onfocus = function () {
+    this.classList.remove('signUp');
+    setInfoButton(false);
+}
+
+infoName.onblur = function () {
+    this.value = this.value
+        .replace(/\s+/g, ' ')
+        .replace(/[\d`~!@#$%^&*()+=\-_/\\|.,<>?:;'"]/g, '')
+        .trim();
+
+    if (this.value) {
+        this.classList.add('signUp');
+        if (infoBirthday.className !== 'infoBirthday') setTimeout(function () {
+            setInfoButton(true);
+        }, 500);
+    }
+}
+
+infoBirthday.onkeydown = function (event) {
+    this.setCustomValidity('');
+    event.target.selectionStart = this.value.length + 1;
+    if (['Enter', 'Return'].includes(event.key)) this.blur();
+}
+
+
+infoBirthday.oninput = function (event) {
+    this.value = this.value
+        .replace(/[^\d-]/g, '')
+        .replace(/-+/g, '-');
+    if (event.inputType === 'deleteContentBackward') this.value = '';
+
+    if (this.value.match(/^\d{2}$/)) {
+        this.value = this.value + '-';
+    } else if (this.value.match(/^\d{2}-\d{2}$/)) {
+        this.value = this.value + '-';
+    }
+}
+
+infoBirthday.onfocus = function () {
+    this.classList.remove('signUp');
+    setInfoButton(false);
+}
+
+infoBirthday.onblur = function () {
+    if (this.value) {
+        if (this.value.length !== 10) {
+            this.setCustomValidity('Sinh nhật theo cấu trúc dd-mm-yyyy.');
+            this.reportValidity();
+        } else {
+            let array = this.value.split('-');
+            if (parseInt(array[0]) > 31 || parseInt(array[1]) > 12
+                || parseInt(array[2]) > 1900 && parseInt(array[2]) > new Date().getFullYear()) {
+                this.setCustomValidity('Sinh nhật không hợp lệ.');
+                this.reportValidity();
+            } else {
+                this.classList.add('signUp');
+                if (infoName.className !== 'infoName') setTimeout(function () {
+                    setInfoButton(true);
+                }, 500);
+            }
+        }
+    }
+}
+
 function checkEmail() {
     if (!infoEmail.value.match(/\S+@\S+\.\S+/)) {
-        infoEmail.setCustomValidity('Cấu trúc email không hợp lệ.');
+        infoEmail.setCustomValidity('Email theo cấu trúc aa@bb.cc');
         infoEmail.reportValidity();
     } else {
         let queryRef = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
@@ -275,95 +343,53 @@ function setInfoButton(type) {
     infoButton.innerHTML = sessionStorage.getItem('infoSection')
         .replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
-        .replace('signUp', 'Đăng ký')
-        .replace('identify', 'Xác nhận');
+        .replace('signUp', 'Tiếp tục')
+        .replace('identify', 'Đăng ký');
 
     if (type === true) {
         infoButton.classList.add('active');
-        infoButton.onclick = function () {
-            if (infoButton.innerHTML === 'Đăng ký') {
-                //setUserData();
-                infoEmail.style.animation = 'info_slideRightOut 0.5s linear forwards';
-                infoName.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
-                infoPassword.style.animation = 'info_slideRightOut 0.5s linear forwards';
-                infoBirthday.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
-                sessionStorage.setItem('infoSection', 'identify')
-                infoText.innerHTML = array.identify;
-                setInfoButton(false);
-            }
-        }
+        infoButton.style.pointerEvents = 'visible';
+        infoButton.onclick = setInfoFunction;
     } else {
         infoButton.classList.remove('active');
+        infoButton.style.pointerEvents = 'none';
         infoButton.onclick = null;
     }
 }
 
-function setUserData() {
+function setInfoFunction() {
+    let infoSection = sessionStorage.getItem('infoSection');
+    if (infoSection === 'signUp') {
+        infoEmail.style.animation = 'info_slideRightOut 0.5s linear forwards';
+        infoName.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
+        infoPassword.style.animation = 'info_slideRightOut 0.5s linear forwards';
+        infoBirthday.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
+
+        sessionStorage.setItem('infoSection', 'identify');
+        infoText.innerHTML = array.identify;
+        setInfoButton(false);
+    } else if (infoSection === 'identify') {
+        infoButton.onclick = null;
+        updateUserData();
+    }
+}
+
+function updateUserData() {
     get(userRef).then(function (data) {
         let userID = `user${data.size}`
-        update(child(userRef, userID), {
+        let userData = {
             userID: userID,
             userEmail: infoEmail.value,
-            userPassword: infoPassword.value
-        });
-        sessionStorage.setItem('userID', userID);
-        console.log(`Xin chúc mừng Tĩnh Tâm, đây là tài khoản thứ ${userID.replace('user', '')}
+            userPassword: infoPassword.value,
+            userName: infoName.value,
+            userBirthday: infoBirthday.value
+        }
+        update(child(userRef, userID), userData);
+        sessionStorage.setItem('userData', JSON.stringify(userData));
+        console.log(`Xin chúc mừng ${userData.userName}, đây là tài khoản thứ 
+        ${userData.userID.replace('user', '')}
         đăng ký thành công tại Tàng Kinh Các Đại Đạo.`)
     }).catch(function () {
         infoText.innerHTML = array.offline;
     })
 }
-
-// let userBirthday = document.createElement('div');
-// introBoard.append(userBirthday);
-// userBirthday.className = 'userData userBirthday';
-//
-// let array = ['dd', 'mm', 'yyyy'];
-// for (let i = 0; i < array.length; i++) {
-//     let getChild = document.createElement('input');
-//     userBirthday.append(getChild);
-//     getChild.placeholder = array[i];
-// }
-//
-// for (let i = 0; i < 2; i++) {
-//     let separator = document.createElement('p');
-//     userBirthday.append(separator);
-//     separator.innerHTML = '-';
-// }
-// userBirthday.onfocus = function () {
-//     userBirthday.type = 'date';
-//     userBirthday.required = ''
-// }
-// userBirthday.onblur = function () {
-//     userBirthday.type = 'text';
-// }
-
-// userBirthday.onkeydown = function (event) {
-//     if (event.key.match(/[^\d]/) && !['Tab'].includes(event.key))
-//         event.preventDefault();
-//     if (['Clear', 'Backspace', 'Delete'].includes(event.key)) userBirthday.value = '';
-//     if (['Enter', 'Return', 'OK'].includes(event.key)) (userName.focus())
-// }
-
-// userBirthday.onkeyup = function () {
-//     let inputValue = this.value;
-//     if (inputValue.match(/^\d{2}$/) !== null) {
-//         this.value = inputValue + '-';
-//     } else if (inputValue.match(/^\d{2}-\d{2}$/) !== null) {
-//         this.value = inputValue + '-';
-//     }
-// }
-//
-//
-// let userName = document.createElement('input');
-// introBoard.append(userName);
-// userName.className = 'userData userName';
-// userName.placeholder = 'Quý danh';
-
-//     userName.onkeydown = function (event) {
-//         userName.setCustomValidity('');
-//         if (event.key.match(/[^\d\w\s\u0080-\u024F\u0300-\u036F\u1E00-\u1Eff\u1DC4]/))
-//             event.preventDefault();
-//         if (event.key === 'Clear') userName.value = '';
-//         if (['OK', 'Enter', 'Return'].includes(event.key)) validate(infoEmail, userName, userBirthday);
-//     }

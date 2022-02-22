@@ -107,7 +107,7 @@
     border-bottom: 2px solid #8b9f85;
 }
 
-.infoEmail.signUp, .infoPassword.signUp {
+.infoEmail.signUp, .infoPassword.signUp, .infoName.signUp, .infoBirthday.signUp {
     color: #3b3e81;
     border-bottom: 2px solid #878798;
 }

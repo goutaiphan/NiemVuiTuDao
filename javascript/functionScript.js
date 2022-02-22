@@ -1,4 +1,4 @@
-export {setVisibility, deAccent, randomize, sendEmail};
+export {setVisibility, deAccent, toTitleCase, randomize, sendEmail};
 
 function setVisibility(element, type) {
     if (type === true) {
@@ -8,6 +8,13 @@ function setVisibility(element, type) {
         element.style.opacity = '0';
         element.style.visibility = 'hidden';
     }
+}
+
+function toTitleCase(string) {
+    return string.replace(/\w\S*/g, function (data) {
+            return data.charAt(0).toUpperCase() + data.substring(1).toLowerCase();
+        }
+    );
 }
 
 function deAccent(string) {
