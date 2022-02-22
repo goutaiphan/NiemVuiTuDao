@@ -69,7 +69,7 @@ infoButton.innerHTML = 'Đăng nhập/Đăng ký';
 let infoName = document.createElement('input');
 infoName.className = 'infoName';
 infoName.placeholder = 'Quý danh';
-infoEmail.style.textTransform = 'capitalize';
+infoName.style.textTransform = 'capitalize';
 
 let infoBirthday = document.createElement('input');
 infoBirthday.className = 'infoBirthday';
