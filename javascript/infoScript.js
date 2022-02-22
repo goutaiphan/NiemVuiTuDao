@@ -33,7 +33,9 @@ let array = {
     rightOTP: `Tài khoản <span>đã xác thực,</span><br>
         quý đạo hữu có thể <span>đăng ký</span> để<br>tham gia chương trình.`,
     offline: `Kết nối mạng <span>bị gián đoạn,</span><br>
-        quý huynh tỷ vui lòng <span>kiểm tra</span><br>hệ thống mạng.`
+        quý huynh tỷ vui lòng <span>kiểm tra</span><br>hệ thống mạng.`,
+    identify: `Quý huynh tỷ vui lòng điền<br><span>quý danh</span> và <span>sinh nhật</span><br>
+        để hoàn thành việc đăng ký.`
 };
 
 let infoTitle = document.createElement('div');
@@ -63,9 +65,17 @@ let infoButton = document.createElement('div');
 infoButton.className = 'infoButton';
 infoButton.innerHTML = 'Đăng nhập/Đăng ký';
 
+let infoName = document.createElement('input');
+infoName.className = 'infoName';
+infoName.placeholder = 'Quý danh';
+
+let infoBirthday = document.createElement('input');
+infoBirthday.className = 'infoBirthday';
+infoBirthday.placeholder = 'Sinh nhật';
+
 let infoBoard = document.createElement('div');
 infoBoard.className = 'infoBoard';
-infoBoard.append(infoEmail, infoPassword, infoOTP, infoButton);
+infoBoard.append(infoEmail, infoPassword, infoOTP, infoName, infoBirthday, infoButton);
 
 let infoText = document.createElement('div');
 infoText.className = 'infoText';
@@ -77,6 +87,9 @@ infoArea.append(infoTitle, infoBoard, infoText);
 
 function startInfoArea() {
     document.body.append(infoArea);
+    setTimeout(function () {
+
+    }, 1000)
 }
 
 infoEmail.onkeydown = function (event) {
@@ -215,11 +228,12 @@ function checkPassword() {
 
 function createOTP() {
     let userOTP = randomize(1000, 9999);
+    console.log(userOTP);
     let emailBody = `<br>Mến chào quý đạo hữu.<br>Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
                     <h1>${userOTP}<br></h1>
                     Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
     emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
-    sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
+    //sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
     setInfoOTP(true);
     sessionStorage.setItem('userOTP', userOTP);
 }
@@ -261,13 +275,21 @@ function setInfoButton(type) {
     infoButton.innerHTML = sessionStorage.getItem('infoSection')
         .replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
-        .replace('signUp', 'Đăng ký');
+        .replace('signUp', 'Đăng ký')
+        .replace('identify', 'Xác nhận');
 
     if (type === true) {
         infoButton.classList.add('active');
         infoButton.onclick = function () {
             if (infoButton.innerHTML === 'Đăng ký') {
-                setUserData();
+                //setUserData();
+                infoEmail.style.animation = 'info_slideRightOut 0.5s linear forwards';
+                infoName.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
+                infoPassword.style.animation = 'info_slideRightOut 0.5s linear forwards';
+                infoBirthday.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
+                sessionStorage.setItem('infoSection', 'identify')
+                infoText.innerHTML = array.identify;
+                setInfoButton(false);
             }
         }
     } else {

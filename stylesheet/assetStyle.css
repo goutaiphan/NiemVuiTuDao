@@ -49,7 +49,7 @@
     }
 }
 
-@keyframes slideRight {
+@keyframes slideRightIn {
     from {
         opacity: 0;
         visibility: hidden;
@@ -62,7 +62,7 @@
     }
 }
 
-@keyframes slideLeft {
+@keyframes slideLeftIn {
     from {
         opacity: 0;
         visibility: hidden;
@@ -110,5 +110,31 @@
         height: max-content;
         opacity: 1;
         visibility: visible;
+    }
+}
+
+@keyframes info_slideRightOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, 0);
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(40px, 0);
+    }
+}
+
+@keyframes info_slideLeftIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-40px, 0);
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, 0);
     }
 }

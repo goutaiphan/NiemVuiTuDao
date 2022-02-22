@@ -1,4 +1,5 @@
 import {startIntroArea} from "./introScript.js";
+import {startInfoArea} from "./infoScript.js";
 
 let titleArea = document.createElement('div');
 titleArea.id = 'titleArea';
@@ -24,8 +25,8 @@ for (let i = 0; i < childArray.length - 1; i++) {
     childArray[i].onanimationend = function () {
         if (i !== 4) childArray[i + 1].style.animation = fadeIn;
         if (i === 3) {
-            childArray[4].style.animation = 'slideRight 0.7s ease-out forwards';
-            childArray[5].style.animation = 'slideLeft 0.7s ease-out forwards';
+            childArray[4].style.animation = 'slideRightIn 0.7s ease-out forwards';
+            childArray[5].style.animation = 'slideLeftIn 0.7s ease-out forwards';
         }
         if (i === 5) childArray[6].style.animation = fadeIn + ', zoomIn 0.5s 0.5s ease-in alternate infinite';
     }
@@ -42,6 +43,7 @@ function stopTitleArea() {
     titleArea.style.animation = 'fadeOut 0.5s linear forwards';
     setTimeout(function () {
         titleArea.remove();
-        startIntroArea();
+        //startIntroArea();
+        startInfoArea();
     }, 0.5 * 1000);
 }
