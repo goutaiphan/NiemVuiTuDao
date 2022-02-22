@@ -310,7 +310,7 @@ function createOTP() {
                     <h1>${userOTP}<br></h1>
                     Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
     emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
-    //sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
+    sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
     setInfoOTP(true);
     sessionStorage.setItem('userOTP', userOTP);
 }
