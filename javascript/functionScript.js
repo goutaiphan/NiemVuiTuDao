@@ -1,21 +1,30 @@
-export {setVisibility, deAccent, toTitleCase, randomize, sendEmail};
+export {setVisibility, deAccent, randomize, sendEmail};
 
-function setVisibility(element, type) {
-    if (type === true) {
-        element.style.opacity = '1';
-        element.style.visibility = 'visible';
+function setVisibility(object, type) {
+    if (Array.isArray(object)) {
+        object.forEach(function (item) {
+           process(item);
+        })
     } else {
-        element.style.opacity = '0';
-        element.style.visibility = 'hidden';
+        process(object);
+    }
+    function process(object) {
+        if (type === true) {
+            object.style.opacity = '1';
+            object.style.visibility = 'visible';
+        } else {
+            object.style.opacity = '0';
+            object.style.visibility = 'hidden';
+        }
     }
 }
 
-function toTitleCase(string) {
-    return string.replace(/\w\S*/g, function (data) {
-            return data.charAt(0).toUpperCase() + data.substring(1).toLowerCase();
-        }
-    );
-}
+// function toTitleCase(string) {
+//     return string.replace(/\w\S*/g, function (data) {
+//             return data.charAt(0).toUpperCase() + data.substring(1).toLowerCase();
+//         }
+//     );
+// }
 
 function deAccent(string) {
     return string.normalize('NFD')

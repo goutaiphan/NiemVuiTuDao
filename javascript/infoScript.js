@@ -1,6 +1,7 @@
 export {startInfoArea};
 import {tieuDan} from "./introScript.js";
-import {toTitleCase, randomize, sendEmail, setVisibility} from "./functionScript.js";
+import {setVisibility, randomize, sendEmail} from "./functionScript.js";
+import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
     getDatabase, get, update, ref, query, child, orderByChild, equalTo, limitToFirst
@@ -91,6 +92,14 @@ infoArea.append(infoTitle, infoBoard, infoText);
 
 function startInfoArea() {
     document.body.append(infoArea);
+    setVisibility([infoTitle, infoBoard, infoEmail, infoPassword, infoButton, infoText,
+        infoName, infoBirthday, infoOTP], false);
+    infoTitle.animate(fadeIn(), options(0.5));
+    infoBoard.animate(fadeIn(), options(0.5, 0.3));
+    infoEmail.animate(slideIn(-40, 0), options(0.5, 0.3));
+    infoPassword.animate(slideIn(-40, 0), options(0.5, 0.5));
+    infoButton.animate(slideIn(-40, 0), options(0.5, 0.7));
+    infoText.animate(fadeIn(), options(0.5, 1.2));
 }
 
 infoEmail.onkeydown = function (event) {
@@ -360,10 +369,10 @@ function setInfoButton(type) {
 function setInfoFunction() {
     let infoSection = sessionStorage.getItem('infoSection');
     if (infoSection === 'signUp') {
-        infoEmail.style.animation = 'info_slideRightOut 0.5s linear forwards';
-        infoName.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
-        infoPassword.style.animation = 'info_slideRightOut 0.5s linear forwards';
-        infoBirthday.style.animation = 'info_slideLeftIn 0.5s 0.25s linear forwards';
+        infoEmail.animate(slideOut(40, 0), options(0.5, 0));
+        infoName.animate(slideIn(-40, 0), options(0.5, 0.3));
+        infoPassword.animate(slideOut(40, 0), options(0.5, 0));
+        infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3));
 
         sessionStorage.setItem('infoSection', 'identify');
         infoText.innerHTML = array.identify;

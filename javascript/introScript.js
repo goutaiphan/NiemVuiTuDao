@@ -1,6 +1,7 @@
 export {startIntroArea, tieuDan};
 import {startInfoArea} from "./infoScript.js";
 import {setVisibility} from "./functionScript.js";
+import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
     `Mến chúc quý đạo hữu<br>một năm mới nhiều<br><span>sức khỏe</span>, thường <span>an lạc</span><br>
@@ -28,35 +29,36 @@ introArea.append(introBoard);
 function startIntroArea() {
     document.body.append(introArea);
     document.body.append(tieuDan);
-    introBoard.style.animation = 'slideTop 0.5s 2s linear forwards';
-    tieuDan.style.animation = 'fadeIn 0.7s 0.5s linear forwards, bounce 0.7s 1.2s ease-in alternate infinite';
-}
+    setVisibility([introBoard, tieuDan], false);
 
-let i = 0;
-introBoard.onanimationend = function () {
-    setVisibility(introBoard, true);
-    setVisibility(tieuDan, true);
+    tieuDan.animate(fadeIn(), options(0.7, 0.2));
+    tieuDan.animate(bounce(0, 20),
+        options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
+    introBoard.animate(slideIn(0, 15), options(0.5, 1.6));
 
-    window.onclick = function () {
-        window.onclick = null;
-        if (i < array.length - 1) {
-            i++;
-            introText.style.animation = 'fadeOut 0.5s linear forwards';
-            introText.onanimationend = function () {
-                introText.innerHTML = array[i];
-                introText.style.animation = 'fadeIn 0.5s linear forwards';
-            }
-        } else {
-            introBoard.style.animation = 'minimize 2s ease-in-out forwards';
-            introText.style.animation = 'fadeOut 0.5s 0.5s linear forwards';
-            introText.onanimationend = function () {
-                introText.remove();
+    let i = 0;
+    setTimeout(function () {
+        document.body.onclick = function () {
+            document.body.style.pointerEvents = 'none';
+            if (i < array.length - 1) {
+                i++;
+                introText.animate(fadeOut(), options(0.5));
+                setTimeout(function () {
+                    introText.innerHTML = array[i];
+                    introText.animate(fadeIn(), options(0.5));
+                    document.body.style.pointerEvents = 'visible';
+                }, 0.5 * 1000);
+            } else {
+                introBoard.animate(minimize(), options(2, 0, 'ease-in-out'));
+                introText.animate(fadeOut(), options(0.5, 0.5));
                 setTimeout(function () {
                     introArea.remove();
                     tieuDan.remove();
                     startInfoArea();
-                }, 2.5 * 1000)
+                    document.body.style.pointerEvents = 'visible';
+                    document.body.onclick = null;
+                }, 4 * 1000)
             }
         }
-    }
+    }, 1.6 * 1000);
 }

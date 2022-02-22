@@ -15,9 +15,6 @@
     border-radius: 5px;
     border: 2px solid #c9bcb1;
     background-color: #fdf9f1;
-
-    opacity: 0;
-    visibility: hidden;
 }
 
 .introText {
@@ -31,7 +28,4 @@
     height: 190px;
     margin: -70px auto 0;
     background-image: url('../media/TigerFace.png');
-
-    opacity: 0;
-    visibility: hidden;
 }

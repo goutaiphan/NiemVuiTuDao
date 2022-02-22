@@ -1,3 +1,23 @@
+@font-face {
+    font-family: 'PlayfairDisplay';
+    src: url('../font/PlayfairDisplay.ttf');
+}
+
+@font-face {
+    font-family: 'FairProsper';
+    src: url('../font/FairProsper.ttf')
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../font/Lora.ttf')
+}
+
+@font-face {
+    font-family: 'RobotoSlab';
+    src: url('../font/RobotoSlab.ttf')
+}
+
 * {
     position: relative;
     box-sizing: border-box;

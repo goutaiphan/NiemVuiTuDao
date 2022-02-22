@@ -1,5 +1,7 @@
 import {startIntroArea} from "./introScript.js";
 import {startInfoArea} from "./infoScript.js";
+import {setVisibility} from "./functionScript.js";
+import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let titleArea = document.createElement('div');
 titleArea.id = 'titleArea';
@@ -15,22 +17,20 @@ for (let i = 0; i < array.length; i++) {
     child.innerHTML = array[i];
     child.className = 'titleArea';
     if (i === array.indexOf('Bắt đầu')) child.onclick = stopTitleArea;
+    setVisibility(child, false);
     titleArea.append(child);
 }
 
-let childArray = titleArea.children;
-let fadeIn = 'fadeIn 0.5s linear forwards';
-childArray[0].style.animation = fadeIn;
-for (let i = 0; i < childArray.length - 1; i++) {
-    childArray[i].onanimationend = function () {
-        if (i !== 4) childArray[i + 1].style.animation = fadeIn;
-        if (i === 3) {
-            childArray[4].style.animation = 'slideRightIn 0.7s ease-out forwards';
-            childArray[5].style.animation = 'slideLeftIn 0.7s ease-out forwards';
-        }
-        if (i === 5) childArray[6].style.animation = fadeIn + ', zoomIn 0.5s 0.5s ease-in alternate infinite';
-    }
-}
+let children = titleArea.children;
+children[0].animate(fadeIn(), options(0.5, 0.5));
+children[1].animate(fadeIn(), options(0.5, 1));
+children[2].animate(fadeIn(), options(0.5, 1.5));
+children[3].animate(fadeIn(), options(0.5, 2));
+children[4].animate(slideIn(-20, 0), options(0.7, 2.5, 'ease-out'));
+children[5].animate(slideIn(20, 0), options(0.7, 2.5, 'ease-out'));
+children[6].animate(fadeIn(), options(0.5, 3.2));
+children[6].animate(pumping(1.07),
+    options(0.5, 3.7, 'ease-in', 'alternate', Infinity));
 
 function stopTitleArea() {
     let backgroundAudio = document.createElement('audio');
@@ -40,10 +40,10 @@ function stopTitleArea() {
     //backgroundAudio.play();
     document.body.append(backgroundAudio);
 
-    titleArea.style.animation = 'fadeOut 0.5s linear forwards';
+    titleArea.animate(fadeOut(), options(0.5))
     setTimeout(function () {
         titleArea.remove();
-        //startIntroArea();
-        startInfoArea();
+        startIntroArea();
+        //startInfoArea();
     }, 0.5 * 1000);
 }
