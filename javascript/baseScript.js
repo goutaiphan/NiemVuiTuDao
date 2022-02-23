@@ -27,7 +27,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     }
 
     alert(width);
-    alert(document.body.offsetHeight);
+    alert(document.body.offsetWidth);
 
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 0
