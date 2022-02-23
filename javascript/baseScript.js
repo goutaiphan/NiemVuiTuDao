@@ -19,15 +19,15 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let heightRatio = height / 850;
 
     if (width < 1080) {
-        document.body.style.width = width * 90 / 100 + 'px';
-        document.body.style.height = '100vh';
+        document.body.style.width = width * 80 / 100 + 'px';
+        document.body.style.height = height * 80 / 100 + 'px';
     } else {
         document.body.style.minWidth = '90vw';
         document.body.style.minHeight = '90vh';
     }
 
-    alert(outerHeight);
-    alert(document.body.offsetHeight);
+    // alert(outerHeight);
+    // alert(document.body.offsetHeight);
 
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 0
