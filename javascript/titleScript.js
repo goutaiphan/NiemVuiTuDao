@@ -1,10 +1,11 @@
 import {startIntroArea} from "./introScript.js";
 import {startInfoArea} from "./infoScript.js";
-import {setVisibility} from "./functionScript.js";
+import {setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let titleArea = document.createElement('div');
 titleArea.id = 'titleArea';
+setSizeRatio(titleArea, 20);
 document.body.append(titleArea);
 
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
@@ -13,10 +14,15 @@ let array = ['Niềm', 'vui', 'tu', 'Đạo',
     'Bắt đầu'];
 
 for (let i = 0; i < array.length; i++) {
-    let child = document.createElement('div');
+    let child;
+    if (i === array.indexOf('Bắt đầu')) {
+        child = document.createElement('button');
+        child.onclick = stopTitleArea;
+    } else {
+        child = document.createElement('div');
+    }
     child.innerHTML = array[i];
     child.className = 'titleArea';
-    if (i === array.indexOf('Bắt đầu')) child.onclick = stopTitleArea;
     setVisibility(child, false);
     titleArea.append(child);
 }
@@ -28,9 +34,11 @@ children[2].animate(fadeIn(), options(0.5, 1.5));
 children[3].animate(fadeIn(), options(0.5, 2));
 children[4].animate(slideIn(-20, 0), options(0.7, 2.5, 'ease-out'));
 children[5].animate(slideIn(20, 0), options(0.7, 2.5, 'ease-out'));
-children[6].animate(fadeIn(), options(0.5, 3.2));
-children[6].animate(pumping(1.07),
-    options(0.5, 3.7, 'ease-in', 'alternate', Infinity));
+children[6].animate(fadeIn(), options(0.5, 3.2)).onfinish = function () {
+    children[6].animate(pumping(1.07),
+        options(0.5, 0, 'ease-in', 'alternate', Infinity));
+};
+
 
 function stopTitleArea() {
     let backgroundAudio = document.createElement('audio');
@@ -40,10 +48,9 @@ function stopTitleArea() {
     //backgroundAudio.play();
     document.body.append(backgroundAudio);
 
-    titleArea.animate(fadeOut(), options(0.5))
-    setTimeout(function () {
+    titleArea.animate(fadeOut(), options(0.5)).onfinish = function () {
         titleArea.remove();
-        //startIntroArea();
-        startInfoArea();
-    }, 0.5 * 1000);
+        startIntroArea();
+        //startInfoArea();
+    }
 }

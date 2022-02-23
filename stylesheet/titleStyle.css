@@ -22,11 +22,6 @@
 }
 
 .titleArea:nth-child(7) {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-
     width: 200px;
     height: 51px;
     margin: 0 auto;

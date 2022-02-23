@@ -124,7 +124,7 @@
     cursor: pointer;
 }
 
-.infoButton.active:active {
+.infoButton.active {
     transform: translate(0, 5px);
 }
 

@@ -1,6 +1,6 @@
 export {startInfoArea};
 import {tieuDan} from "./introScript.js";
-import {setVisibility, randomize, sendEmail, toTitleCase} from "./functionScript.js";
+import {setVisibility, randomize, sendEmail, toTitleCase} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -97,7 +97,7 @@ function startInfoArea() {
     infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6));
     infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8));
     infoButton.animate(slideIn(-40, 0), options(0.5, 1));
-    infoText.animate(fadeIn(), options(0.5, 1.1));
+    infoText.animate(fadeIn(), options(0.5, 1.2));
 }
 
 infoEmail.onkeydown = function (event) {

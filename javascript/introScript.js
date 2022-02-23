@@ -1,6 +1,6 @@
 export {startIntroArea, tieuDan};
 import {startInfoArea} from "./infoScript.js";
-import {setVisibility} from "./functionScript.js";
+import {setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
@@ -34,31 +34,34 @@ function startIntroArea() {
     tieuDan.animate(fadeIn(), options(0.7, 0.2));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
-    introBoard.animate(slideIn(0, 15), options(0.5, 1.6));
+    introBoard.animate(slideIn(0, 15), options(0.5, 1.6))
+        .onfinish = clickIntroArea;
+}
 
+function clickIntroArea() {
     let i = 0;
-    setTimeout(function () {
-        document.body.onclick = function () {
-            document.body.style.pointerEvents = 'none';
-            if (i < array.length - 1) {
-                i++;
-                introText.animate(fadeOut(), options(0.5));
-                setTimeout(function () {
-                    introText.innerHTML = array[i];
-                    introText.animate(fadeIn(), options(0.5));
-                    document.body.style.pointerEvents = 'visible';
-                }, 0.5 * 1000);
-            } else {
-                introBoard.animate(minimize(), options(2, 0, 'ease-in-out'));
-                introText.animate(fadeOut(), options(0.5, 0.5));
+    document.body.onclick = function () {
+        document.body.style.pointerEvents = 'none';
+        if (i < array.length - 1) {
+            i++;
+            introText.animate(fadeOut(), options(0.5))
+                .onfinish = function () {
+                introText.innerHTML = array[i];
+                introText.animate(fadeIn(), options(0.5));
+                document.body.style.pointerEvents = 'visible';
+            };
+        } else {
+            introText.animate(fadeOut(), options(0.5, 0.5));
+            introBoard.animate(minimize(), options(2, 0, 'ease-in-out'))
+                .onfinish = function () {
                 setTimeout(function () {
                     introArea.remove();
                     tieuDan.remove();
                     startInfoArea();
                     document.body.style.pointerEvents = 'visible';
                     document.body.onclick = null;
-                }, 4 * 1000)
-            }
+                }, 2 * 1000);
+            };
         }
-    }, 1.6 * 1000);
+    }
 }
