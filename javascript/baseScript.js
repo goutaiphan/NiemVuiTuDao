@@ -17,7 +17,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    alert(marginMobile * heightRatio);
+    alert(marginMobile * widthRatio);
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
