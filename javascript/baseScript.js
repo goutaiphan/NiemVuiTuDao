@@ -10,12 +10,10 @@ function setSizeRatio(object, marginTop) {
     let heightRatio = height / 850;
 
     object.style.minWidth = 'max-content';
-    object.style.backgroundColor = 'beige';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
         if (width < 450) {
-
-            //object.style.width = width + 'px';
-            //object.style.marginTop =
+            document.body.style.width = '100vw';
+            document.body.style.height = '100vh';
         } else {
             widthRatio = widthRatio * 0.7;
             object.style.marginTop = width < 1000
@@ -27,6 +25,20 @@ function setSizeRatio(object, marginTop) {
         //object.style.marginTop = marginTop + 'px';
     }
 }
+
+// function check(el) {
+//     var curOverf = el.style.overflow;
+//
+//     if ( !curOverf || curOverf === "visible" )
+//         el.style.overflow = "hidden";
+//
+//     var isOverflowing = el.clientWidth < el.scrollWidth
+//         || el.clientHeight < el.scrollHeight;
+//
+//     el.style.overflow = curOverf;
+//
+//     return isOverflowing;
+// }
 
 function setVisibility(object, type) {
     if (Array.isArray(object)) {
