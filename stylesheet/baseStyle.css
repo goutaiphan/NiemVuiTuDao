@@ -40,8 +40,8 @@ body {
     justify-content: center;
     align-items: center;
 
-    min-width: 20vw;
-    min-height: 20vh;
+    width: 20vw;
+    height: 500px;
     margin: auto;
 }
 
