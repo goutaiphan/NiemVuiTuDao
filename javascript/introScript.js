@@ -25,7 +25,7 @@ introBoard.append(introText);
 let introArea = document.createElement('div');
 introArea.id = 'introArea';
 setSizeRatio(introArea, 60);
-introArea.append(introBoard);
+introArea.append(introBoard, tieuDan);
 
 function startIntroArea() {
     document.body.append(introArea);
