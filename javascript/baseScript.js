@@ -30,7 +30,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 25
         ? `${padding}px 0`
-        : '25px';
+        : '25px 0';
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
