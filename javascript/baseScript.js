@@ -3,7 +3,7 @@ export {
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 
 function createJavaScript(name) {
     let javaScript = document.createElement('script');
