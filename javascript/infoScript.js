@@ -90,8 +90,7 @@ infoArea.append(infoTitle, infoBoard, infoText);
 
 function startInfoArea() {
     document.body.append(infoArea);
-    setVisibility([infoTitle.children[0], infoTitle.children[1], infoBoard, infoText,
-        infoEmail, infoPassword, infoButton, infoName, infoBirthday, infoOTP], false);
+    setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText], false);
     infoTitle.children[0].animate(fadeIn(), options(0.5));
     infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
     infoBoard.animate(fadeIn(), options(0.5, 0.6));
