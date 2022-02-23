@@ -12,7 +12,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     object.style.marginTop = marginDesktop + 'px';
 
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-        object.style.marginTop = -marginMobile + 'px';
+        object.style.marginTop = marginMobile + 'px';
         if (width >= 450) {
             widthRatio = widthRatio * 0.7;
         }
