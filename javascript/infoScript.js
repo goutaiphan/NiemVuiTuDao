@@ -94,9 +94,9 @@ setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText
 infoTitle.children[0].animate(fadeIn(), options(0.5));
 infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
 infoBoard.animate(fadeIn(), options(0.5, 0.6));
-infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6));
-infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8));
-infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1));
+infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
+infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
+infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
 infoText.animate(fadeIn(), options(0.5, 1.2));
 
 infoEmail.onkeydown = function (event) {
@@ -367,10 +367,10 @@ function setInfoButton(type) {
                     infoText.innerHTML = array.identify;
                     setInfoButton(false);
 
-                    infoEmail.animate(slideOut(40, 0), options(0.5, 0));
-                    infoName.animate(slideIn(-40, 0), options(0.5, 0.3));
-                    infoPassword.animate(slideOut(40, 0), options(0.5, 0));
-                    infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3));
+                    infoEmail.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
+                    infoName.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
+                    infoPassword.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
+                    infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
                     break;
                 case 'identify':
                     //updateUserData();
