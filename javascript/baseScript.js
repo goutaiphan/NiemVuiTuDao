@@ -33,8 +33,8 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         ? `${padding}px 0`
         : '0';
     if (width <= 360) {
-        document.body.style.height = 'max-content';
-        document.body.style.padding = '50px 0';
+        document.body.style.minHeight = 'max-content';
+        document.body.style.padding = '20px 0';
     }
 
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
