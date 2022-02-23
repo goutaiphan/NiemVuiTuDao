@@ -20,12 +20,12 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
-        //object.style.marginTop = marginMobile + 'px';
+        object.style.marginTop = marginMobile + 'px';
     } else {
         widthRatio = 1;
-        //object.style.marginTop = marginDesktop + 'px';
+        object.style.marginTop = marginDesktop + 'px';
     }
-    
+
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = `${padding}px 0`;
     object.style.minWidth = 'max-content';
