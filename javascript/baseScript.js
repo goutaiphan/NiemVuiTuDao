@@ -12,13 +12,11 @@ function setSizeRatio(object, marginTop) {
     object.style.height = 'max-content';
     object.style.backgroundColor = 'beige';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-        //        document.body.style.width = width + 'px';
-        // alert(innerHeight);
-        // document.body.style.height = innerHeight + 'px';
+        document.body.style.height = '80vh';
 
         if (width < 450) {
             object.style.minWidth = 'max-content';
-            object.style.width = width + 'px';
+            //object.style.width = width + 'px';
             //object.style.marginTop =
         } else {
             widthRatio = widthRatio * 0.7;
