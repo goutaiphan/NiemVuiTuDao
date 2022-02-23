@@ -33,8 +33,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         ? `${padding}px 0`
         : '0';
     if (width <= 360) {
-        document.body.style.width = '100vw';
-        document.body.style.height = '100vh';
+        document.body.style.height = 'max-content';
         document.body.style.padding = '50px 0';
     }
 
