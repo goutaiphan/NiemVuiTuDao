@@ -17,11 +17,15 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    alert(marginMobile * widthRatio);
+    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
+    alert(padding);
+    document.body.style.padding = padding > 25
+        ? `${padding}px 0`
+        : '25px 0';
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
-        //object.style.marginTop = marginMobile * heightRatio + 'px';
+        if (marginMobile * heightRatio < padding) object.style.marginTop = marginMobile * heightRatio + 'px';
     } else {
         widthRatio = 1;
         object.style.marginTop = marginDesktop + 'px';
@@ -29,11 +33,6 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     object.style.transform = `scale(${widthRatio})`;
     object.style.minWidth = 'max-content';
 
-    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
-    alert(padding);
-    document.body.style.padding = padding > 25
-        ? `${padding}px 0`
-        : '25px 0';
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
