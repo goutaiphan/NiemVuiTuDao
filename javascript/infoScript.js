@@ -88,7 +88,7 @@ infoText.innerHTML = array.normal;
 let infoArea = document.createElement('div');
 infoArea.append(infoTitle, infoBoard, infoText);
 document.body.append(infoArea);
-setSizeRatio(infoArea, 30, -15);
+setSizeRatio(infoArea, 30, -10);
 setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText], false);
 
 infoTitle.children[0].animate(fadeIn(), options(0.5));
