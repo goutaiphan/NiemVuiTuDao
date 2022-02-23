@@ -10,7 +10,7 @@ function createJavaScript(name) {
     document.body.append(javaScript);
 }
 
-alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
@@ -18,8 +18,13 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    document.body.style.minWidth = '90vw';
-    document.body.style.minHeight = '90vh';
+    if (height < 600) {
+        document.body.style.width = '100vw';
+        document.body.style.height = '100vh';
+    } else {
+        document.body.style.minWidth = '90vw';
+        document.body.style.minHeight = '90vh';
+    }
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 0
         ? `${padding}px 0`
