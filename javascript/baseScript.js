@@ -9,10 +9,11 @@ function setSizeRatio(object, marginTop) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
+    object.style.minWidth = 'max-content';
     object.style.backgroundColor = 'beige';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
         if (width < 450) {
-            object.style.minWidth = 'max-content';
+
             //object.style.width = width + 'px';
             //object.style.marginTop =
         } else {
