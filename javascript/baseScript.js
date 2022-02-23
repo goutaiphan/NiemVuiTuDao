@@ -21,7 +21,7 @@ function setSizeRatio(object, marginTop) {
                 ? 150 * heightRatio + 'px'
                 : 200 * heightRatio + 'px'
         }
-        //object.style.transform = `scale(${widthRatio})`;
+        object.style.transform = `scale(${widthRatio})`;
     } else {
         object.style.marginTop = marginTop + 'px';
     }
