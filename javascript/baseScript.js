@@ -1,8 +1,8 @@
 export {setSizeRatio, setVisibility, deAccent, randomize, sendEmail, toTitleCase};
 
+alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+
 function setSizeRatio(object, marginDesktop, marginMobile) {
-    alert(screen.width + '/' + screen.height + ','
-        + outerWidth + '/' + outerHeight);
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
