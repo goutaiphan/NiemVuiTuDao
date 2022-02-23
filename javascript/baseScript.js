@@ -11,6 +11,7 @@ function createJavaScript(name) {
 }
 
 alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
@@ -18,8 +19,8 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let heightRatio = height / 850;
 
     if (width < 1080) {
-        document.body.style.width = '90vw';
-        document.body.style.height = '90vh';
+        document.body.style.width = width * 90 / 100 + 'px';
+        document.body.style.height = height * 90 / 100 + 'px';
     } else {
         document.body.style.minWidth = '90vw';
         document.body.style.minHeight = '90vh';
