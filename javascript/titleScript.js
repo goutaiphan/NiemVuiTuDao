@@ -19,7 +19,7 @@ for (let i = 0; i < array.length; i++) {
 }
 
 document.body.append(titleArea);
-setSizeRatio(titleArea, 20, -28);
+setSizeRatio(titleArea, 20, -30);
 
 let children = titleArea.children;
 children[0].animate(fadeIn(), options(0.5, 0.5));
