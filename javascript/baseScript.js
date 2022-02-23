@@ -30,6 +30,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     //document.body.style.padding = `${padding}px 0`;
     object.style.minWidth = 'max-content';
     object.style.transform = `scale(${widthRatio})`;
+    object.style.backgroundColor = 'beige';
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
