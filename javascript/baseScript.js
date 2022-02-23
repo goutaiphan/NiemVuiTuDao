@@ -24,7 +24,7 @@ function setSizeRatio(object, marginTop) {
         }
         object.style.transform = `scale(${widthRatio})`;
     } else {
-        object.style.marginTop = marginTop + 'px';
+        //object.style.marginTop = marginTop + 'px';
     }
 }
 
