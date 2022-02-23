@@ -9,14 +9,11 @@ function setSizeRatio(object, marginTop) {
     let heightRatio = height / 850;
 
     object.style.minWidth = 'max-content';
-    //object.style.marginTop = marginTop + 'px';
+    object.style.marginTop = marginTop + 'px';
 
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
         if (width >= 450) {
             widthRatio = widthRatio * 0.7;
-            object.style.marginTop = width < 1000
-                ? 150 * heightRatio + 'px'
-                : 200 * heightRatio + 'px'
         }
         object.style.transform = `scale(${widthRatio})`;
     }

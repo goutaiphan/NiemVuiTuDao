@@ -5,7 +5,7 @@ import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let titleArea = document.createElement('div');
 titleArea.id = 'titleArea';
-setSizeRatio(titleArea, 20);
+setSizeRatio(titleArea, -20);
 document.body.append(titleArea);
 
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
