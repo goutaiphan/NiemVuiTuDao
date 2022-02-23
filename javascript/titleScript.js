@@ -43,7 +43,7 @@ function stopTitleArea() {
     titleArea.animate(fadeOut(), options(0.5))
     setTimeout(function () {
         titleArea.remove();
-        startIntroArea();
-        //startInfoArea();
+        //startIntroArea();
+        startInfoArea();
     }, 0.5 * 1000);
 }

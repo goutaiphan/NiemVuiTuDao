@@ -1,4 +1,4 @@
-export {setVisibility, deAccent, randomize, sendEmail};
+export {setVisibility, deAccent, randomize, sendEmail, toTitleCase};
 
 function setVisibility(object, type) {
     if (Array.isArray(object)) {
@@ -19,12 +19,12 @@ function setVisibility(object, type) {
     }
 }
 
-// function toTitleCase(string) {
-//     return string.replace(/\w\S*/g, function (data) {
-//             return data.charAt(0).toUpperCase() + data.substring(1).toLowerCase();
-//         }
-//     );
-// }
+function toTitleCase(string) {
+    return string.replace(/\w\S*/g, function (data) {
+            return data.charAt(0).toUpperCase() + data.substring(1).toLowerCase();
+        }
+    );
+}
 
 function deAccent(string) {
     return string.normalize('NFD')

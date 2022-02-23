@@ -43,7 +43,6 @@
 
 ::placeholder {
     color: gray;
-    text-transform: none;
 }
 
 .infoPassword {
@@ -106,11 +105,6 @@
 }
 
 .infoButton {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    justify-items: center;
-
     width: 75%;
     height: 55px;
     margin: 40px 0 0;

@@ -1,6 +1,6 @@
 export {startInfoArea};
 import {tieuDan} from "./introScript.js";
-import {setVisibility, randomize, sendEmail} from "./functionScript.js";
+import {setVisibility, randomize, sendEmail, toTitleCase} from "./functionScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -47,7 +47,6 @@ let infoEmail = document.createElement('input');
 infoEmail.className = 'infoEmail';
 infoEmail.inputMode = 'email';
 infoEmail.placeholder = 'Email';
-infoEmail.style.textTransform = 'lowercase';
 
 let infoPassword = document.createElement('input');
 infoPassword.className = 'infoPassword';
@@ -63,14 +62,13 @@ for (let i = 0; i < 4; i++) {
     infoOTP.append(child);
 }
 
-let infoButton = document.createElement('div');
+let infoButton = document.createElement('button');
 infoButton.className = 'infoButton';
 infoButton.innerHTML = 'Đăng nhập/Đăng ký';
 
 let infoName = document.createElement('input');
 infoName.className = 'infoName';
 infoName.placeholder = 'Quý danh';
-infoName.style.textTransform = 'capitalize';
 
 let infoBirthday = document.createElement('input');
 infoBirthday.className = 'infoBirthday';
@@ -94,12 +92,12 @@ function startInfoArea() {
     document.body.append(infoArea);
     setVisibility([infoTitle, infoBoard, infoEmail, infoPassword, infoButton, infoText,
         infoName, infoBirthday, infoOTP], false);
-    infoTitle.animate(fadeIn(), options(0.5));
-    infoBoard.animate(fadeIn(), options(0.5, 0.3));
-    infoEmail.animate(slideIn(-40, 0), options(0.5, 0.3));
-    infoPassword.animate(slideIn(-40, 0), options(0.5, 0.5));
-    infoButton.animate(slideIn(-40, 0), options(0.5, 0.7));
-    infoText.animate(fadeIn(), options(0.5, 1.2));
+    infoTitle.animate(fadeIn(), options(0.7));
+    infoBoard.animate(fadeIn(), options(0.5, 0.4));
+    infoEmail.animate(slideIn(-40, 0), options(0.5, 0.4));
+    infoPassword.animate(slideIn(-40, 0), options(0.5, 0.6));
+    infoButton.animate(slideIn(-40, 0), options(0.5, 0.8));
+    infoText.animate(fadeIn(), options(0.5, 1.1));
 }
 
 infoEmail.onkeydown = function (event) {
@@ -126,7 +124,8 @@ infoEmail.onblur = function () {
     this.value = infoEmail.value
         .replaceAll(' ', '')
         .replace(/(@)+/g, '@')
-        .replace(/(\.)+/g, '.');
+        .replace(/(\.)+/g, '.')
+        .toLowerCase();
     if (this.value) checkEmail();
 }
 
@@ -140,7 +139,7 @@ infoPassword.onfocus = function () {
     infoEmail.style.pointerEvents = 'none';
 
     if (!infoEmail.value) infoEmail.focus();
-    if (infoEmail.className === 'infoEmail') {
+    if (infoEmail.classList.length === 1) {
         this.blur();
         if (infoEmail.value) checkEmail();
     }
@@ -190,16 +189,16 @@ infoName.onfocus = function () {
 }
 
 infoName.onblur = function () {
-    this.value = this.value
+    this.value = toTitleCase(this.value
         .replace(/\s+/g, ' ')
         .replace(/[\d`~!@#$%^&*()+=\-_/\\|.,<>?:;'"]/g, '')
-        .trim();
+        .trim());
 
     if (this.value) {
-        this.classList.add('signUp');
-        if (infoBirthday.className !== 'infoBirthday') setTimeout(function () {
-            setInfoButton(true);
-        }, 500);
+        setTimeout(function () {
+            infoName.classList.add('signUp');
+            if (infoBirthday.classList.length > 1) setInfoButton(true);
+        }, 0.25 * 1000);
     }
 }
 
@@ -240,10 +239,10 @@ infoBirthday.onblur = function () {
                 this.setCustomValidity('Sinh nhật không hợp lệ.');
                 this.reportValidity();
             } else {
-                this.classList.add('signUp');
-                if (infoName.className !== 'infoName') setTimeout(function () {
-                    setInfoButton(true);
-                }, 500);
+                setTimeout(function () {
+                    infoBirthday.classList.add('signUp');
+                    if (infoName.classList.length > 1) setInfoButton(true);
+                }, 0.25 * 1000);
             }
         }
     }
@@ -293,9 +292,11 @@ function checkPassword() {
                     navigator.vibrate(500);
                 }
             } else {
-                infoPassword.classList.add('signUp');
-                infoPassword.classList.remove('signIn');
-                setInfoButton(true);
+                setTimeout(function () {
+                    infoPassword.classList.add('signUp');
+                    infoPassword.classList.remove('signIn');
+                    setInfoButton(true);
+                }, 0.25 * 1000);
             }
         }).catch(function () {
             infoText.innerHTML = array.offline;
@@ -327,9 +328,11 @@ function checkOTP() {
             infoText.innerHTML = array.wrongOTP;
             navigator.vibrate(500);
         } else {
-            setInfoOTP(false);
-            infoText.innerHTML = array.rightOTP;
-            sessionStorage.setItem('finalOTP', 'rightOTP');
+            setTimeout(function () {
+                setInfoOTP(false);
+                infoText.innerHTML = array.rightOTP;
+                sessionStorage.setItem('finalOTP', 'rightOTP');
+            }, 0.25 * 1000);
         }
     }
 }
@@ -358,28 +361,29 @@ function setInfoButton(type) {
     if (type === true) {
         infoButton.classList.add('active');
         infoButton.style.pointerEvents = 'visible';
-        infoButton.onclick = setInfoFunction;
+        infoButton.onclick = function () {
+            infoButton.style.pointerEvents = 'none';
+            switch (sessionStorage.getItem('infoSection')) {
+                case 'signUp':
+                    sessionStorage.setItem('infoSection', 'identify');
+                    infoText.innerHTML = array.identify;
+                    setInfoButton(false);
+
+                    infoEmail.animate(slideOut(40, 0), options(0.5, 0));
+                    infoName.animate(slideIn(-40, 0), options(0.5, 0.3));
+                    infoPassword.animate(slideOut(40, 0), options(0.5, 0));
+                    infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3));
+                    break;
+                case 'identify':
+                    //updateUserData();
+                    break;
+                case 'signIn':
+                    break;
+            }
+        }
     } else {
         infoButton.classList.remove('active');
         infoButton.style.pointerEvents = 'none';
-        infoButton.onclick = null;
-    }
-}
-
-function setInfoFunction() {
-    let infoSection = sessionStorage.getItem('infoSection');
-    if (infoSection === 'signUp') {
-        infoEmail.animate(slideOut(40, 0), options(0.5, 0));
-        infoName.animate(slideIn(-40, 0), options(0.5, 0.3));
-        infoPassword.animate(slideOut(40, 0), options(0.5, 0));
-        infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3));
-
-        sessionStorage.setItem('infoSection', 'identify');
-        infoText.innerHTML = array.identify;
-        setInfoButton(false);
-    } else if (infoSection === 'identify') {
-        infoButton.onclick = null;
-        updateUserData();
     }
 }
 

@@ -97,6 +97,17 @@ function minimize() {
     }];
 }
 
+function maximize() {
+    return [{
+        opacity: 0,
+        visibility: 'hidden'
+    }, {
+        opacity: 1,
+        visibility: 'visible',
+        height: 'max-content'
+    }];
+}
+
 function pumping(value) {
     return [{
         transform: `scale(${value})`
@@ -108,15 +119,3 @@ function bounce(x, y) {
         transform: `translate(${x}px, ${y}px)`
     }];
 }
-
-// @keyframes maximize {
-//     from {
-//         opacity: 0;
-//         visibility: hidden;
-//     }
-//     to {
-//         height: max-content;
-//         opacity: 1;
-//         visibility: visible;
-//     }
-// }
