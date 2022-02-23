@@ -21,7 +21,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     alert(padding);
     document.body.style.padding = padding > 25
         ? `${padding}px 0`
-        : '20px 0';
+        : '15px 0';
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
