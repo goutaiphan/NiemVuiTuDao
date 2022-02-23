@@ -25,15 +25,11 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         widthRatio = 1;
         //object.style.marginTop = marginDesktop + 'px';
     }
-
-    console.log(document.body.offsetHeight);
-    console.log(object.offsetHeight);
+    
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
-    alert(padding);
     document.body.style.padding = `${padding}px 0`;
     object.style.minWidth = 'max-content';
     object.style.transform = `scale(${widthRatio})`;
-    object.style.backgroundColor = 'beige';
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
