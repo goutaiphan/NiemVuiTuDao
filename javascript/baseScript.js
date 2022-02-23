@@ -3,8 +3,6 @@ export {
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
-
 function createJavaScript(name) {
     let javaScript = document.createElement('script');
     javaScript.src = `javascript/${name}.js`;
@@ -12,6 +10,7 @@ function createJavaScript(name) {
     document.body.append(javaScript);
 }
 
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
