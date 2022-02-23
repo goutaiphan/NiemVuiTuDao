@@ -1,6 +1,6 @@
 export {setSizeRatio, setVisibility, deAccent, randomize, sendEmail, toTitleCase};
 
-function setSizeRatio(object, marginTop) {
+function setSizeRatio(object, marginDesktop, marginMobile) {
     // alert(screen.width + '/' + screen.height + ','
     //     + outerWidth + '/' + outerHeight);
     let width = Math.min(screen.width, screen.height);
@@ -9,10 +9,10 @@ function setSizeRatio(object, marginTop) {
     let heightRatio = height / 850;
 
     object.style.minWidth = 'max-content';
-    object.style.marginTop = marginTop + 'px';
+    object.style.marginTop = marginDesktop + 'px';
 
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-        object.style.marginTop = -marginTop + 'px';
+        object.style.marginTop = -marginMobile + 'px';
         if (width >= 450) {
             widthRatio = widthRatio * 0.7;
         }

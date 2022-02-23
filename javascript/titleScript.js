@@ -6,7 +6,7 @@ import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 let titleArea = document.createElement('div');
 titleArea.id = 'titleArea';
 document.body.append(titleArea);
-setSizeRatio(titleArea, 20);
+setSizeRatio(titleArea, 20, 20);
 
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
