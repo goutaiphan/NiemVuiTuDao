@@ -24,14 +24,12 @@ introBoard.append(introText);
 
 let introArea = document.createElement('div');
 introArea.id = 'introArea';
-setSizeRatio(introArea, 60);
 introArea.append(introBoard, tieuDan);
+setSizeRatio(introArea, 60);
 
 function startIntroArea() {
     document.body.append(introArea);
-    document.body.append(tieuDan);
     setVisibility([introBoard, tieuDan], false);
-
     tieuDan.animate(fadeIn(), options(0.7, 0.2));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
