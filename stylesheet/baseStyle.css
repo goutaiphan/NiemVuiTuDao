@@ -40,7 +40,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    width: 100vw;
+    min-width: 100vw;
     min-height: 90vh;
     margin: auto;
 }
