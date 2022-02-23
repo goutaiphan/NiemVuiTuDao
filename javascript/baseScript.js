@@ -8,18 +8,20 @@ function setSizeRatio(object, marginTop) {
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
     let heightRatio = height / 850;
-    
+
+    object.style.height = 'max-content';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
         if (width < 450) {
             object.style.minWidth = 'max-content';
             object.style.width = width + 'px';
+            //object.style.marginTop =
         } else {
             widthRatio = widthRatio * 0.7;
             object.style.marginTop = width < 1000
                 ? 150 * heightRatio + 'px'
                 : 200 * heightRatio + 'px'
         }
-        object.style.transform = `scale(${widthRatio})`;
+        //object.style.transform = `scale(${widthRatio})`;
     } else {
         object.style.marginTop = marginTop + 'px';
     }
