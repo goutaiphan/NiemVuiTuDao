@@ -86,8 +86,8 @@ infoText.innerHTML = array.normal;
 
 let infoArea = document.createElement('div');
 infoArea.id = 'infoArea';
-setSizeRatio(infoArea, 35)
 infoArea.append(infoTitle, infoBoard, infoText);
+setSizeRatio(infoArea, 35, 35);
 
 function startInfoArea() {
     document.body.append(infoArea);
