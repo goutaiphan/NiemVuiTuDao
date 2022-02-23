@@ -13,7 +13,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
     object.style.minWidth = 'max-content';
     if (width < 1080) {
-        if (width >= 768) widthRatio = widthRatio * 0.7;
+        if (width > 450) widthRatio = widthRatio * 0.7;
         object.style.marginTop = marginMobile + 'px';
     } else {
         widthRatio = 1;
