@@ -3,7 +3,8 @@ export {
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+alert(getComputedStyle(document.body).getPropertyValue('padding'));
 
 function createJavaScript(name) {
     let javaScript = document.createElement('script');
