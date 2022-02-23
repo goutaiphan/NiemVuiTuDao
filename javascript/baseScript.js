@@ -25,14 +25,18 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         widthRatio = 1;
         object.style.marginTop = marginDesktop + 'px';
     }
+    object.style.transform = `scale(${widthRatio})`;
+    object.style.minWidth = 'max-content';
 
+    if (width <= 360) {
+        document.body.style.width = '100vw';
+        document.body.style.height = '100vh';
+    }
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 0
         ? `${padding}px 0`
         : '0';
-    alert(padding);
-    object.style.minWidth = 'max-content';
-    object.style.transform = `scale(${widthRatio})`;
+
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
