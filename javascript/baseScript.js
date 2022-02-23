@@ -32,7 +32,6 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     document.body.style.padding = padding > 0
         ? `${padding}px 0`
         : '0';
-
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
