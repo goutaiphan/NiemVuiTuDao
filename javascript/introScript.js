@@ -1,6 +1,6 @@
 export {startIntroArea, tieuDan};
 import {startInfoArea} from "./infoScript.js";
-import {setVisibility} from "./baseScript.js";
+import {setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
@@ -24,6 +24,7 @@ introBoard.append(introText);
 
 let introArea = document.createElement('div');
 introArea.id = 'introArea';
+setSizeRatio(introArea, 60);
 introArea.append(introBoard);
 
 function startIntroArea() {

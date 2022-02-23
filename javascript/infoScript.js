@@ -1,6 +1,6 @@
 export {startInfoArea};
 import {tieuDan} from "./introScript.js";
-import {setVisibility, randomize, sendEmail, toTitleCase} from "./baseScript.js";
+import {setVisibility, randomize, sendEmail, toTitleCase, setSizeRatio} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -86,6 +86,7 @@ infoText.innerHTML = array.normal;
 
 let infoArea = document.createElement('div');
 infoArea.id = 'infoArea';
+setSizeRatio(infoArea, 35)
 infoArea.append(infoTitle, infoBoard, infoText);
 
 function startInfoArea() {
