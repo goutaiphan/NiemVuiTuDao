@@ -8,8 +8,6 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    alert(check(object));
-
     object.style.minWidth = 'max-content';
     object.style.marginTop = marginDesktop + 'px';
 
@@ -20,20 +18,6 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         }
         object.style.transform = `scale(${widthRatio})`;
     }
-}
-
-function check(el) {
-    var curOverf = el.style.overflow;
-
-    if ( !curOverf || curOverf === "visible" )
-        el.style.overflow = "hidden";
-
-    var isOverflowing = el.clientWidth < el.scrollWidth
-        || el.clientHeight < el.scrollHeight;
-
-    el.style.overflow = curOverf;
-
-    return isOverflowing;
 }
 
 function setVisibility(object, type) {

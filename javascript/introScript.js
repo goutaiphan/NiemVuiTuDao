@@ -30,7 +30,7 @@ function startIntroArea() {
     document.body.append(introArea);
     setSizeRatio(introArea, 60, -20);
     setVisibility([introBoard, tieuDan], false);
-    
+
     tieuDan.animate(fadeIn(), options(0.7, 0.2));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
