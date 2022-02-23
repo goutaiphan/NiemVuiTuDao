@@ -65,6 +65,10 @@ let infoButton = document.createElement('button');
 infoButton.className = 'infoButton';
 infoButton.innerHTML = 'Đăng nhập/Đăng ký';
 
+let infoButtonBox = document.createElement('div');
+infoButtonBox.className = 'infoButtonBox';
+infoButtonBox.append(infoButton);
+
 let infoName = document.createElement('input');
 infoName.className = 'infoName';
 infoName.placeholder = 'Quý danh';
@@ -77,7 +81,7 @@ infoBirthday.maxLength = 10;
 
 let infoBoard = document.createElement('div');
 infoBoard.className = 'infoBoard';
-infoBoard.append(infoEmail, infoPassword, infoOTP, infoName, infoBirthday, infoButton);
+infoBoard.append(infoEmail, infoPassword, infoOTP, infoName, infoBirthday, infoButtonBox);
 
 let infoText = document.createElement('div');
 infoText.className = 'infoText';
@@ -96,7 +100,7 @@ function startInfoArea() {
     infoBoard.animate(fadeIn(), options(0.5, 0.6));
     infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6));
     infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8));
-    infoButton.animate(slideIn(-40, 0), options(0.5, 1));
+    infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1));
     infoText.animate(fadeIn(), options(0.5, 1.2));
 }
 
@@ -362,7 +366,7 @@ function setInfoButton(type) {
         infoButton.classList.add('active');
         infoButton.style.pointerEvents = 'visible';
         infoButton.onclick = function () {
-            infoButton.style.pointerEvents = 'none';
+            //infoButton.style.pointerEvents = 'none';
             switch (sessionStorage.getItem('infoSection')) {
                 case 'signUp':
                     sessionStorage.setItem('infoSection', 'identify');

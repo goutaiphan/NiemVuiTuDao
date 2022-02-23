@@ -103,10 +103,15 @@
     border-bottom: 2px solid #878798;
 }
 
-.infoButton {
+.infoButtonBox {
     width: 75%;
     height: 55px;
     margin: 40px 0 0;
+}
+
+.infoButton {
+    width: 100%;
+    height: 100%;
 
     font-size: 19.5px;
     border-radius: 5px;
@@ -120,8 +125,8 @@
     cursor: pointer;
 }
 
-.infoButton.active {
-    transform: translate(0, 5px);
+.infoButton.active:active {
+    transform: scale(0.95);
 }
 
 .infoText {
