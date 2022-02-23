@@ -17,17 +17,16 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
-    alert(padding);
-    document.body.style.padding = padding > 0
-        ? `${padding}px 0`
-        : '25px 0';
-
     if (width < 1080) {
-        if (width > 450) widthRatio = widthRatio * 0.7;
-        object.style.marginTop = marginMobile * heightRatio + 'px';
         document.body.style.width = '90vw';
         document.body.style.height = '90vh';
+        let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
+        alert(padding);
+        document.body.style.padding = padding > 0
+            ? `${padding}px 0`
+            : '25px 0';
+        if (width > 450) widthRatio = widthRatio * 0.7;
+        if (-marginMobile * heightRatio < padding) object.style.marginTop = marginMobile * heightRatio + 'px';
     } else {
         widthRatio = 1;
         object.style.marginTop = marginDesktop + 'px';
