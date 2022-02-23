@@ -1,6 +1,4 @@
-export {startIntroArea};
-import {startInfoArea} from "./infoScript.js";
-import {setSizeRatio, setVisibility} from "./baseScript.js";
+import {createJavaScript, setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
@@ -23,43 +21,38 @@ introText.innerHTML = array[0];
 introBoard.append(introText);
 
 let introArea = document.createElement('div');
-introArea.id = 'introArea';
 introArea.append(introBoard, tieuDan);
 setSizeRatio(introArea, 60, -18);
 setVisibility([introBoard, tieuDan], false);
 
-function startIntroArea() {
-    document.body.append(introArea);
-    tieuDan.animate(fadeIn(), options(0.7, 0.2));
-    tieuDan.animate(bounce(0, 20),
-        options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
-    introBoard.animate(slideIn(0, 15), options(0.5, 1.6))
-        .onfinish = clickIntroArea;
+document.body.append(introArea);
+tieuDan.animate(fadeIn(), options(0.7, 0.2));
+tieuDan.animate(bounce(0, 20),
+    options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
+introBoard.animate(slideIn(0, 15), options(0.5, 1.6)).onfinish = function () {
+    document.body.style.pointerEvents = 'visible';
 }
 
-function clickIntroArea() {
-    let i = 0;
-    document.body.onclick = function () {
-        document.body.style.pointerEvents = 'none';
-        if (i < array.length - 1) {
-            i++;
-            introText.animate(fadeOut(), options(0.5))
-                .onfinish = function () {
-                introText.innerHTML = array[i];
-                introText.animate(fadeIn(), options(0.5));
+let i = 0;
+document.body.style.pointerEvents = 'none';
+document.body.onclick = function () {
+    document.body.style.pointerEvents = 'none';
+    if (i < array.length - 1) {
+        i++;
+        introText.animate(fadeOut(), options(0.5)).onfinish = function () {
+            introText.innerHTML = array[i];
+            introText.animate(fadeIn(), options(0.5));
+            document.body.style.pointerEvents = 'visible';
+        };
+    } else {
+        introText.animate(fadeOut(), options(0.5, 0.5));
+        introBoard.animate(minimize(), options(2, 0, 'ease-in-out')).onfinish = function () {
+            setTimeout(function () {
+                introArea.remove();
                 document.body.style.pointerEvents = 'visible';
-            };
-        } else {
-            introText.animate(fadeOut(), options(0.5, 0.5));
-            introBoard.animate(minimize(), options(2, 0, 'ease-in-out'))
-                .onfinish = function () {
-                setTimeout(function () {
-                    introArea.remove();
-                    startInfoArea();
-                    document.body.style.pointerEvents = 'visible';
-                    document.body.onclick = null;
-                }, 2 * 1000);
-            };
-        }
+                document.body.onclick = null;
+                createJavaScript('infoScript');
+            }, 2 * 1000);
+        };
     }
 }

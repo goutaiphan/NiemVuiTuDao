@@ -1,5 +1,8 @@
-export {fadeIn, fadeOut, slideOut, slideIn, zoomIn, zoomOut, minimize, pumping, bounce};
-export {options};
+export {
+    options,
+    fadeIn, fadeOut, slideOut, slideIn, zoomIn, zoomOut, minimize,
+    pumping, bounce
+};
 
 function options(duration = 0,
                  delay = 0,

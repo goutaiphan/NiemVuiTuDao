@@ -1,11 +1,9 @@
-export {startInfoArea};
-import {setVisibility, randomize, sendEmail, toTitleCase, setSizeRatio} from "./baseScript.js";
+import {createJavaScript, setVisibility, randomize, sendEmail, toTitleCase, setSizeRatio} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
     getDatabase, get, update, ref, query, child, orderByChild, equalTo, limitToFirst
-} from
-        "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let app = initializeApp({
         databaseURL: "https://tangkinhcacdaidao-userdata.asia-southeast1.firebasedatabase.app"
@@ -19,7 +17,7 @@ let app = initializeApp({
 // const scoreDatabase = getDatabase(app2);
 
 let array = {
-    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span> để<br>tham gia chương trình.`,
+    normal: `Quý huynh tỷ vui lòng<br><span>đăng nhập</span> hoặc <span>đăng ký</span><br>để tham gia chương trình.`,
     signIn: `Tài khoản <span>đã tồn tại,</span><br>
         quý huynh tỷ vui lòng điền<br>mật khẩu để <span>đăng nhập.</span>`,
     wrongPassword: `Mật khẩu <span>chưa chính xác,</span><br>
@@ -88,21 +86,18 @@ infoText.className = 'infoText';
 infoText.innerHTML = array.normal;
 
 let infoArea = document.createElement('div');
-infoArea.id = 'infoArea';
 infoArea.append(infoTitle, infoBoard, infoText);
 setSizeRatio(infoArea, 35, -30);
 setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText], false);
 
-function startInfoArea() {
-    document.body.append(infoArea);
-    infoTitle.children[0].animate(fadeIn(), options(0.5));
-    infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
-    infoBoard.animate(fadeIn(), options(0.5, 0.6));
-    infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6));
-    infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8));
-    infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1));
-    infoText.animate(fadeIn(), options(0.5, 1.2));
-}
+document.body.append(infoArea);
+infoTitle.children[0].animate(fadeIn(), options(0.5));
+infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
+infoBoard.animate(fadeIn(), options(0.5, 0.6));
+infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6));
+infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8));
+infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1));
+infoText.animate(fadeIn(), options(0.5, 1.2));
 
 infoEmail.onkeydown = function (event) {
     this.setCustomValidity('');
@@ -344,11 +339,10 @@ function checkOTP() {
 function setInfoOTP(type) {
     setVisibility(infoOTP, type);
     sessionStorage.removeItem('finalOTP');
-    if (type === true) {
+    if (type === true)
         for (let j = 0; j < infoOTP.children.length; j++) {
             getChild(j).value = '';
         }
-    }
 }
 
 function getChild(index) {
@@ -366,7 +360,7 @@ function setInfoButton(type) {
         infoButton.classList.add('active');
         infoButton.style.pointerEvents = 'visible';
         infoButton.onclick = function () {
-            //infoButton.style.pointerEvents = 'none';
+            infoButton.style.pointerEvents = 'none';
             switch (sessionStorage.getItem('infoSection')) {
                 case 'signUp':
                     sessionStorage.setItem('infoSection', 'identify');
@@ -393,7 +387,7 @@ function setInfoButton(type) {
 
 function updateUserData() {
     get(userRef).then(function (data) {
-        let userID = `user${data.size}`
+        let userID = `user${data.size}`;
         let userData = {
             userID: userID,
             userEmail: infoEmail.value,
@@ -402,10 +396,10 @@ function updateUserData() {
             userBirthday: infoBirthday.value
         }
         update(child(userRef, userID), userData);
-        sessionStorage.setItem('userData', JSON.stringify(userData));
-        console.log(`Xin chúc mừng ${userData.userName}, đây là tài khoản thứ 
-        ${userData.userID.replace('user', '')}
-        đăng ký thành công tại Tàng Kinh Các Đại Đạo.`)
+        // sessionStorage.setItem('userData', JSON.stringify(userData));
+        // console.log(`Xin chúc mừng ${userData.userName}, đây là tài khoản thứ
+        // ${userData.userID.replace('user', '')}
+        // đăng ký thành công tại Tàng Kinh Các Đại Đạo.`);
     }).catch(function () {
         infoText.innerHTML = array.offline;
     })

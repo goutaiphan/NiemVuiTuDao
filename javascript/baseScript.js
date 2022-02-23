@@ -1,15 +1,22 @@
-export {setSizeRatio, setVisibility, deAccent, randomize, sendEmail, toTitleCase};
+export {
+    createJavaScript, setSizeRatio, setVisibility,
+    deAccent, toTitleCase, randomize, sendEmail
+};
 
-alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+
+function createJavaScript(name) {
+    let javaScript = document.createElement('script');
+    javaScript.src = `javascript/${name}.js`;
+    javaScript.type = 'module';
+    document.body.append(javaScript);
+}
 
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
     let heightRatio = height / 850;
-
-    // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-    // }
 
     object.style.minWidth = 'max-content';
     if (width < 1080) {
@@ -20,6 +27,9 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         object.style.marginTop = marginDesktop + 'px';
     }
     object.style.transform = `scale(${widthRatio})`;
+
+    // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+    // }
 }
 
 function setVisibility(object, type) {
