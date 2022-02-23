@@ -4,7 +4,6 @@ export {
 };
 
 //alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
-alert(getComputedStyle(document.body).getPropertyValue('padding'));
 
 function createJavaScript(name) {
     let javaScript = document.createElement('script');
@@ -19,16 +18,18 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    object.style.minWidth = 'max-content';
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
-        object.style.marginTop = marginMobile + 'px';
+        //object.style.marginTop = marginMobile + 'px';
     } else {
         widthRatio = 1;
-        object.style.marginTop = marginDesktop + 'px';
+        //object.style.marginTop = marginDesktop + 'px';
     }
-    object.style.transform = `scale(${widthRatio})`;
 
+    let padding = (document.body.offsetHeight - object.offsetHeight) / 2;
+    document.body.style.padding = `${padding}px 0`;
+    object.style.minWidth = 'max-content';
+    object.style.transform = `scale(${widthRatio})`;
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }

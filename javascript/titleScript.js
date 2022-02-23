@@ -2,8 +2,6 @@ import {createJavaScript, setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let titleArea = document.createElement('div');
-setSizeRatio(titleArea, 20, -28);
-document.body.append(titleArea);
 
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
@@ -19,6 +17,9 @@ for (let i = 0; i < array.length; i++) {
     setVisibility(child, false);
     titleArea.append(child);
 }
+
+document.body.append(titleArea);
+setSizeRatio(titleArea, 20, -28);
 
 let children = titleArea.children;
 children[0].animate(fadeIn(), options(0.5, 0.5));
