@@ -10,7 +10,7 @@ function createJavaScript(name) {
     document.body.append(javaScript);
 }
 
-//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
@@ -19,7 +19,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
-        object.style.marginTop = marginMobile + 'px';
+        object.style.marginTop = marginMobile * heightRatio + 'px';
     } else {
         widthRatio = 1;
         object.style.marginTop = marginDesktop + 'px';
