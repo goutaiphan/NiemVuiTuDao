@@ -1,6 +1,6 @@
 export {setSizeRatio, setVisibility, deAccent, randomize, sendEmail, toTitleCase};
 
-alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
@@ -8,16 +8,20 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    object.style.minWidth = 'max-content';
-    object.style.marginTop = marginDesktop + 'px';
+    // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+    // }
 
-    if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-        object.style.marginTop = marginMobile + 'px';
-        if (width >= 450) {
+    object.style.minWidth = 'max-content';
+    if (width < 1080) {
+        if (width >= 768) {
             widthRatio = widthRatio * 0.7;
         }
-        object.style.transform = `scale(${widthRatio})`;
+        object.style.marginTop = marginMobile + 'px';
+    } else if (width >= 1080) {
+        widthRatio = 1;
+        object.style.marginTop = marginDesktop + 'px';
     }
+    object.style.transform = `scale(${widthRatio})`;
 }
 
 function setVisibility(object, type) {
