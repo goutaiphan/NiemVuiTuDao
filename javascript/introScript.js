@@ -46,7 +46,7 @@ document.body.onclick = function () {
         };
     } else {
         introText.animate(fadeOut(), options(0.5, 0.5));
-        introBoard.animate(minimize(), options(2, 0, 'ease-in-out'))
+        introBoard.animate(minimize(), options(2, 0, 'ease-in-out'));
         setTimeout(function () {
             introArea.remove();
             document.body.style.pointerEvents = 'visible';
