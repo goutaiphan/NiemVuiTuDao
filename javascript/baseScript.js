@@ -3,7 +3,7 @@ export {
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 
 function createJavaScript(name) {
     let javaScript = document.createElement('script');
@@ -28,8 +28,9 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
     console.log(document.body.offsetHeight);
     console.log(object.offsetHeight);
-    let padding = (document.body.offsetHeight - object.offsetHeight) / 2;
-    //document.body.style.padding = `${padding}px 0`;
+    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
+    alert(padding);
+    document.body.style.padding = `${padding}px 0`;
     object.style.minWidth = 'max-content';
     object.style.transform = `scale(${widthRatio})`;
     object.style.backgroundColor = 'beige';
