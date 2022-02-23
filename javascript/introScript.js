@@ -1,4 +1,4 @@
-export {startIntroArea, tieuDan};
+export {startIntroArea};
 import {startInfoArea} from "./infoScript.js";
 import {setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
