@@ -20,13 +20,13 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
     if (width < 1080) {
         document.body.style.width = width * 90 / 100 + 'px';
-        document.body.style.height = height * 90 / 100 + 'px';
+        document.body.style.height = '90vh';
     } else {
         document.body.style.minWidth = '90vw';
         document.body.style.minHeight = '90vh';
     }
 
-    alert(height);
+    alert(height * 90 / 100);
     alert(document.body.offsetHeight);
 
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
