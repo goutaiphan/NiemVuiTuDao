@@ -19,8 +19,8 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let heightRatio = height / 850;
 
     if (width < 1080) {
-        document.body.style.width = '90vmin';
-        document.body.style.height = '90vmax';
+        document.body.style.minWidth = '90vmin';
+        document.body.style.minHeight = '90vmax';
     } else {
         document.body.style.minWidth = '90vw';
         document.body.style.minHeight = '90vh';
