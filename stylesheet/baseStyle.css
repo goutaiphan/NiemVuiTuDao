@@ -39,9 +39,6 @@ body {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-
-    min-width: 90vw;
-    height: 90vh;
     margin: auto;
 }
 

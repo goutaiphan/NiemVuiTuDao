@@ -26,9 +26,13 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
         if (-marginMobile * heightRatio < padding) object.style.marginTop = marginMobile * heightRatio + 'px';
+        document.body.style.width = '90vw';
+        document.body.style.height = '90vh';
     } else {
         widthRatio = 1;
         object.style.marginTop = marginDesktop + 'px';
+        document.body.style.minWidth = '90vw';
+        document.body.style.minHeight = '90vh';
     }
     object.style.transform = `scale(${widthRatio})`;
     object.style.minWidth = 'max-content';
