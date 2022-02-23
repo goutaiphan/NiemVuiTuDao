@@ -12,14 +12,7 @@ function setSizeRatio(object, marginTop) {
     object.style.height = 'max-content';
     object.style.backgroundColor = 'beige';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-        window.addEventListener("load",function() {
-            setTimeout(function(){
-                // This hides the address bar:
-                window.scrollTo(0, 1);
-            }, 0);
-        });
-        
-        document.body.style.width = width + 'px';
+               document.body.style.width = width + 'px';
         alert(innerHeight);
         document.body.style.height = innerHeight + 'px';
 
