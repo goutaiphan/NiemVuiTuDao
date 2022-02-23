@@ -55,7 +55,6 @@ function clickIntroArea() {
                 .onfinish = function () {
                 setTimeout(function () {
                     introArea.remove();
-                    tieuDan.remove();
                     startInfoArea();
                     document.body.style.pointerEvents = 'visible';
                     document.body.onclick = null;
