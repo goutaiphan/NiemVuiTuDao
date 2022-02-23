@@ -27,7 +27,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
-        if (height > 600) object.style.marginTop = marginMobile * heightRatio + 'px';
+        if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
     } else {
         widthRatio = 1;
         object.style.marginTop = marginDesktop + 'px';
