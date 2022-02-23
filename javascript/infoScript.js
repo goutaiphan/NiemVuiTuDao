@@ -41,7 +41,7 @@ let array = {
 
 let infoTitle = document.createElement('div');
 infoTitle.className = 'infoTitle';
-infoTitle.innerHTML = 'Tàng Kinh Các<br>Đại Đạo';
+infoTitle.innerHTML = '<p>Tàng Kinh Các</p><p>Đại Đạo</p>';
 
 let infoEmail = document.createElement('input');
 infoEmail.className = 'infoEmail';
@@ -90,13 +90,14 @@ infoArea.append(infoTitle, infoBoard, infoText);
 
 function startInfoArea() {
     document.body.append(infoArea);
-    setVisibility([infoTitle, infoBoard, infoEmail, infoPassword, infoButton, infoText,
-        infoName, infoBirthday, infoOTP], false);
-    infoTitle.animate(fadeIn(), options(0.7));
-    infoBoard.animate(fadeIn(), options(0.5, 0.4));
-    infoEmail.animate(slideIn(-40, 0), options(0.5, 0.4));
-    infoPassword.animate(slideIn(-40, 0), options(0.5, 0.6));
-    infoButton.animate(slideIn(-40, 0), options(0.5, 0.8));
+    setVisibility([infoTitle.children[0], infoTitle.children[1], infoBoard, infoText,
+        infoEmail, infoPassword, infoButton, infoName, infoBirthday, infoOTP], false);
+    infoTitle.children[0].animate(fadeIn(), options(0.5));
+    infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
+    infoBoard.animate(fadeIn(), options(0.5, 0.6));
+    infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6));
+    infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8));
+    infoButton.animate(slideIn(-40, 0), options(0.5, 1));
     infoText.animate(fadeIn(), options(0.5, 1.1));
 }
 
