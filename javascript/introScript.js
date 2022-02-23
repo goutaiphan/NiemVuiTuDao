@@ -22,10 +22,10 @@ introBoard.append(introText);
 
 let introArea = document.createElement('div');
 introArea.append(introBoard, tieuDan);
+document.body.append(introArea);
 setSizeRatio(introArea, 60, -18);
 setVisibility([introBoard, tieuDan], false);
 
-document.body.append(introArea);
 tieuDan.animate(fadeIn(), options(0.7, 0.2));
 tieuDan.animate(bounce(0, 20),
     options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
