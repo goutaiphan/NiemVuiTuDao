@@ -12,8 +12,8 @@ function setSizeRatio(object, marginTop) {
     object.style.minWidth = 'max-content';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
         if (width < 450) {
-            document.body.style.width = '100vw';
-            document.body.style.height = '100vh';
+            document.body.style.width = '90vw';
+            document.body.style.height = '90vh';
         } else {
             widthRatio = widthRatio * 0.7;
             object.style.marginTop = width < 1000
