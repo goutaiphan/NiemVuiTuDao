@@ -10,12 +10,14 @@ function createJavaScript(name) {
     document.body.append(javaScript);
 }
 
-alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
     let heightRatio = height / 850;
+
+    alert(marginMobile * heightRatio);
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
