@@ -12,9 +12,9 @@ function setSizeRatio(object, marginTop) {
     object.style.height = 'max-content';
     object.style.backgroundColor = 'beige';
     if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-               document.body.style.width = width + 'px';
-        alert(innerHeight);
-        document.body.style.height = innerHeight + 'px';
+        //        document.body.style.width = width + 'px';
+        // alert(innerHeight);
+        // document.body.style.height = innerHeight + 'px';
 
         if (width < 450) {
             object.style.minWidth = 'max-content';
