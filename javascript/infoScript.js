@@ -86,11 +86,12 @@ infoText.innerHTML = array.normal;
 let infoArea = document.createElement('div');
 infoArea.id = 'infoArea';
 infoArea.append(infoTitle, infoBoard, infoText);
-setSizeRatio(infoArea, 35, -30);
 
 function startInfoArea() {
     document.body.append(infoArea);
+    setSizeRatio(infoArea, 35, -30);
     setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText], false);
+
     infoTitle.children[0].animate(fadeIn(), options(0.5));
     infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
     infoBoard.animate(fadeIn(), options(0.5, 0.6));
