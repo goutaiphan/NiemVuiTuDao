@@ -18,17 +18,8 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    if (width < 1080) {
-        document.body.style.minWidth = '90vmin';
-        document.body.style.minHeight = '90vmax';
-    } else {
-        document.body.style.minWidth = '90vw';
-        document.body.style.minHeight = '90vh';
-    }
-
-    // alert(outerHeight);
-    // alert(document.body.offsetHeight);
-
+    document.body.style.minWidth = '90vw';
+    document.body.style.minHeight = '90vh';
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 0
         ? `${padding}px 0`
