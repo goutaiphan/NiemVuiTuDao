@@ -10,7 +10,7 @@ function createJavaScript(name) {
     document.body.append(javaScript);
 }
 
-//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 
 function setSizeRatio(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
