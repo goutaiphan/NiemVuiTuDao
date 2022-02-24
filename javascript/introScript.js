@@ -1,5 +1,5 @@
-import {appendObject, removeObject, setSize, setVisibility} from "../javascript/baseScript.js";
-import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "../javascript/animationScript.js";
+import {appendObject, removeObject, setSize, setVisibility} from "./baseScript.js";
+import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
     `Mến chúc quý đạo hữu<br>một năm mới nhiều<br><span>sức khỏe</span>, thường <span>an lạc</span><br>
@@ -54,8 +54,8 @@ function interlude() {
     board.animate(minimize(), options(2, 0, 'ease-in-out'));
     setTimeout(function () {
         document.body.style.pointerEvents = 'visible';
-        // document.body.onclick = null;
-        // appendObject('info');
-        // removeObject(area, 'intro');
+        document.body.onclick = null;
+        appendObject('info');
+        removeObject(area, 'intro');
     }, 4 * 1000);
 }
