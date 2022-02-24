@@ -104,10 +104,10 @@ message.innerHTML = array.normal;
 let area = document.createElement('div');
 area.append(title, board, message);
 document.body.append(area);
-setSize(area, 35, -10);
 setVisibility([...title.children, board, ...board.children, message], false);
 
 setTimeout(function () {
+    setSize(area, 35, -10);
     title.children[0].animate(fadeIn(), options(0.5));
     title.children[1].animate(fadeIn(), options(0.5, 0.4));
     board.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
