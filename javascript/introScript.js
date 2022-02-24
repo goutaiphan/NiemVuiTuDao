@@ -57,5 +57,5 @@ function interlude() {
         document.body.onclick = null;
         appendObject('info');
         removeObject(area, 'intro');
-    }, 3.5 * 1000);
+    }, 4 * 1000);
 }
