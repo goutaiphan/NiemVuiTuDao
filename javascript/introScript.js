@@ -26,10 +26,10 @@ document.body.append(area);
 setSize(area, 60, -15);
 setVisibility([board, tieuDan], false);
 
-tieuDan.animate(fadeIn(), options(0.7, 0.1));
+tieuDan.animate(fadeIn(), options(0.7, 0.2));
 tieuDan.animate(bounce(0, 20),
-    options(0.7, 0.8, 'ease-in', 'alternate', Infinity));
-board.animate(slideIn(0, 15), options(0.5, 1.5)).onfinish = function () {
+    options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
+board.animate(slideIn(0, 15), options(0.5, 1.6)).onfinish = function () {
     document.body.style.pointerEvents = 'visible';
 }
 
