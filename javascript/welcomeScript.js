@@ -22,10 +22,10 @@ let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
 setVisibility([board, tieuDan], false);
-setAppearance(board);
 
 setTimeout(function () {
     setSize(area, 3, -15);
+    setAppearance(board);
     tieuDan.animate(fadeIn(), options(0.7));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
