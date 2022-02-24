@@ -70,8 +70,10 @@ function setVisibility(object, type) {
     function process(object) {
         if (type === true) {
             object.style.opacity = '1';
+            object.style.visibility = 'visible';
         } else {
             object.style.opacity = '0';
+            object.style.visibility = 'hidden';
         }
     }
 }
