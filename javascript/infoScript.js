@@ -104,7 +104,7 @@ message.innerHTML = array.normal;
 let area = document.createElement('div');
 area.append(title, board, message);
 document.body.append(area);
-setSize(area, 35, -15);
+setSize(area, 35, -10);
 setVisibility([...title.children, board, ...board.children, message], false);
 
 setTimeout(function () {
