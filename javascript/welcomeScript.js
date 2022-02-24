@@ -1,5 +1,5 @@
 import {setAppearance, setSize, setVisibility} from "./baseScript.js";
-import {bounce, fadeIn, maximize, options, slideIn} from "./animationScript.js";
+import {bounce, fadeIn, fadeOut, maximize, options, slideIn} from "./animationScript.js";
 
 // let userData = JSON.parse(sessionStorage.getItem('userData'));
 let userData = {userName: 'Tĩnh Tâm', userID: 'user1'};
@@ -22,7 +22,7 @@ let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
 setVisibility([board, tieuDan], false);
-setSize(area, 3, -10);
+setSize(area, 50, -10);
 
 setTimeout(function () {
     setAppearance(board);
@@ -34,3 +34,17 @@ setTimeout(function () {
         document.body.style.pointerEvents = 'visible';
     }
 }, 0.5 * 1000);
+
+let i = 0;
+document.body.style.pointerEvents = 'none';
+document.body.onclick = function () {
+    document.body.style.pointerEvents = 'none';
+    if (i < array.length - 1) {
+        i++;
+        message.animate(fadeOut(), options(0.5)).onfinish = function () {
+            message.innerHTML = array[i];
+            message.animate(fadeIn(), options(0.5));
+            document.body.style.pointerEvents = 'visible';
+        };
+    } else interlude();
+}

@@ -105,7 +105,7 @@ let area = document.createElement('div');
 area.append(title, board, message);
 document.body.append(area);
 setVisibility([...title.children, board, ...board.children, message], false);
-setSize(area, 35, -10);
+setSize(area, 45, -10);
 
 setTimeout(function () {
     title.children[0].animate(fadeIn(), options(0.5));
