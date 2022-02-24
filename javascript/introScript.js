@@ -22,10 +22,10 @@ tieuDan.className = 'tieuDan';
 
 let area = document.createElement('div');
 area.append(board, tieuDan);
-document.body.append(area);
-setVisibility([board, tieuDan], false);
 
 setTimeout(function () {
+    document.body.append(area);
+    setVisibility([board, tieuDan], false);
     setSize(area, 60, -15);
 
     tieuDan.animate(fadeIn(), options(0.7));
