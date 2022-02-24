@@ -22,7 +22,7 @@ let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
 setVisibility([board, tieuDan], false);
-setSize(area, 3, -15);
+setSize(area, 3, -10);
 
 setTimeout(function () {
     setAppearance(board);
