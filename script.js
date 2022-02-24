@@ -1,5 +1,5 @@
-import {appendObject, removeObject, setSize, setVisibility} from "./baseScript.js";
-import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
+import {appendObject, removeObject, setSize, setVisibility} from "./javascript/baseScript.js";
+import {options, fadeIn, fadeOut, slideIn, pumping} from "./javascript/animationScript.js";
 
 let area = document.createElement('div');
 
@@ -46,8 +46,9 @@ function interlude() {
     document.body.append(backgroundAudio);
 
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        appendObject('intro');
+        location.href = 'intro/index.html';
+        // appendObject('intro');
         // appendObject('welcome');
-        removeObject(area, 'title');
+        // removeObject(area, 'title');
     }
 }
