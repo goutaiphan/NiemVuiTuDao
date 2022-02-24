@@ -23,6 +23,7 @@
     box-sizing: border-box;
     border: none;
     outline: none;
+    box-shadow: none;
 
     font-family: 'Lora', serif;
     text-align: center;
