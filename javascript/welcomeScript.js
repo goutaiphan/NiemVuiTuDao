@@ -21,7 +21,7 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
-setSize(area, 3, -25);
+setSize(area, 3, -20);
 setVisibility([board, tieuDan], false);
 setAppearance(board);
 
