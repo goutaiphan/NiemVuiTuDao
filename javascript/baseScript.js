@@ -43,7 +43,6 @@ function setSize(object, marginDesktop, marginMobile) {
     // document.body.style.padding = padding > 0
     //     ? `${padding}px 0`
     //     : '25px 0';
-    document.body.style.padding = 'max(5vmax, 25px), 0';
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
