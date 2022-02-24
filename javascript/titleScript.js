@@ -45,9 +45,10 @@ function interlude() {
     //backgroundAudio.play();
     document.body.append(backgroundAudio);
 
-    area.animate(fadeOut(), options(0.5)).onfinish = function () {
+    area.animate(fadeOut(), options(0.5));
+    setTimeout(function () {
         appendObject('intro');
         // appendObject('welcome');
         removeObject(area, 'title');
-    }
+    }, 0.5 * 1000);
 }
