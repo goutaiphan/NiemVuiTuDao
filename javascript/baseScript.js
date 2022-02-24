@@ -39,11 +39,6 @@ function setSize(object, marginDesktop, marginMobile) {
         document.body.style.minHeight = '90vh';
     }
 
-    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
-    // document.body.style.padding = padding > 0
-    //     ? `${padding}px 0`
-    //     : '25px 0';
-
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
         if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
