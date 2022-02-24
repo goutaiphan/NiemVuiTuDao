@@ -52,10 +52,10 @@ document.body.onclick = function () {
 function interlude() {
     message.animate(fadeOut(), options(0.5, 0.5));
     board.animate(minimize(), options(2, 0, 'ease-in-out'));
+    tieuDan.animate(fadeOut(), options(0.5, 4));
     setTimeout(function () {
         document.body.style.pointerEvents = 'visible';
         document.body.onclick = null;
-        tieuDan.animate(fadeOut(), options(0.5));
         appendObject('info');
         removeObject(area, 'intro');
     }, 4 * 1000);
