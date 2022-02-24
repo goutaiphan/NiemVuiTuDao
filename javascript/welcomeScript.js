@@ -1,15 +1,28 @@
-import {setAppearance, setSize, setVisibility} from "./baseScript.js";
+import {appendObject, removeObject, setAppearance, setSize, setVisibility} from "./baseScript.js";
 import {bounce, fadeIn, fadeOut, maximize, options, slideIn} from "./animationScript.js";
 
-// let userData = JSON.parse(sessionStorage.getItem('userData'));
-let userData = {userName: 'Tĩnh Tâm', userID: 'user1'};
-let array = [`Xin chúc mừng<br><span class="userName">${userData.userName}</span>`,
-    `Đây là tài khoản thứ ${userData.userID.replace('user', '')}
+let userData = JSON.parse(sessionStorage.getItem('userData'));
+let array1 = [`Xin chào mừng<br><span class="userName">${userData.userName}</span><br>`,
+    `đã quay trở lại<br>cùng chư huynh đệ<br><span>Tàng Kinh Các Đại Đạo.</span>`];
+let array2 = [`Xin chúc mừng<br><span class="userName">${userData.userName}</span>`,
+    `Đây là tài khoản<br><span>Thứ ${userData.userID.replace('user', '')}</span><br>
     đăng ký thành công tại<br><span>Tàng Kinh Các Đại Đạo.</span>`];
+let array3 = [`Chương trình <span>Niềm vui<br>tu Đạo</span> đang trong<br>giai đoạn <span>chuẩn bị,</span><br>`,
+    `<span>Tiểu Dần</span> sẽ thông báo<br>đến quý đạo hữu khi<br>chương trình <span>ra mắt.</span>
+    Xin trân trọng cảm ơn.`];
+
+let section = sessionStorage.getItem('section');
+let array = section === 'signIn'
+    ? [...array1, ...array3]
+    : [...array2, ...array3];
 
 let message = document.createElement('div');
 message.className = 'message';
 message.innerHTML = array[0];
+
+let button = document.createElement('button');
+button.className = 'button';
+button.innerHTML = 'Tham gia';
 
 let board = document.createElement('div');
 board.className = 'board';
@@ -21,14 +34,15 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
-setVisibility([board, tieuDan], false);
-setSize(area, 47, -10);
+setVisibility([board, message, tieuDan], false);
+setSize(area, 55, -10);
 
 setTimeout(function () {
     setAppearance(board);
     tieuDan.animate(fadeIn(), options(0.7));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
+    message.animate(fadeIn(), options(0.5, 4.3));
     board.animate(maximize('390px', '0 30px 40px'), options(2, 3.8, 'ease-in-out'))
         .onfinish = function () {
         document.body.style.pointerEvents = 'visible';
@@ -46,5 +60,16 @@ document.body.onclick = function () {
             message.animate(fadeIn(), options(0.5));
             document.body.style.pointerEvents = 'visible';
         };
-    } else interlude();
+    } else {
+        //board.append(button);
+        //interlude();
+    }
+}
+
+function interlude() {
+    area.animate(fadeOut(), options(0.5)).onfinish = function () {
+        // appendObject('intro');
+        appendObject('welcome');
+        removeObject(area, 'entrance');
+    }
 }

@@ -36,8 +36,8 @@ function setSize(object, marginDesktop, marginMobile) {
         document.body.style.width = '100vmin';
         document.body.style.height = '100vmax';
     } else {
-        document.body.style.minWidth = '90vmin';
-        document.body.style.minHeight = '90vmax';
+        document.body.style.minWidth = '90vw';
+        document.body.style.minHeight = '90vh';
     }
 
     if (width < 1080) {

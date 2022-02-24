@@ -24,7 +24,7 @@ let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
 setVisibility([board, tieuDan], false);
-setSize(area, 60, -7);
+setSize(area, 55, -7);
 
 setTimeout(function () {
     tieuDan.animate(fadeIn(), options(0.7));
