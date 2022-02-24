@@ -55,6 +55,7 @@ function interlude() {
     setTimeout(function () {
         document.body.style.pointerEvents = 'visible';
         document.body.onclick = null;
+        tieuDan.animate(fadeOut(), options(0.5));
         appendObject('info');
         removeObject(area, 'intro');
     }, 4 * 1000);
