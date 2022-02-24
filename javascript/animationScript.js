@@ -47,7 +47,7 @@ function slideIn(x, y) {
         transform: `translate(${x}px, ${y}px)`
     }, {
         opacity: 1,
-        visibility: 'visible',
+        
         transform: 'translate(0, 0)'
     }];
 }
@@ -55,7 +55,7 @@ function slideIn(x, y) {
 function slideOut(x, y) {
     return [{
         opacity: 1,
-        visibility: 'visible',
+        
         transform: 'translate(0, 0)'
     }, {
         opacity: 0,
@@ -71,7 +71,7 @@ function zoomIn(fromValue, toValue) {
         transform: `scale(${fromValue})`
     }, {
         opacity: 1,
-        visibility: 'visible',
+        
         transform: `scale(${toValue})`
     }];
 }
@@ -79,7 +79,7 @@ function zoomIn(fromValue, toValue) {
 function zoomOut(fromValue, toValue) {
     return [{
         opacity: 1,
-        visibility: 'visible',
+        
         transform: `scale(${fromValue})`
     }, {
         opacity: 0,
@@ -106,7 +106,7 @@ function maximize(height, padding) {
         visibility: 'hidden'
     }, {
         opacity: 1,
-        visibility: 'visible',
+        
         height: height,
         padding: padding
     }];
