@@ -31,10 +31,7 @@ function setSize(object, marginDesktop, marginMobile) {
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    document.body.scrollTo(0,0);
-    document.body.scroll(0,0);
-    window.scroll(0,0);
-    window.scrollTo(0,0);
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     if (height < 600) {
         document.body.style.width = '100vw';
         document.body.style.height = '100vh';
