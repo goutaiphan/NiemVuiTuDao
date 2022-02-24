@@ -46,10 +46,8 @@ function interlude() {
     document.body.append(backgroundAudio);
 
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        removeObject(area, 'title');
-    };
-    setTimeout(function () {
         appendObject('intro');
         // appendObject('welcome');
-    }, 0.3);
+        removeObject(area, 'title');
+    }
 }
