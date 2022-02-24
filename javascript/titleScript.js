@@ -45,10 +45,11 @@ function interlude() {
     //backgroundAudio.play();
     document.body.append(backgroundAudio);
 
-    area.animate(fadeOut(), options(0.5));
+    area.animate(fadeOut(), options(0.5)).onfinish = function () {
+        removeObject(area, 'title');
+    };
     setTimeout(function () {
         appendObject('intro');
         // appendObject('welcome');
-        removeObject(area, 'title');
     }, 0.3);
 }
