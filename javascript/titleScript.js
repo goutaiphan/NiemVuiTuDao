@@ -22,7 +22,7 @@ for (let i = 0; i < array.length; i++) {
 }
 
 document.body.append(area);
-setSize(area, 20, -25);
+setSize(area, 20, -30);
 
 let children = area.children;
 children[0].animate(fadeIn(), options(0.5, 0.5));
