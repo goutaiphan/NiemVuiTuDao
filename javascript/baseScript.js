@@ -1,13 +1,20 @@
 export {
-    createJavaScript, setSizeRatio, setVisibility,
+    createStyle, createScript, setSizeRatio, setVisibility,
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-function createJavaScript(name) {
+function createScript(name) {
     let javaScript = document.createElement('script');
-    javaScript.src = `javascript/${name}.js`;
     javaScript.type = 'module';
+    javaScript.src = `javascript/${name}.js`;
     document.body.append(javaScript);
+}
+
+function createStyle(name) {
+    let styleSheet = document.createElement('link');
+    styleSheet.rel = 'stylesheet';
+    styleSheet.href = `stylesheet/${name}.css`;
+    document.body.append(styleSheet);
 }
 
 //alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
@@ -26,24 +33,25 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         document.body.style.minHeight = '90vh';
     }
 
-    console.log([document.body.offsetHeight, object.clientHeight]);
-    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
-    document.body.style.padding = padding > 0
-        ? `${padding}px 0`
-        : '25px 0';
+    setTimeout(function () {
+        let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
+        document.body.style.padding = padding > 0
+            ? `${padding}px 0`
+            : '25px 0';
 
-    if (width < 1080) {
-        if (width > 450) widthRatio = widthRatio * 0.7;
-        if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
-    } else {
-        widthRatio = 1;
-        object.style.marginTop = marginDesktop + 'px';
-    }
-    object.style.transform = `scale(${widthRatio})`;
-    object.style.minWidth = 'max-content';
+        if (width < 1080) {
+            if (width > 450) widthRatio = widthRatio * 0.7;
+            if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
+        } else {
+            widthRatio = 1;
+            object.style.marginTop = marginDesktop + 'px';
+        }
+        object.style.transform = `scale(${widthRatio})`;
+        object.style.minWidth = 'max-content';
 
-    // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-    // }
+        // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+        // }
+    }, 100);
 }
 
 function setVisibility(object, type) {

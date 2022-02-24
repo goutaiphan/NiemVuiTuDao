@@ -1,4 +1,4 @@
-.introBoard {
+.board {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -14,7 +14,7 @@
     background-color: #fdf9f1;
 }
 
-.introText {
+.message {
     font-size: 21px;
     line-height: 1.7;
     word-wrap: break-word;

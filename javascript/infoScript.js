@@ -1,8 +1,24 @@
-import {createJavaScript, setVisibility, randomize, sendEmail, toTitleCase, setSizeRatio} from "./baseScript.js";
+import {
+    createScript,
+    createStyle,
+    setVisibility,
+    randomize,
+    sendEmail,
+    toTitleCase,
+    setSizeRatio
+} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
-    getDatabase, get, update, ref, query, child, orderByChild, equalTo, limitToFirst
+    getDatabase,
+    get,
+    update,
+    ref,
+    query,
+    child,
+    orderByChild,
+    equalTo,
+    limitToFirst
 } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 
 let app = initializeApp({
@@ -36,91 +52,91 @@ let array = {
         quý huynh tỷ vui lòng <span>kiểm tra</span><br>hệ thống mạng.`
 };
 
-let infoTitle = document.createElement('div');
-infoTitle.className = 'infoTitle';
-infoTitle.innerHTML = '<p>Tàng Kinh Các</p><p>Đại Đạo</p>';
+let title = document.createElement('div');
+title.className = 'title';
+title.innerHTML = '<p>Tàng Kinh Các</p><p>Đại Đạo</p>';
 
-let infoEmail = document.createElement('input');
-infoEmail.className = 'infoEmail';
-infoEmail.inputMode = 'email';
-infoEmail.placeholder = 'Email';
+let email = document.createElement('input');
+email.className = 'email';
+email.inputMode = 'email';
+email.placeholder = 'Email';
 
-let infoPassword = document.createElement('input');
-infoPassword.className = 'infoPassword';
-infoPassword.type = 'password';
-infoPassword.placeholder = 'Mật khẩu';
+let password = document.createElement('input');
+password.className = 'password';
+password.type = 'password';
+password.placeholder = 'Mật khẩu';
 
-let infoOTP = document.createElement('div');
-infoOTP.className = 'infoOTP';
+let otp = document.createElement('div');
+otp.className = 'otp';
 for (let i = 0; i < 4; i++) {
     let child = document.createElement('input');
     child.inputMode = 'numeric';
     child.maxLength = 1;
-    infoOTP.append(child);
+    otp.append(child);
 }
 
-let infoButton = document.createElement('button');
-infoButton.className = 'infoButton';
-infoButton.innerHTML = 'Đăng nhập/Đăng ký';
+let button = document.createElement('button');
+button.className = 'button';
+button.innerHTML = 'Đăng nhập/Đăng ký';
 
-let infoButtonBox = document.createElement('div');
-infoButtonBox.className = 'infoButtonBox';
-infoButtonBox.append(infoButton);
+let buttonBox = document.createElement('div');
+buttonBox.className = 'buttonBox';
+buttonBox.append(button);
 
-let infoName = document.createElement('input');
-infoName.className = 'infoName';
-infoName.placeholder = 'Quý danh';
+let name = document.createElement('input');
+name.className = 'name';
+name.placeholder = 'Quý danh';
 
-let infoBirthday = document.createElement('input');
-infoBirthday.className = 'infoBirthday';
-infoBirthday.inputMode = 'numeric';
-infoBirthday.placeholder = 'dd-mm-yyyy';
-infoBirthday.maxLength = 10;
+let birthday = document.createElement('input');
+birthday.className = 'birthday';
+birthday.inputMode = 'numeric';
+birthday.placeholder = 'dd-mm-yyyy';
+birthday.maxLength = 10;
 
-let infoBoard = document.createElement('div');
-infoBoard.className = 'infoBoard';
-infoBoard.append(infoEmail, infoPassword, infoOTP, infoName, infoBirthday, infoButtonBox);
+let board = document.createElement('div');
+board.className = 'board';
+board.append(email, password, otp, name, birthday, buttonBox);
 
-let infoText = document.createElement('div');
-infoText.className = 'infoText';
-infoText.innerHTML = array.normal;
+let message = document.createElement('div');
+message.className = 'message';
+message.innerHTML = array.normal;
 
-let infoArea = document.createElement('div');
-infoArea.append(infoTitle, infoBoard, infoText);
-document.body.append(infoArea);
-setSizeRatio(infoArea, 30, -15);
-setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText], false);
+let area = document.createElement('div');
+area.append(title, board, message);
+document.body.append(area);
+setSizeRatio(area, 35, -15);
+setVisibility([...title.children, board, ...board.children, message], false);
 
-infoTitle.children[0].animate(fadeIn(), options(0.5));
-infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
-infoBoard.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
-infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
-infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
-infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
-infoText.animate(fadeIn(), options(0.5, 1.2));
+title.children[0].animate(fadeIn(), options(0.5));
+title.children[1].animate(fadeIn(), options(0.5, 0.4));
+board.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
+email.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
+password.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
+buttonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
+message.animate(fadeIn(), options(0.5, 1.2));
 
-infoEmail.onkeydown = function (event) {
+email.onkeydown = function (event) {
     this.setCustomValidity('');
     if (['Enter', 'Return'].includes(event.key)) (this.blur());
 }
 
-infoEmail.onfocus = function () {
+email.onfocus = function () {
     this.classList.remove('signIn', 'signUp');
-    infoPassword.value = '';
-    infoPassword.classList.remove('signIn', 'signUp');
-    infoPassword.style.pointerEvents = 'none';
+    password.value = '';
+    password.classList.remove('signIn', 'signUp');
+    password.style.pointerEvents = 'none';
 
-    sessionStorage.setItem('infoSection', 'normal');
-    infoText.innerHTML = navigator.onLine
+    sessionStorage.setItem('section', 'normal');
+    message.innerHTML = navigator.onLine
         ? array.normal
         : array.offline;
-    setInfoOTP(false);
-    setInfoButton(false);
+    setOTP(false);
+    setButton(false);
 }
 
-infoEmail.onblur = function () {
-    infoPassword.style.pointerEvents = 'visible';
-    this.value = infoEmail.value
+email.onblur = function () {
+    password.style.pointerEvents = 'visible';
+    this.value = email.value
         .replaceAll(' ', '')
         .replace(/(@)+/g, '@')
         .replace(/(\.)+/g, '.')
@@ -128,36 +144,36 @@ infoEmail.onblur = function () {
     if (this.value) checkEmail();
 }
 
-infoPassword.onkeydown = function (event) {
+password.onkeydown = function (event) {
     this.setCustomValidity('');
     if (['Enter', 'Return'].includes(event.key)) (this.blur());
 }
 
-infoPassword.onfocus = function () {
+password.onfocus = function () {
     this.classList.remove('signIn', 'signUp');
-    infoEmail.style.pointerEvents = 'none';
+    email.style.pointerEvents = 'none';
 
-    if (!infoEmail.value) infoEmail.focus();
-    if (infoEmail.classList.length === 1) {
+    if (!email.value) email.focus();
+    if (email.classList.length === 1) {
         this.blur();
-        if (infoEmail.value) checkEmail();
+        if (email.value) checkEmail();
     }
     if (navigator.onLine) {
-        infoText.innerHTML = sessionStorage.getItem('finalOTP') === 'rightOTP'
+        message.innerHTML = sessionStorage.getItem('finalOTP') === 'rightOTP'
             ? array.rightOTP
-            : array[sessionStorage.getItem('infoSection')];
+            : array[sessionStorage.getItem('section')];
     } else {
-        infoText.innerHTML = array.offline;
+        message.innerHTML = array.offline;
     }
-    setInfoButton(false);
+    setButton(false);
 }
 
-infoPassword.onblur = function () {
-    infoEmail.style.pointerEvents = 'visible';
+password.onblur = function () {
+    email.style.pointerEvents = 'visible';
     if (this.value) checkPassword();
 }
 
-for (let i = 0; i < infoOTP.children.length; i++) {
+for (let i = 0; i < otp.children.length; i++) {
     getChild(i).oninput = function () {
         getChild(i).value = getChild(i).value.replace(/[^\d]/g, '');
         if (getChild(i).value) {
@@ -166,7 +182,7 @@ for (let i = 0; i < infoOTP.children.length; i++) {
     }
 
     getChild(i).onclick = function () {
-        for (let j = 0; j < infoOTP.children.length; j++) {
+        for (let j = 0; j < otp.children.length; j++) {
             getChild(0).focus();
             getChild(j).value = '';
         }
@@ -177,17 +193,17 @@ for (let i = 0; i < infoOTP.children.length; i++) {
     }
 }
 
-infoName.onkeydown = function (event) {
+name.onkeydown = function (event) {
     this.setCustomValidity('');
     if (['Enter', 'Return'].includes(event.key)) this.blur();
 }
 
-infoName.onfocus = function () {
+name.onfocus = function () {
     this.classList.remove('signUp');
-    setInfoButton(false);
+    setButton(false);
 }
 
-infoName.onblur = function () {
+name.onblur = function () {
     this.value = toTitleCase(this.value
         .replace(/\s+/g, ' ')
         .replace(/[\d`~!@#$%^&*()+=\-_/\\|.,<>?:;'"]/g, '')
@@ -195,20 +211,20 @@ infoName.onblur = function () {
 
     if (this.value) {
         setTimeout(function () {
-            infoName.classList.add('signUp');
-            if (infoBirthday.classList.length > 1) setInfoButton(true);
+            name.classList.add('signUp');
+            if (birthday.classList.length > 1) setButton(true);
         }, 0.25 * 1000);
     }
 }
 
-infoBirthday.onkeydown = function (event) {
+birthday.onkeydown = function (event) {
     this.setCustomValidity('');
     event.target.selectionStart = this.value.length + 1;
     if (['Enter', 'Return'].includes(event.key)) this.blur();
 }
 
 
-infoBirthday.oninput = function (event) {
+birthday.oninput = function (event) {
     this.value = this.value
         .replace(/[^\d-]/g, '')
         .replace(/-+/g, '-');
@@ -221,12 +237,12 @@ infoBirthday.oninput = function (event) {
     }
 }
 
-infoBirthday.onfocus = function () {
+birthday.onfocus = function () {
     this.classList.remove('signUp');
-    setInfoButton(false);
+    setButton(false);
 }
 
-infoBirthday.onblur = function () {
+birthday.onblur = function () {
     if (this.value) {
         if (this.value.length !== 10) {
             this.setCustomValidity('Sinh nhật theo cấu trúc dd-mm-yyyy.');
@@ -239,8 +255,8 @@ infoBirthday.onblur = function () {
                 this.reportValidity();
             } else {
                 setTimeout(function () {
-                    infoBirthday.classList.add('signUp');
-                    if (infoName.classList.length > 1) setInfoButton(true);
+                    birthday.classList.add('signUp');
+                    if (name.classList.length > 1) setButton(true);
                 }, 0.25 * 1000);
             }
         }
@@ -248,57 +264,57 @@ infoBirthday.onblur = function () {
 }
 
 function checkEmail() {
-    if (!infoEmail.value.match(/\S+@\S+\.\S+/)) {
-        infoEmail.setCustomValidity('Email theo cấu trúc aa@bb.cc');
-        infoEmail.reportValidity();
+    if (!email.value.match(/\S+@\S+\.\S+/)) {
+        email.setCustomValidity('Email theo cấu trúc aa@bb.cc');
+        email.reportValidity();
     } else {
-        let queryRef = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
+        let queryRef = query(userRef, orderByChild('userEmail'), equalTo(email.value));
         get(queryRef).then(
             function (data) {
-                let infoSection;
+                let section;
                 if (data.val()) {
-                    infoSection = 'signIn';
+                    section = 'signIn';
                 } else {
-                    infoSection = 'signUp';
+                    section = 'signUp';
                     createOTP();
                 }
-                sessionStorage.setItem('infoSection', infoSection);
-                infoEmail.classList.add(infoSection);
-                infoText.innerHTML = array[infoSection];
-                setInfoButton(false);
+                sessionStorage.setItem('section', section);
+                email.classList.add(section);
+                message.innerHTML = array[section];
+                setButton(false);
             }).catch(function () {
-            infoText.innerHTML = array.offline;
+            message.innerHTML = array.offline;
         })
     }
 }
 
 function checkPassword() {
-    if (infoPassword.value.length < 8) {
-        infoPassword.setCustomValidity('Mật khẩu tối thiểu 8 ký tự.');
-        infoPassword.reportValidity();
+    if (password.value.length < 8) {
+        password.setCustomValidity('Mật khẩu tối thiểu 8 ký tự.');
+        password.reportValidity();
     } else {
-        let queryRef = query(userRef, orderByChild('userEmail'), equalTo(infoEmail.value));
+        let queryRef = query(userRef, orderByChild('userEmail'), equalTo(email.value));
         get(queryRef).then(function (data) {
             if (data.val()) {
                 let userData = Object.entries(data.val())[0][1];
-                if (infoPassword.value === userData['userPassword']) {
-                    infoPassword.classList.add('signIn');
-                    infoPassword.classList.remove('signUp');
-                    infoText.innerHTML = array.rightPassword;
-                    setInfoButton(true);
+                if (password.value === userData['userPassword']) {
+                    password.classList.add('signIn');
+                    password.classList.remove('signUp');
+                    message.innerHTML = array.rightPassword;
+                    setButton(true);
                 } else {
-                    infoText.innerHTML = array.wrongPassword;
+                    message.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);
                 }
             } else {
                 setTimeout(function () {
-                    infoPassword.classList.add('signUp');
-                    infoPassword.classList.remove('signIn');
-                    setInfoButton(true);
+                    password.classList.add('signUp');
+                    password.classList.remove('signIn');
+                    setButton(true);
                 }, 0.25 * 1000);
             }
         }).catch(function () {
-            infoText.innerHTML = array.offline;
+            message.innerHTML = array.offline;
         })
     }
 }
@@ -310,79 +326,79 @@ function createOTP() {
                     <h1>${userOTP}<br></h1>
                     Quý đạo hữu vui lòng sử dụng mã số này để xác thực tài khoản.<br>Xin trân trọng cảm ơn.`;
     emailBody = '<span style="font-size: 16px">' + emailBody + '</span>';
-    sendEmail(infoEmail.value, 'Mã xác thực tài khoản', emailBody);
-    setInfoOTP(true);
+    sendEmail(email.value, 'Mã xác thực tài khoản', emailBody);
+    setOTP(true);
     sessionStorage.setItem('userOTP', userOTP);
 }
 
 function checkOTP() {
     let userOTP = sessionStorage.getItem('userOTP');
     let finalOTP = '';
-    for (let j = 0; j < infoOTP.children.length; j++) {
+    for (let j = 0; j < otp.children.length; j++) {
         finalOTP += getChild(j).value;
     }
 
-    if (finalOTP.length === infoOTP.children.length) {
+    if (finalOTP.length === otp.children.length) {
         if (finalOTP !== userOTP) {
-            infoText.innerHTML = array.wrongOTP;
+            message.innerHTML = array.wrongOTP;
             navigator.vibrate(500);
         } else {
             setTimeout(function () {
-                setInfoOTP(false);
-                infoText.innerHTML = array.rightOTP;
+                setOTP(false);
+                message.innerHTML = array.rightOTP;
                 sessionStorage.setItem('finalOTP', 'rightOTP');
             }, 0.25 * 1000);
         }
     }
 }
 
-function setInfoOTP(type) {
-    setVisibility(infoOTP, type);
+function setOTP(type) {
+    setVisibility(otp, type);
     sessionStorage.removeItem('finalOTP');
     if (type === true)
-        for (let j = 0; j < infoOTP.children.length; j++) {
+        for (let j = 0; j < otp.children.length; j++) {
             getChild(j).value = '';
         }
 }
 
 function getChild(index) {
-    return infoOTP.children[index];
+    return otp.children[index];
 }
 
-function setInfoButton(type) {
-    infoButton.innerHTML = sessionStorage.getItem('infoSection')
+function setButton(type) {
+    button.innerHTML = sessionStorage.getItem('section')
         .replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
         .replace('signUp', 'Tiếp tục')
         .replace('identify', 'Đăng ký');
 
     if (type === true) {
-        infoButton.classList.add('active');
-        infoButton.style.pointerEvents = 'visible';
-        infoButton.onclick = function () {
-            infoButton.style.pointerEvents = 'none';
-            switch (sessionStorage.getItem('infoSection')) {
+        button.classList.add('active');
+        button.style.pointerEvents = 'visible';
+        button.onclick = function () {
+            button.style.pointerEvents = 'none';
+            switch (sessionStorage.getItem('section')) {
                 case 'signUp':
-                    sessionStorage.setItem('infoSection', 'identify');
-                    infoText.innerHTML = array.identify;
-                    setInfoButton(false);
+                    sessionStorage.setItem('section', 'identify');
+                    message.innerHTML = array.identify;
+                    setButton(false);
 
-                    infoEmail.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
-                    infoName.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
-                    infoPassword.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
-                    infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
+                    email.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
+                    name.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
+                    password.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
+                    birthday.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
                     break;
                 case 'identify':
                     updateUserData();
                     break;
                 case 'signIn':
-                    setInfoScript();
+                    interlude();
                     break;
             }
         }
     } else {
-        infoButton.classList.remove('active');
-        infoButton.style.pointerEvents = 'none';
+        button.classList.remove('active');
+        button.style.pointerEvents = 'none';
     }
 }
 
@@ -391,25 +407,26 @@ function updateUserData() {
         let userID = `user${data.size}`;
         let userData = {
             userID: userID,
-            userEmail: infoEmail.value,
-            userPassword: infoPassword.value,
-            userName: infoName.value,
-            userBirthday: infoBirthday.value
+            userEmail: email.value,
+            userPassword: password.value,
+            userName: name.value,
+            userBirthday: birthday.value
         }
         update(child(userRef, userID), userData).then(function () {
             sessionStorage.setItem('userData', JSON.stringify(userData));
-            setInfoScript();
+            interlude();
         }).catch(function () {
-            infoText.innerHTML = array.offline;
+            message.innerHTML = array.offline;
         });
     }).catch(function () {
-        infoText.innerHTML = array.offline;
+        message.innerHTML = array.offline;
     })
 }
 
-function setInfoScript() {
-    infoArea.animate(fadeOut(), options(0.5)).onfinish = function () {
-        infoArea.remove();
-        createJavaScript('welcomeScript');
+function interlude() {
+    area.animate(fadeOut(), options(0.5)).onfinish = function () {
+        area.remove();
+        createScript('welcomeScript');
+        createStyle('welcomeStyle');
     };
 }
