@@ -1,4 +1,4 @@
-import {appendObject, removeObject, setSizeRatio, setVisibility} from "./baseScript.js";
+import {appendObject, removeObject, setSize, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
@@ -23,7 +23,7 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
-setSizeRatio(area, 60, -15);
+setSize(area, 60, -15);
 setVisibility([board, tieuDan], false);
 
 setTimeout(function () {

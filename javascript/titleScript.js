@@ -1,4 +1,4 @@
-import {appendObject, removeObject, setSizeRatio, setVisibility} from "./baseScript.js";
+import {appendObject, removeObject, setSize, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let area = document.createElement('div');
@@ -22,7 +22,7 @@ for (let i = 0; i < array.length; i++) {
 }
 
 document.body.append(area);
-setSizeRatio(area, 20, -30);
+setSize(area, 20, -30);
 
 let children = area.children;
 children[0].animate(fadeIn(), options(0.5, 0.5));

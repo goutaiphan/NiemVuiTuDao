@@ -1,5 +1,5 @@
 export {
-    appendObject, removeObject, setSizeRatio, setVisibility,
+    appendObject, removeObject, setSize, setVisibility, setAppearance,
     deAccent, toTitleCase, randomize, sendEmail
 };
 
@@ -25,7 +25,7 @@ function removeObject(object, name) {
 
 //alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
 
-function setSizeRatio(object, marginDesktop, marginMobile) {
+function setSize(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
@@ -77,6 +77,21 @@ function setVisibility(object, type) {
             object.style.opacity = '0';
             object.style.visibility = 'hidden';
         }
+    }
+}
+
+function setAppearance(object) {
+    if (Array.isArray(object)) {
+        object.forEach(function (item) {
+            process(item);
+        })
+    } else {
+        process(object);
+    }
+
+    function process(object) {
+        object.style.height = '0';
+        object.style.padding = '0';
     }
 }
 

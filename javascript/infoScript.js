@@ -5,7 +5,7 @@ import {
     randomize,
     sendEmail,
     toTitleCase,
-    setSizeRatio
+    setSize
 } from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
@@ -104,9 +104,9 @@ message.innerHTML = array.normal;
 let area = document.createElement('div');
 area.append(title, board, message);
 document.body.append(area);
-setSizeRatio(area, 35, -15);
-
+setSize(area, 35, -15);
 setVisibility([...title.children, board, ...board.children, message], false);
+
 setTimeout(function () {
     title.children[0].animate(fadeIn(), options(0.5));
     title.children[1].animate(fadeIn(), options(0.5, 0.4));

@@ -1,4 +1,4 @@
-import {setSizeRatio, setVisibility} from "./baseScript.js";
+import {setAppearance, setSize, setVisibility} from "./baseScript.js";
 import {bounce, fadeIn, maximize, options, slideIn} from "./animationScript.js";
 
 // let userData = JSON.parse(sessionStorage.getItem('userData'));
@@ -21,11 +21,10 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
-setSizeRatio(area, 3, -48);
-board.style.padding = '0';
-board.style.height = '0';
-
+setSize(area, 3, -48);
 setVisibility([board, tieuDan], false);
+setAppearance(board);
+
 setTimeout(function () {
     tieuDan.animate(fadeIn(), options(0.7));
     tieuDan.animate(bounce(0, 20),
