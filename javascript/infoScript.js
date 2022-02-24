@@ -107,13 +107,15 @@ document.body.append(area);
 setSizeRatio(area, 35, -15);
 setVisibility([...title.children, board, ...board.children, message], false);
 
-title.children[0].animate(fadeIn(), options(0.5));
-title.children[1].animate(fadeIn(), options(0.5, 0.4));
-board.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
-email.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
-password.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
-buttonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
-message.animate(fadeIn(), options(0.5, 1.2));
+setTimeout(function () {
+    title.children[0].animate(fadeIn(), options(0.5));
+    title.children[1].animate(fadeIn(), options(0.5, 0.4));
+    board.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
+    email.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
+    password.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
+    buttonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
+    message.animate(fadeIn(), options(0.5, 1.2));
+}, 0.2 * 1000);
 
 email.onkeydown = function (event) {
     this.setCustomValidity('');

@@ -57,7 +57,7 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
 
         // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
         // }
-    }, 100);
+    }, 0.05 * 1000);
 }
 
 function setVisibility(object, type) {

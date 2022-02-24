@@ -26,12 +26,14 @@ document.body.append(area);
 setSizeRatio(area, 60, -15);
 setVisibility([board, tieuDan], false);
 
-tieuDan.animate(fadeIn(), options(0.7, 0.2));
-tieuDan.animate(bounce(0, 20),
-    options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
-board.animate(slideIn(0, 15), options(0.5, 1.6)).onfinish = function () {
-    document.body.style.pointerEvents = 'visible';
-}
+setTimeout(function () {
+    tieuDan.animate(fadeIn(), options(0.7));
+    tieuDan.animate(bounce(0, 20),
+        options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
+    board.animate(slideIn(0, 15), options(0.5, 1.4)).onfinish = function () {
+        document.body.style.pointerEvents = 'visible';
+    }
+}, 0.2 * 1000);
 
 let i = 0;
 document.body.style.pointerEvents = 'none';
