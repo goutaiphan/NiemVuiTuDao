@@ -21,7 +21,7 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
-setSizeRatio(area, 3, -55);
+setSizeRatio(area, 3, -50);
 setVisibility([board, tieuDan], false);
 board.style.padding = '0';
 board.style.height = '0';
