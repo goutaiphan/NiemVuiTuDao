@@ -21,15 +21,17 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 document.body.append(area);
-setSizeRatio(area, 3, -48);
-setVisibility([board, tieuDan], false);
+setSizeRatio(area, 3, -49);
 board.style.padding = '0';
 board.style.height = '0';
 
-tieuDan.animate(fadeIn(), options(0.7, 0.2));
-tieuDan.animate(bounce(0, 20),
-    options(0.7, 0.9, 'ease-in', 'alternate', Infinity));
-board.animate(maximize('390px', '0 30px 40px'), options(2, 4, 'ease-in-out'))
-    .onfinish = function () {
-    document.body.style.pointerEvents = 'visible';
-}
+setVisibility([board, tieuDan], false);
+setTimeout(function () {
+    tieuDan.animate(fadeIn(), options(0.7));
+    tieuDan.animate(bounce(0, 20),
+        options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
+    board.animate(maximize('390px', '0 30px 40px'), options(2, 3.8, 'ease-in-out'))
+        .onfinish = function () {
+        document.body.style.pointerEvents = 'visible';
+    }
+}, 0.2 * 1000);
