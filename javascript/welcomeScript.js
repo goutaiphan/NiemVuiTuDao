@@ -33,4 +33,4 @@ setTimeout(function () {
         .onfinish = function () {
         document.body.style.pointerEvents = 'visible';
     }
-}, 0.2 * 1000);
+}, 0.1 * 1000);
