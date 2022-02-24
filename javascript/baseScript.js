@@ -39,25 +39,23 @@ function setSize(object, marginDesktop, marginMobile) {
         document.body.style.minHeight = '90vh';
     }
 
-    setTimeout(function () {
-        let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
-        document.body.style.padding = padding > 0
-            ? `${padding}px 0`
-            : '25px 0';
+    let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
+    document.body.style.padding = padding > 0
+        ? `${padding}px 0`
+        : '25px 0';
+    console.log(padding);
+    if (width < 1080) {
+        if (width > 450) widthRatio = widthRatio * 0.7;
+        if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
+    } else {
+        widthRatio = 1;
+        object.style.marginTop = marginDesktop + 'px';
+    }
+    object.style.transform = `scale(${widthRatio})`;
+    object.style.minWidth = 'max-content';
 
-        if (width < 1080) {
-            if (width > 450) widthRatio = widthRatio * 0.7;
-            if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
-        } else {
-            widthRatio = 1;
-            object.style.marginTop = marginDesktop + 'px';
-        }
-        object.style.transform = `scale(${widthRatio})`;
-        object.style.minWidth = 'max-content';
-
-        // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
-        // }
-    }, 0.05 * 1000);
+    // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+    // }
 }
 
 function setVisibility(object, type) {
