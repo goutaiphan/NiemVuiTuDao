@@ -1,6 +1,6 @@
 import {
-    createScript,
-    createStyle,
+    appendObject,
+    removeObject,
     setVisibility,
     randomize,
     sendEmail,
@@ -302,6 +302,7 @@ function checkPassword() {
                     password.classList.remove('signUp');
                     message.innerHTML = array.rightPassword;
                     setButton(true);
+                    sessionStorage.setItem('userData', JSON.stringify(userData));
                 } else {
                     message.innerHTML = array.wrongPassword;
                     navigator.vibrate(500);
@@ -425,8 +426,7 @@ function updateUserData() {
 
 function interlude() {
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        area.remove();
-        createScript('welcomeScript');
-        createStyle('welcomeStyle');
+        appendObject('welcome');
+        removeObject(area, 'info');
     };
 }

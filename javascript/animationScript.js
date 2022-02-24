@@ -1,6 +1,6 @@
 export {
     options,
-    fadeIn, fadeOut, slideOut, slideIn, zoomIn, zoomOut, minimize,
+    fadeIn, fadeOut, slideOut, slideIn, zoomIn, zoomOut, minimize, maximize,
     pumping, bounce
 };
 
@@ -100,14 +100,15 @@ function minimize() {
     }];
 }
 
-function maximize() {
+function maximize(height, padding) {
     return [{
         opacity: 0,
         visibility: 'hidden'
     }, {
         opacity: 1,
         visibility: 'visible',
-        height: 'max-content'
+        height: height,
+        padding: padding
     }];
 }
 

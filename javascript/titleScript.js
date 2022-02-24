@@ -1,4 +1,4 @@
-import {createScript, createStyle, setSizeRatio, setVisibility} from "./baseScript.js";
+import {appendObject, removeObject, setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let area = document.createElement('div');
@@ -16,7 +16,7 @@ for (let i = 0; i < array.length; i++) {
         child.onclick = interlude;
     } else child = document.createElement('div');
     child.innerHTML = array[i];
-    child.className = 'element';
+    child.className = 'area';
     setVisibility(child, false);
     area.append(child);
 }
@@ -46,10 +46,8 @@ function interlude() {
     document.body.append(backgroundAudio);
 
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        area.remove();
-        createScript('introScript');
-        createStyle('introStyle');
-        //createScript('infoScript');
-        //createScript('welcomeScript');
+        // appendObject('intro');
+        appendObject('welcome');
+        removeObject(area, 'title');
     }
 }

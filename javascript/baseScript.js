@@ -1,20 +1,26 @@
 export {
-    createStyle, createScript, setSizeRatio, setVisibility,
+    appendObject, removeObject, setSizeRatio, setVisibility,
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-function createScript(name) {
-    let javaScript = document.createElement('script');
-    javaScript.type = 'module';
-    javaScript.src = `javascript/${name}.js`;
-    document.body.append(javaScript);
+function appendObject(name) {
+    let script = document.createElement('script');
+    script.id = `${name}Script`;
+    script.src = `javascript/${name}Script.js`;
+    script.type = 'module';
+
+    let style = document.createElement('link');
+    style.id = `${name}Style`;
+    style.href = `stylesheet/${name}Style.css`;
+    style.rel = 'stylesheet';
+
+    document.body.append(script, style);
 }
 
-function createStyle(name) {
-    let styleSheet = document.createElement('link');
-    styleSheet.rel = 'stylesheet';
-    styleSheet.href = `stylesheet/${name}.css`;
-    document.body.append(styleSheet);
+function removeObject(object, name) {
+    object.remove();
+    document.getElementById(`${name}Script`).remove();
+    document.getElementById(`${name}Style`).remove();
 }
 
 //alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);

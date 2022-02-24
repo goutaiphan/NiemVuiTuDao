@@ -1,4 +1,4 @@
-import {createScript, createStyle, setSizeRatio, setVisibility} from "./baseScript.js";
+import {appendObject, removeObject, setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</span>.`,
@@ -9,16 +9,16 @@ let array = [`Mến chào quý đạo hữu,<br>đệ là <span>Tiểu Dần</sp
     chương trình hỏi đáp <span><br>Niềm vui tu Đạo</span>`,
     `để cùng nhau <span>tưởng nhớ</span><br>về Ngài, vị <span>Cha Lành từ ái</span><br>của muôn sinh.`];
 
-let board = document.createElement('div');
-board.className = 'board';
-
-let tieuDan = document.createElement('div');
-tieuDan.className = 'tieuDan';
-
 let message = document.createElement('div');
 message.className = 'message';
 message.innerHTML = array[0];
+
+let board = document.createElement('div');
+board.className = 'board';
 board.append(message);
+
+let tieuDan = document.createElement('div');
+tieuDan.className = 'tieuDan';
 
 let area = document.createElement('div');
 area.append(board, tieuDan);
@@ -53,8 +53,7 @@ function interlude() {
     setTimeout(function () {
         document.body.style.pointerEvents = 'visible';
         document.body.onclick = null;
-        area.remove();
-        createScript('infoScript');
-        createStyle('infoStyle');
+        appendObject('info');
+        removeObject(area, 'intro');
     }, 4 * 1000);
 }

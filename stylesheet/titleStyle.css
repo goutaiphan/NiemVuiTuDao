@@ -1,4 +1,4 @@
-.element:nth-child(-n+4) {
+.area:nth-child(-n+4) {
     width: 95%;
     margin: 0 auto -12px;
 
@@ -11,17 +11,17 @@
     color: transparent;
 }
 
-.element:nth-child(5) {
+.area:nth-child(5) {
     margin: 65px auto 10px;
     font-size: 19.5px;
 }
 
-.element:nth-child(6) {
+.area:nth-child(6) {
     margin: 0 auto 60px;
     font-size: 19.5px;
 }
 
-.element:nth-child(7) {
+.area:nth-child(7) {
     width: 200px;
     height: 52px;
     margin: 0 auto;
