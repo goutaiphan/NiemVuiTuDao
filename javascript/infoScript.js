@@ -93,7 +93,7 @@ setVisibility([...infoTitle.children, infoBoard, ...infoBoard.children, infoText
 
 infoTitle.children[0].animate(fadeIn(), options(0.5));
 infoTitle.children[1].animate(fadeIn(), options(0.5, 0.4));
-infoBoard.animate(fadeIn(), options(0.5, 0.6));
+infoBoard.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
 infoEmail.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
 infoPassword.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
 infoButtonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
@@ -373,9 +373,10 @@ function setInfoButton(type) {
                     infoBirthday.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
                     break;
                 case 'identify':
-                    //updateUserData();
+                    updateUserData();
                     break;
                 case 'signIn':
+                    setInfoScript();
                     break;
             }
         }
@@ -395,12 +396,20 @@ function updateUserData() {
             userName: infoName.value,
             userBirthday: infoBirthday.value
         }
-        update(child(userRef, userID), userData);
-        // sessionStorage.setItem('userData', JSON.stringify(userData));
-        // console.log(`Xin chúc mừng ${userData.userName}, đây là tài khoản thứ
-        // ${userData.userID.replace('user', '')}
-        // đăng ký thành công tại Tàng Kinh Các Đại Đạo.`);
+        update(child(userRef, userID), userData).then(function () {
+            sessionStorage.setItem('userData', JSON.stringify(userData));
+            setInfoScript();
+        }).catch(function () {
+            infoText.innerHTML = array.offline;
+        });
     }).catch(function () {
         infoText.innerHTML = array.offline;
     })
+}
+
+function setInfoScript() {
+    infoArea.animate(fadeOut(), options(0.5)).onfinish = function () {
+        infoArea.remove();
+        createJavaScript('welcomeScript');
+    };
 }

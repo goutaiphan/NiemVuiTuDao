@@ -2,6 +2,10 @@ import {createJavaScript, setSizeRatio, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let titleArea = document.createElement('div');
+let titleStyle = document.createElement('link');
+titleStyle.rel = 'stylesheet';
+titleStyle.href = 'stylesheet/titleStyle.css';
+
 
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
@@ -19,7 +23,11 @@ for (let i = 0; i < array.length; i++) {
 }
 
 document.body.append(titleArea);
-setSizeRatio(titleArea, 20, -30);
+document.body.append(titleStyle);
+window.onload = function () {
+    setSizeRatio(titleArea, 20, -30);
+}
+
 
 let children = titleArea.children;
 children[0].animate(fadeIn(), options(0.5, 0.5));
@@ -45,6 +53,9 @@ children[6].onclick = function () {
 
     titleArea.animate(fadeOut(), options(0.5)).onfinish = function () {
         titleArea.remove();
+        titleStyle.remove();
         createJavaScript('introScript');
+        //createJavaScript('infoScript');
+        //createJavaScript('welcomeScript');
     }
 }

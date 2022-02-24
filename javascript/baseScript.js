@@ -25,6 +25,8 @@ function setSizeRatio(object, marginDesktop, marginMobile) {
         document.body.style.minWidth = '90vw';
         document.body.style.minHeight = '90vh';
     }
+
+    console.log([document.body.offsetHeight, object.clientHeight]);
     let padding = (document.body.offsetHeight - object.offsetHeight) / 4;
     document.body.style.padding = padding > 0
         ? `${padding}px 0`
