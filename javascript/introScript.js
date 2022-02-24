@@ -33,7 +33,7 @@ setTimeout(function () {
     board.animate(slideIn(0, 15), options(0.5, 1.4)).onfinish = function () {
         document.body.style.pointerEvents = 'visible';
     }
-}, 0.4 * 1000);
+}, 0.1 * 1000);
 
 let i = 0;
 document.body.style.pointerEvents = 'none';
