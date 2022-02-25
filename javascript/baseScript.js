@@ -23,22 +23,18 @@ function removeObject(object, name) {
     document.getElementById(`${name}Style`).remove();
 }
 
-//alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
-
 function setSize(object, marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
-    window.scroll(0,0);
-    if (height < 600) {
-        document.body.style.width = '100vmin';
-        document.body.style.height = '100vmax';
-    } else {
-        document.body.style.minWidth = '90vw';
-        document.body.style.minHeight = '90vh';
-    }
+    //alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+
+    window.scroll(0, 0);
+    height < 600
+        ? document.body.style.maxHeight = height + 'px'
+        : document.body.style.minHeight = '90vh';
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
@@ -146,7 +142,7 @@ function sendEmail(emailReceiver, emailSubject, emailBody) {
         Subject: emailSubject,
         Body: emailBody,
     }).then(function () {
-        console.log('Đã gửi thư thành công.');
+        console.log(`Email '${emailSubject}' đã gửi thành công.`);
     }).catch(function (error) {
         console.log(error.message);
     });
