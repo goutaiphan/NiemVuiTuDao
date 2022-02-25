@@ -132,12 +132,9 @@ email.onfocus = function () {
 
     sessionStorage.setItem('section', 'normal');
     message.innerHTML = array.normal;
+    setOTP(false);
     setButton(false);
 };
-
-email.onclick = function () {
-    console.log(true);
-}
 
 email.onblur = function () {
     password.style.pointerEvents = 'visible';
@@ -177,20 +174,29 @@ password.onblur = function () {
 };
 
 OTPChildren.forEach(function (item, index) {
-    item.oninput = function () {
+    item.oninput = function (event) {
         item.value = item.value.replace(/[^\d]/g, '');
         if (item.value) index < 3
             ? OTPChildren[index + 1].focus()
             : item.blur();
+        if (event === 'insertFromPaste') console.log(true);
+    }
+
+    item.onpaste = function (event) {
+        let clipboardData = event.clipboardData || window.clipboardData;
+        let pastedData = clipboardData.getData('Text');
+        OTPChildren.forEach(function (item, index) {
+            item.value = pastedData.slice(0, 4)[index];
+        })
     }
 
     item.onkeydown = function (event) {
-        if (['Backspace', 'Delete'].includes(event.key)) removeChild();
+        if (['Backspace', 'Delete'].includes(event.key)) clearOTP();
     }
-    item.onclick = removeChild;
+    item.onclick = clearOTP;
     item.onblur = checkOTP;
 
-    function removeChild() {
+    function clearOTP() {
         for (let item of OTPChildren) {
             OTPChildren[0].focus();
             item.value = '';
@@ -291,7 +297,7 @@ function checkEmail() {
                     .replace('rightOTP', 'blue'));
                 message.innerHTML = array[section];
                 setButton(false);
-                if (section === 'verify') setOTP();
+                if (section === 'verify') setOTP(true);
             }
         ).catch(function (error) {
             console.log(error);
@@ -333,26 +339,32 @@ function checkPassword() {
     }
 }
 
-function setOTP() {
-    let userOTP = sessionStorage.getItem(email.value);
-    console.log(userOTP);
-    if (!userOTP) {
-        setVisibility(OTP, true);
-        userOTP = randomize(1000, 9999);
-        sessionStorage.setItem(email.value, userOTP);
-        sendEmail(email.value, 'Mã xác thực tài khoản',
-            `<span style="font-size: 16px">
+function setOTP(type) {
+    if (type === true) {
+        let userOTP = sessionStorage.getItem(email.value);
+        console.log(userOTP);
+
+        if (!userOTP) {
+            setVisibility(OTP, true);
+            userOTP = randomize(1000, 9999);
+            sessionStorage.setItem(email.value, userOTP);
+            sendEmail(email.value, 'Mã xác thực tài khoản',
+                `<span style="font-size: 16px">
                    <br>Mến chào quý huynh tỷ.<br>
                    Mã xác thực tài khoản tại Tàng Kinh Các Đại Đạo là:<br>
                    <h1>${userOTP}<br></h1>
                    Quý huynh tỷ vui lòng sử dụng mã số này để đăng ký tài khoản.<br>
                    Xin trân trọng cảm ơn.
                    </span>`);
-    } else if (userOTP !== 'rightOTP') {
-        setVisibility(OTP, true);
-        for (let item of OTPChildren) item.value = '';
+        } else if (userOTP !== 'rightOTP') {
+            setVisibility(OTP, true);
+            for (let item of OTPChildren) item.value = '';
+        } else {
+            setVisibility(OTP, false);
+            message.innerHTML = array.rightOTP;
+        }
     } else {
-        message.innerHTML = array.rightOTP;
+        setVisibility(OTP, false);
     }
 }
 
@@ -366,11 +378,9 @@ function checkOTP() {
             message.innerHTML = array.wrongOTP;
             navigator.vibrate(500);
         } else {
-            setTimeout(function () {
-                setVisibility(OTP, false);
-                message.innerHTML = array.rightOTP;
-                sessionStorage.setItem(email.value, 'rightOTP');
-            }, 0.25 * 1000);
+            setOTP(false);
+            message.innerHTML = array.rightOTP;
+            sessionStorage.setItem(email.value, 'rightOTP');
         }
     }
 }
