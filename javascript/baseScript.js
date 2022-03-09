@@ -1,7 +1,4 @@
-export {
-    appendSection, removeSection, setVisibility, setAppearance,
-    deAccent, toTitleCase, randomize, sendEmail
-};
+export {appendSection, removeSection, randomize, sendEmail};
 
 function appendSection(name) {
     let script = document.createElement('script');
@@ -51,40 +48,38 @@ Object.prototype.setRatio = function (marginDesktop, marginMobile) {
     // }
 }
 
-function setVisibility(object, type) {
-    if (Array.isArray(object)) object.forEach((item) => process(item));
-    else process(object);
+Array.prototype.setVisibility = function (type) {
+    this.forEach((item) => item.setVisibility(type));
+}
 
-    function process(object) {
-        if (type === true) {
-            object.style.opacity = '1';
-            object.style.visibility = 'visible';
-        } else {
-            object.style.opacity = '0';
-            object.style.visibility = 'hidden';
-        }
+Object.prototype.setVisibility = function (type) {
+    if (type === true) {
+        this.style.opacity = '1';
+        this.style.visibility = 'visible';
+    } else {
+        this.style.opacity = '0';
+        this.style.visibility = 'hidden';
     }
 }
 
-function setAppearance(object) {
-    if (Array.isArray(object)) object.forEach((item) => process(item));
-    else process(object);
-
-    function process(object) {
-        object.style.height = '0';
-        object.style.padding = '0';
-    }
+Array.prototype.setAppearance = function () {
+    this.forEach((item) => item.setAppearance());
 }
 
-function toTitleCase(string) {
-    return string.replace(/\w\S*/g, function (data) {
+Object.prototype.setAppearance = function () {
+    this.style.height = '0';
+    this.style.padding = '0';
+}
+
+String.prototype.toTitleCase = function () {
+    return this.replace(/\w\S*/g, function (data) {
             return data.charAt(0).toUpperCase() + data.substring(1).toLowerCase();
         }
     );
 }
 
-function deAccent(string) {
-    return string.normalize('NFD')
+String.prototype.deAccent = function () {
+    return this.normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/[^\d\w]/g, '')
         .replace(/đ/ig, 'd')

@@ -1,4 +1,4 @@
-import {appendSection, removeSection, setVisibility} from "./baseScript.js";
+import {appendSection, removeSection} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let area = document.createElement('div');
@@ -12,12 +12,11 @@ for (let i = 0; i < array.length; i++) {
     let child;
     if (i === array.indexOf('Bắt đầu')) {
         child = document.createElement('button');
-        child.style.pointerEvents = 'none';
-        child.onclick = interlude;
+
     } else child = document.createElement('div');
     child.innerHTML = array[i];
     child.className = 'area';
-    setVisibility(child, false);
+    child.setVisibility(false);
     area.append(child);
 }
 
@@ -34,10 +33,10 @@ children[5].animate(slideIn(20, 0), options(0.7, 2.5, 'ease-out'));
 children[6].animate(fadeIn(), options(0.5, 3.2)).onfinish = function () {
     children[6].animate(pumping(1.07),
         options(0.5, 0, 'ease-in', 'alternate', Infinity));
-    children[6].style.pointerEvents = 'visible';
+    children[6].onclick = setInterlude;
 };
 
-function interlude() {
+function setInterlude() {
     let backgroundAudio = document.createElement('audio');
     backgroundAudio.src = '../media/FreeTheMindInNature.mp3';
     backgroundAudio.volume = 0.8;
@@ -48,9 +47,10 @@ function interlude() {
     });
     document.body.append(backgroundAudio);
 
-    appendSection('intro');
-    // appendSection('info');
+    children[6].onclick = null;
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
+        appendSection('intro');
+        // appendSection('info');
         removeSection(area, 'opening');
     }
 }

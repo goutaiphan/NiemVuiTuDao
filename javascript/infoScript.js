@@ -1,11 +1,4 @@
-import {
-    appendSection,
-    removeSection,
-    setVisibility,
-    randomize,
-    sendEmail,
-    toTitleCase
-} from "./baseScript.js";
+import {appendSection, removeSection, randomize, sendEmail} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
@@ -104,8 +97,8 @@ message.innerHTML = array.normal;
 let area = document.createElement('div');
 area.append(title, board, message);
 area.setRatio(45, -10);
+[...title.children, board, ...board.children, message].setVisibility(false);
 document.body.append(area);
-setVisibility([...title.children, board, ...board.children, message], false);
 sessionStorage.setItem('section', 'normal');
 
 setTimeout(function () {
@@ -173,7 +166,7 @@ password.onblur = function () {
 };
 
 OTPChildren.forEach(function (item, index) {
-    item.oninput = function (event) {
+    item.oninput = function () {
         item.value = item.value.replace(/[^\d]/g, '');
         if (item.value) index < 3
             ? OTPChildren[index + 1].focus()
@@ -183,9 +176,7 @@ OTPChildren.forEach(function (item, index) {
     item.onpaste = function (event) {
         let clipboardData = event.clipboardData || window.clipboardData;
         let pastedData = clipboardData.getData('Text');
-        OTPChildren.forEach(function (item, index) {
-            item.value = pastedData.slice(0, 4)[index];
-        })
+        OTPChildren.forEach((item, index) => item.value = pastedData.slice(0, 4)[index]);
     }
 
     item.onkeydown = function (event) {
@@ -216,10 +207,11 @@ name.onfocus = function () {
 name.onblur = function () {
     birthday.style.pointerEvents = 'visible';
 
-    this.value = toTitleCase(this.value
+    this.value = this.value
         .replace(/\s+/g, ' ')
         .replace(/[\d`~!@#$%^&*()+=\-_/\\|.,<>?:;'"]/g, '')
-        .trim());
+        .trim()
+        .toTitleCase();
 
     if (this.value) {
         setTimeout(function () {
@@ -341,7 +333,7 @@ function setOTP(type) {
     if (type === true) {
         let userOTP = sessionStorage.getItem(email.value);
         if (!userOTP) {
-            setVisibility(OTP, true);
+            OTP.setVisibility(true);
             userOTP = randomize(1000, 9999);
             sessionStorage.setItem(email.value, userOTP);
             sendEmail(email.value, 'Mã xác thực tài khoản',
@@ -353,14 +345,14 @@ function setOTP(type) {
                    Xin trân trọng cảm ơn.
                    </span>`);
         } else if (userOTP !== 'rightOTP') {
-            setVisibility(OTP, true);
+            OTP.setVisibility(true);
             for (let item of OTPChildren) item.value = '';
         } else {
-            setVisibility(OTP, false);
+            OTP.setVisibility(false);
             message.innerHTML = array.rightOTP;
         }
     } else {
-        setVisibility(OTP, false);
+        OTP.setVisibility(false);
     }
 }
 
@@ -382,6 +374,7 @@ function checkOTP() {
 }
 
 function setButton(type) {
+    console.log()
     button.innerHTML = sessionStorage.getItem('section')
         .replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
@@ -408,7 +401,7 @@ function setButton(type) {
                     updateUserData();
                     break;
                 case 'signIn':
-                    interlude();
+                    setInterlude();
                     break;
             }
         }
@@ -442,7 +435,7 @@ function updateUserData() {
                    Quý huynh tỷ vui lòng lưu lại thông tin này để sử dụng khi cần thiết.<br>
                    Xin trân trọng cảm ơn.
                    </span>`);
-            interlude();
+            setInterlude();
         });
     }).catch(function (error) {
         console.log(error);
@@ -450,9 +443,9 @@ function updateUserData() {
     })
 }
 
-function interlude() {
-    appendSection('welcome');
+function setInterlude() {
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
+        appendSection('welcome');
         removeSection(area, 'info');
     };
 }

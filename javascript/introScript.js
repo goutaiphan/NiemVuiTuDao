@@ -1,5 +1,5 @@
-import {appendSection, removeSection, setVisibility} from "./baseScript.js";
-import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
+import {appendSection, removeSection} from "./baseScript.js";
+import {options, fadeIn, fadeOut, slideIn, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý huynh tỷ,<br>đệ là <span>Tiểu Dần</span>.`,
     `Mến chúc quý huynh tỷ<br>một năm mới nhiều<br><span>sức khỏe,</span> thường <span>an lạc</span><br>
@@ -23,38 +23,36 @@ tieuDan.className = 'tieuDan';
 let area = document.createElement('div');
 area.append(board, tieuDan);
 area.setRatio(55, -7);
+[...area.children].setVisibility(false);
 document.body.append(area);
-setVisibility([board, tieuDan], false);
 
 setTimeout(function () {
     tieuDan.animate(fadeIn(), options(0.7));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
     board.animate(slideIn(0, 15), options(0.5, 1.4)).onfinish = function () {
-        document.body.style.pointerEvents = 'visible';
+        window.onclick = setClick;
     }
-}, 1 * 1000);
+}, 0.5 * 1000);
 
 let i = 0;
-document.body.style.pointerEvents = 'none';
-document.body.onclick = function () {
-    document.body.style.pointerEvents = 'none';
+function setClick() {
+    window.onclick = null;
     if (i < array.length - 1) {
         i++;
         message.animate(fadeOut(), options(0.5)).onfinish = function () {
             message.innerHTML = array[i];
             message.animate(fadeIn(), options(0.5));
-            document.body.style.pointerEvents = 'visible';
+            window.onclick = setClick;
         };
-    } else interlude();
+    } else setInterlude();
 }
 
-function interlude() {
+function setInterlude() {
+    window.onclick = null;
     message.animate(fadeOut(), options(0.5, 0.5));
     board.animate(minimize(), options(2, 0, 'ease-in-out'));
     setTimeout(function () {
-        document.body.style.pointerEvents = 'visible';
-        document.body.onclick = null;
         appendSection('info');
         removeSection(area, 'intro');
     }, 4 * 1000);
