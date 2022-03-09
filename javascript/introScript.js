@@ -27,7 +27,7 @@ area.setRatio(55, -7);
 document.body.append(area);
 
 setTimeout(function () {
-    tieuDan.onload = function () {
+    area.onload = function () {
         tieuDan.animate(fade(), option(0.7));
         tieuDan.animate(bounce(0, 20),
             option(0.7, 0.7, 'ease-in', 'alternate', Infinity));
