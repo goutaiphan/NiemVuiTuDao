@@ -443,10 +443,8 @@ function updateUserData() {
 }
 
 function setInterlude() {
-    setTimeout(function () {
-        appendSection('welcome');
-        area.animate(fade(false), option(0.5)).onfinish = function () {
-            removeSection(area, 'info');
-        };
-    }, 0.5 * 1000);
+    appendSection('welcome');
+    area.animate(fade(false), option(0.5, 0.5)).onfinish = function () {
+        removeSection(area, 'info');
+    };
 }
