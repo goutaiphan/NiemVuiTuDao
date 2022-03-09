@@ -69,7 +69,7 @@ for (let i = 0; i < 4; i++) {
 let OTPChildren = [...OTP.children];
 
 let button = document.createElement('button');
-button.className = 'button';
+button.className = 'button0';
 button.innerHTML = 'Đăng nhập/Đăng ký';
 
 let buttonBox = document.createElement('div');
@@ -87,11 +87,11 @@ birthday.placeholder = 'dd-mm-yyyy';
 birthday.maxLength = 10;
 
 let board = document.createElement('div');
-board.className = 'board2';
+board.className = 'board0';
 board.append(email, password, OTP, name, birthday, buttonBox);
 
 let message = document.createElement('div');
-message.className = 'message2';
+message.className = 'message0';
 message.innerHTML = array.normal;
 
 let area = document.createElement('div');
@@ -109,7 +109,7 @@ setTimeout(function () {
     password.animate(slide(-40, 0), option(0.5, 0.8, 'ease-in'));
     buttonBox.animate(slide(-40, 0), option(0.5, 1, 'ease-in'));
     message.animate(fade(), option(0.5, 1.2));
-}, 3.5 * 1000);
+}, 4 * 1000);
 
 email.onkeydown = function (event) {
     this.setCustomValidity('');
@@ -383,9 +383,8 @@ function setButton(type) {
 
     if (type === true) {
         button.classList.add('active');
-        button.style.pointerEvents = 'visible';
         button.onclick = function () {
-            button.style.pointerEvents = 'none';
+            button.onclick = null;
             switch (sessionStorage.getItem('section')) {
                 case 'verify':
                     sessionStorage.setItem('section', 'signUp');
@@ -407,7 +406,7 @@ function setButton(type) {
         }
     } else {
         button.classList.remove('active');
-        button.style.pointerEvents = 'none';
+        button.onclick = null;
     }
 }
 
