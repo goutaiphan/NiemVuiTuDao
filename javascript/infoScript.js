@@ -109,7 +109,7 @@ setTimeout(function () {
     password.animate(slide(-40, 0), options(0.5, 0.8, 'ease-in'));
     buttonBox.animate(slide(-40, 0), options(0.5, 1, 'ease-in'));
     message.animate(fade(), options(0.5, 1.2));
-}, 0.5 * 1000);
+});
 
 email.onkeydown = function (event) {
     this.setCustomValidity('');

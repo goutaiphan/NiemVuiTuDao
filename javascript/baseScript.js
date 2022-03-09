@@ -114,7 +114,8 @@ let Email = {
         }, t.send()
     }, createCORSRequest: function (e, n) {
         let t = new XMLHttpRequest;
-        return "withCredentials" in t ? t.open(e, n, !0) : "undefined" != typeof XDomainRequest ? (t = new XDomainRequest).open(e, n) : t = null, t
+        return "withCredentials" in t
+            ? t.open(e, n, !0) : "undefined" != typeof XDomainRequest ? (t = new XDomainRequest).open(e, n) : t = null, t
     }
 };
 
