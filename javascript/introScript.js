@@ -52,8 +52,8 @@ function setInterlude() {
     window.onclick = null;
     message.animate(fade(false), option(0.5, 0.5));
     board.animate(resize(0, 0), option(2, 0, 'ease-in-out'));
+    appendSection('info');
     setTimeout(function () {
-        appendSection('info');
         removeSection(area, 'intro');
     }, 4 * 1000);
 }

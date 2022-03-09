@@ -15,7 +15,7 @@
     margin: 2px auto 52px;
 }
 
-.board {
+.board2 {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -129,7 +129,7 @@
     transform: scale(0.95);
 }
 
-.message {
+.message2 {
     width: 350px;
     margin: auto;
     font-size: 20px;
