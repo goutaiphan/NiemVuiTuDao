@@ -1,4 +1,4 @@
-import {appendObject, removeObject, setAppearance, setSize, setVisibility} from "./baseScript.js";
+import {appendSection, removeSection, setAppearance, setSize, setVisibility} from "./baseScript.js";
 import {bounce, fadeIn, fadeOut, maximize, options, slideIn} from "./animationScript.js";
 
 let userData = JSON.parse(sessionStorage.getItem('userData'));
@@ -37,9 +37,9 @@ tieuDan.className = 'tieuDan';
 
 let area = document.createElement('div');
 area.append(board, tieuDan);
+area.setRatio(55, -10);
 document.body.append(area);
 setVisibility([board, message, tieuDan], false);
-setSize(area, 55, -10);
 
 setTimeout(function () {
     setAppearance(board);
@@ -71,8 +71,8 @@ document.body.onclick = function () {
 }
 
 function interlude() {
+    // appendSection('welcome');
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        // appendObject('welcome');
-        removeObject(area, 'welcome');
+        removeSection(area, 'welcome');
     }
 }

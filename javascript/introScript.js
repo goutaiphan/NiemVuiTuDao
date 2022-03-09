@@ -1,4 +1,4 @@
-import {appendObject, removeObject, setSize, setVisibility} from "./baseScript.js";
+import {appendSection, removeSection, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, zoomOut, minimize, bounce} from "./animationScript.js";
 
 let array = [`Mến chào quý huynh tỷ,<br>đệ là <span>Tiểu Dần</span>.`,
@@ -22,9 +22,9 @@ tieuDan.className = 'tieuDan';
 
 let area = document.createElement('div');
 area.append(board, tieuDan);
+area.setRatio(55, -7);
 document.body.append(area);
 setVisibility([board, tieuDan], false);
-setSize(area, 55, -7);
 
 setTimeout(function () {
     tieuDan.animate(fadeIn(), options(0.7));
@@ -55,7 +55,7 @@ function interlude() {
     setTimeout(function () {
         document.body.style.pointerEvents = 'visible';
         document.body.onclick = null;
-        appendObject('info');
-        removeObject(area, 'intro');
+        appendSection('info');
+        removeSection(area, 'intro');
     }, 4 * 1000);
 }

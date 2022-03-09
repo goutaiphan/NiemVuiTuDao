@@ -1,9 +1,9 @@
 export {
-    appendObject, removeObject, setSize, setVisibility, setAppearance,
+    appendSection, removeSection, setVisibility, setAppearance,
     deAccent, toTitleCase, randomize, sendEmail
 };
 
-function appendObject(name) {
+function appendSection(name) {
     let script = document.createElement('script');
     script.id = `${name}Script`;
     script.src = `javascript/${name}Script.js`;
@@ -17,19 +17,20 @@ function appendObject(name) {
     document.body.append(script, style);
 }
 
-function removeObject(object, name) {
+function removeSection(object, name) {
     object.remove();
     document.getElementById(`${name}Script`).remove();
     document.getElementById(`${name}Style`).remove();
 }
 
-function setSize(object, marginDesktop, marginMobile) {
+Object.prototype.setRatio = function (marginDesktop, marginMobile) {
     let width = Math.min(screen.width, screen.height);
     let height = Math.max(screen.width, screen.height);
     let widthRatio = width / 450;
     let heightRatio = height / 850;
 
     //alert(screen.width + '/' + screen.height + ',' + outerWidth + '/' + outerHeight);
+    this.style.position = 'absolute';
 
     window.scroll(0, 0);
     height < 600
@@ -38,26 +39,21 @@ function setSize(object, marginDesktop, marginMobile) {
 
     if (width < 1080) {
         if (width > 450) widthRatio = widthRatio * 0.7;
-        if (height > 800) object.style.marginTop = marginMobile * heightRatio + 'px';
+        if (height > 800) this.style.marginTop = marginMobile * heightRatio + 'px';
     } else {
         widthRatio = 1;
-        object.style.marginTop = marginDesktop + 'px';
+        this.style.marginTop = marginDesktop + 'px';
     }
-    object.style.transform = `scale(${widthRatio})`;
-    object.style.minWidth = 'max-content';
+    this.style.transform = `scale(${widthRatio})`;
+    this.style.minWidth = 'max-content';
 
     // if (navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
     // }
 }
 
 function setVisibility(object, type) {
-    if (Array.isArray(object)) {
-        object.forEach(function (item) {
-            process(item);
-        })
-    } else {
-        process(object);
-    }
+    if (Array.isArray(object)) object.forEach((item) => process(item));
+    else process(object);
 
     function process(object) {
         if (type === true) {
@@ -71,13 +67,8 @@ function setVisibility(object, type) {
 }
 
 function setAppearance(object) {
-    if (Array.isArray(object)) {
-        object.forEach(function (item) {
-            process(item);
-        })
-    } else {
-        process(object);
-    }
+    if (Array.isArray(object)) object.forEach((item) => process(item));
+    else process(object);
 
     function process(object) {
         object.style.height = '0';

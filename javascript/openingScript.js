@@ -1,4 +1,4 @@
-import {appendObject, removeObject, setSize, setVisibility} from "./baseScript.js";
+import {appendSection, removeSection, setVisibility} from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, pumping} from "./animationScript.js";
 
 let area = document.createElement('div');
@@ -21,8 +21,8 @@ for (let i = 0; i < array.length; i++) {
     area.append(child);
 }
 
+area.setRatio(20, -30);
 document.body.append(area);
-setSize(area, 20, -30);
 
 let children = area.children;
 children[0].animate(fadeIn(), options(0.5, 0.5));
@@ -48,9 +48,9 @@ function interlude() {
     });
     document.body.append(backgroundAudio);
 
+    appendSection('intro');
+    // appendSection('info');
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        appendObject('intro');
-        // appendObject('info');
-        removeObject(area, 'entrance');
+        removeSection(area, 'opening');
     }
 }

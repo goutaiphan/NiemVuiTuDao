@@ -1,11 +1,10 @@
 import {
-    appendObject,
-    removeObject,
+    appendSection,
+    removeSection,
     setVisibility,
     randomize,
     sendEmail,
-    toTitleCase,
-    setSize
+    toTitleCase
 } from "./baseScript.js";
 import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
@@ -104,9 +103,9 @@ message.innerHTML = array.normal;
 
 let area = document.createElement('div');
 area.append(title, board, message);
+area.setRatio(45, -10);
 document.body.append(area);
 setVisibility([...title.children, board, ...board.children, message], false);
-setSize(area, 45, -10);
 sessionStorage.setItem('section', 'normal');
 
 setTimeout(function () {
@@ -117,7 +116,7 @@ setTimeout(function () {
     password.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
     buttonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
     message.animate(fadeIn(), options(0.5, 1.2));
-}, 0.1 * 1000);
+}, 0.5 * 1000);
 
 email.onkeydown = function (event) {
     this.setCustomValidity('');
@@ -452,8 +451,8 @@ function updateUserData() {
 }
 
 function interlude() {
+    appendSection('welcome');
     area.animate(fadeOut(), options(0.5)).onfinish = function () {
-        appendObject('welcome');
-        removeObject(area, 'info');
+        removeSection(area, 'info');
     };
 }
