@@ -392,8 +392,8 @@ function setButton(type) {
                     setButton(false);
 
                     email.animate(slide(40, 0, false), option(0.5, 0, 'ease-in'));
-                    name.animate(slide(-40, 0), option(0.5, 0.3, 'ease-in'));
                     password.animate(slide(40, 0, false), option(0.5, 0, 'ease-in'));
+                    name.animate(slide(-40, 0), option(0.5, 0.3, 'ease-in'));
                     birthday.animate(slide(-40, 0), option(0.5, 0.3, 'ease-in'));
                     break;
                 case 'signUp':
