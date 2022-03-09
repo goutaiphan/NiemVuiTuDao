@@ -51,7 +51,7 @@ setTimeout(function () {
         .onfinish = function () {
         document.body.style.pointerEvents = 'visible';
     }
-}, 0.5 * 1000);
+}, 1 * 1000);
 
 let i = 0;
 document.body.style.pointerEvents = 'none';
