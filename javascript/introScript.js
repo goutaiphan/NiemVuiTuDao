@@ -36,7 +36,6 @@ setTimeout(function () {
 }, 0.5 * 1000);
 
 let i = 0;
-
 function setClick() {
     window.onclick = null;
     if (i < array.length - 1) {
