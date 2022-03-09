@@ -52,7 +52,6 @@ function setInterlude() {
     window.onclick = null;
     message.animate(fade(false), option(0.5, 0.5));
     board.animate(resize(0, 0), option(2, 0, 'ease-in-out'));
-    tieuDan.animate(fade(false), option(0.5, 3.5));
     appendSection('info');
     setTimeout(function () {
         removeSection(area, 'intro');
