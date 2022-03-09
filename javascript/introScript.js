@@ -17,7 +17,7 @@ let board = document.createElement('div');
 board.className = 'board';
 board.append(message);
 
-let tieuDan = document.createElement('img');
+let tieuDan = document.createElement('div');
 tieuDan.className = 'tieuDan';
 
 let area = document.createElement('div');

@@ -21,8 +21,8 @@
 }
 
 .tieuDan {
-    content: url('../media/TigerFace.png');
     width: 190px;
     height: 190px;
     margin: -70px auto 0;
+    background-image: url('../media/TigerFace.png');
 }
