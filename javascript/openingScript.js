@@ -35,7 +35,7 @@ children[6].animate(fade(), option(0.5, 3.2)).onfinish = function () {
 function setInterlude() {
     let backgroundAudio = document.createElement('audio');
     backgroundAudio.src = '../media/FreeTheMindInNature.mp3';
-    backgroundAudio.volume = 0.8;
+    backgroundAudio.volume = 0.7;
     backgroundAudio.preload;
     backgroundAudio.loop = true;
     backgroundAudio.play().then(function () {
