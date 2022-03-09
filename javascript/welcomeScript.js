@@ -51,7 +51,7 @@ setTimeout(function () {
         .onfinish = function () {
         window.onclick = setClick;
     }
-}, 0.5 * 1000);
+}, 1 * 1000);
 
 let i = 0;
 function setClick() {
