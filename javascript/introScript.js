@@ -17,7 +17,7 @@ let board = document.createElement('div');
 board.className = 'board';
 board.append(message);
 
-let tieuDan = document.createElement('div');
+let tieuDan = document.createElement('img');
 tieuDan.className = 'tieuDan';
 
 let area = document.createElement('div');
@@ -27,17 +27,16 @@ area.setRatio(55, -7);
 document.body.append(area);
 
 setTimeout(function () {
-    area.onload = function () {
-        tieuDan.animate(fade(), option(0.7));
-        tieuDan.animate(bounce(0, 20),
-            option(0.7, 0.7, 'ease-in', 'alternate', Infinity));
-    }
+    tieuDan.animate(fade(), option(0.7));
+    tieuDan.animate(bounce(0, 20),
+        option(0.7, 0.7, 'ease-in', 'alternate', Infinity));
     board.animate(slide(0, 15), option(0.5, 1.4)).onfinish = function () {
         window.onclick = setClick;
     }
 }, 0.5 * 1000);
 
 let i = 0;
+
 function setClick() {
     window.onclick = null;
     if (i < array.length - 1) {
@@ -53,7 +52,7 @@ function setClick() {
 function setInterlude() {
     window.onclick = null;
     message.animate(fade(false), option(0.5, 0.5));
-    board.animate(resize(0,0), option(2, 0, 'ease-in-out'));
+    board.animate(resize(0, 0), option(2, 0, 'ease-in-out'));
     setTimeout(function () {
         appendSection('info');
         removeSection(area, 'intro');
