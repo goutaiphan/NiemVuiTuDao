@@ -1,5 +1,5 @@
 import {appendSection, removeSection} from "./baseScript.js";
-import {options, fade, slide, bounce, resize} from "./animationScript.js";
+import {option, fade, slide, bounce, resize} from "./animationScript.js";
 
 let array = [`Mến chào quý huynh tỷ,<br>đệ là <span>Tiểu Dần</span>.`,
     `Mến chúc quý huynh tỷ<br>một năm mới nhiều<br><span>sức khỏe,</span> thường <span>an lạc</span><br>
@@ -27,10 +27,12 @@ area.setRatio(55, -7);
 document.body.append(area);
 
 setTimeout(function () {
-    tieuDan.animate(fade(), options(0.7));
-    tieuDan.animate(bounce(0, 20),
-        options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
-    board.animate(slide(0, 15), options(0.5, 1.4)).onfinish = function () {
+    tieuDan.onload = function () {
+        tieuDan.animate(fade(), option(0.7));
+        tieuDan.animate(bounce(0, 20),
+            option(0.7, 0.7, 'ease-in', 'alternate', Infinity));
+    }
+    board.animate(slide(0, 15), option(0.5, 1.4)).onfinish = function () {
         window.onclick = setClick;
     }
 }, 0.5 * 1000);
@@ -40,9 +42,9 @@ function setClick() {
     window.onclick = null;
     if (i < array.length - 1) {
         i++;
-        message.animate(fade(false), options(0.5)).onfinish = function () {
+        message.animate(fade(false), option(0.5)).onfinish = function () {
             message.innerHTML = array[i];
-            message.animate(fade(), options(0.5));
+            message.animate(fade(), option(0.5));
             window.onclick = setClick;
         };
     } else setInterlude();
@@ -50,8 +52,8 @@ function setClick() {
 
 function setInterlude() {
     window.onclick = null;
-    message.animate(fade(false), options(0.5, 0.5));
-    board.animate(resize(0,0), options(2, 0, 'ease-in-out'));
+    message.animate(fade(false), option(0.5, 0.5));
+    board.animate(resize(0,0), option(2, 0, 'ease-in-out'));
     setTimeout(function () {
         appendSection('info');
         removeSection(area, 'intro');

@@ -1,11 +1,11 @@
-export {options, fade, slide, zoom, resize, pump, bounce};
+export {option, fade, slide, zoom, resize, pump, bounce};
 
-function options(duration = 0,
-                 delay = 0,
-                 easing = 'linear',
-                 direction = 'normal',
-                 iterations = 1,
-                 fill = 'forwards') {
+function option(duration = 0,
+                delay = 0,
+                easing = 'linear',
+                direction = 'normal',
+                iterations = 1,
+                fill = 'forwards') {
     return {
         duration: duration * 1000,
         delay: delay * 1000,
