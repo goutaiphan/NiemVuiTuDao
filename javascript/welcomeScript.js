@@ -1,5 +1,5 @@
 import {appendSection, removeSection} from "./baseScript.js";
-import {bounce, fadeIn, fadeOut, maximize, options} from "./animationScript.js";
+import {bounce, fade, resize, options} from "./animationScript.js";
 
 let userData = JSON.parse(sessionStorage.getItem('userData'));
 // let userData = {userName: 'Tĩnh Tâm', userID: 'user1'};
@@ -43,11 +43,11 @@ document.body.append(area);
 
 setTimeout(function () {
     board.setAppearance();
-    tieuDan.animate(fadeIn(), options(0.7));
+    tieuDan.animate(fade(), options(0.7));
     tieuDan.animate(bounce(0, 20),
         options(0.7, 0.7, 'ease-in', 'alternate', Infinity));
-    message.animate(fadeIn(), options(0.5, 4.3));
-    board.animate(maximize('390px', '0 30px 40px'), options(2, 3.8, 'ease-in-out'))
+    message.animate(fade(), options(0.5, 4.3));
+    board.animate(resize(390, '0 30px 40px'), options(2, 3.8, 'ease-in-out'))
         .onfinish = function () {
         window.onclick = setClick;
     }
@@ -58,16 +58,16 @@ function setClick() {
     window.onclick = null;
     if (i < array.length - 1) {
         i++;
-        message.animate(fadeOut(), options(0.5)).onfinish = function () {
+        message.animate(fade(false), options(0.5)).onfinish = function () {
             message.innerHTML = array[i];
-            message.animate(fadeIn(), options(0.5));
+            message.animate(fade(), options(0.5));
             window.onclick = setClick;
         };
     } else setInterlude();
 }
 
 function setInterlude() {
-    area.animate(fadeOut(), options(0.5)).onfinish = function () {
+    area.animate(fade(false), options(0.5)).onfinish = function () {
         // appendSection('welcome');
         removeSection(area, 'welcome');
     }

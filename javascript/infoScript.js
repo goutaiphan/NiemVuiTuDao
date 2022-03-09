@@ -1,5 +1,5 @@
 import {appendSection, removeSection, randomize, sendEmail} from "./baseScript.js";
-import {options, fadeIn, fadeOut, slideIn, slideOut, zoomIn} from "./animationScript.js";
+import {options, fade, slide} from "./animationScript.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import {
     getDatabase,
@@ -102,13 +102,13 @@ document.body.append(area);
 sessionStorage.setItem('section', 'normal');
 
 setTimeout(function () {
-    title.children[0].animate(fadeIn(), options(0.5));
-    title.children[1].animate(fadeIn(), options(0.5, 0.4));
-    board.animate(fadeIn(), options(0.5, 0.6, 'ease-in'));
-    email.animate(slideIn(-40, 0), options(0.5, 0.6, 'ease-in'));
-    password.animate(slideIn(-40, 0), options(0.5, 0.8, 'ease-in'));
-    buttonBox.animate(slideIn(-40, 0), options(0.5, 1, 'ease-in'));
-    message.animate(fadeIn(), options(0.5, 1.2));
+    title.children[0].animate(fade(), options(0.5));
+    title.children[1].animate(fade(), options(0.5, 0.4));
+    board.animate(fade(), options(0.5, 0.6, 'ease-in'));
+    email.animate(slide(-40, 0), options(0.5, 0.6, 'ease-in'));
+    password.animate(slide(-40, 0), options(0.5, 0.8, 'ease-in'));
+    buttonBox.animate(slide(-40, 0), options(0.5, 1, 'ease-in'));
+    message.animate(fade(), options(0.5, 1.2));
 }, 0.5 * 1000);
 
 email.onkeydown = function (event) {
@@ -392,10 +392,10 @@ function setButton(type) {
                     message.innerHTML = array.signUp;
                     setButton(false);
 
-                    email.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
-                    name.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
-                    password.animate(slideOut(40, 0), options(0.5, 0, 'ease-in'));
-                    birthday.animate(slideIn(-40, 0), options(0.5, 0.3, 'ease-in'));
+                    email.animate(slide(40, 0, false), options(0.5, 0, 'ease-in'));
+                    name.animate(slide(-40, 0), options(0.5, 0.3, 'ease-in'));
+                    password.animate(slide(40, 0, false), options(0.5, 0, 'ease-in'));
+                    birthday.animate(slide(-40, 0), options(0.5, 0.3, 'ease-in'));
                     break;
                 case 'signUp':
                     updateUserData();
@@ -444,7 +444,7 @@ function updateUserData() {
 }
 
 function setInterlude() {
-    area.animate(fadeOut(), options(0.5)).onfinish = function () {
+    area.animate(fade(false), options(0.5)).onfinish = function () {
         appendSection('welcome');
         removeSection(area, 'info');
     };
