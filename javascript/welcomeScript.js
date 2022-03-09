@@ -1,5 +1,5 @@
-import {appendSection, removeSection, setAppearance, setSize, setVisibility} from "./baseScript.js";
-import {bounce, fadeIn, fadeOut, maximize, options, slideIn} from "./animationScript.js";
+import {appendSection, removeSection, setAppearance, setVisibility} from "./baseScript.js";
+import {bounce, fadeIn, fadeOut, maximize, options} from "./animationScript.js";
 
 let userData = JSON.parse(sessionStorage.getItem('userData'));
 // let userData = {userName: 'Tĩnh Tâm', userID: 'user1'};
