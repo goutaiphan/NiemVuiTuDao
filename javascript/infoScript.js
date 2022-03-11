@@ -36,8 +36,8 @@ let array = {
         quý huynh tỷ vui lòng sử dụng<br>để <span>đăng ký</span> tài khoản.`,
     wrongOTP: `Mã xác thực <span>chưa chính xác,</span><br>
         quý huynh tỷ vui lòng <span>kiểm tra</span><br>thông tin tài khoản qua email.`,
-    rightOTP: `Tài khoản <span>đã xác thực,</span><br>
-        quý huynh tỷ vui lòng điền <span>mật khẩu</span><br>để tiếp tục việc đăng ký.`,
+    rightOTP: `Tài khoản <span>đã xác thực,</span> quý<br>
+        huynh tỷ vui lòng điền <span>mật khẩu</span><br>để tiếp tục việc đăng ký.`,
     signUp: `Quý huynh tỷ vui lòng điền<br><span>quý danh</span> và <span>sinh nhật</span><br>
         để hoàn thành việc đăng ký.`,
     offline: `Kết nối mạng <span>bị gián đoạn,</span><br>
@@ -168,29 +168,22 @@ password.onblur = function () {
 OTPChildren.forEach(function (item, index) {
     item.oninput = function () {
         item.value = item.value.replace(/[^\d]/g, '');
-        if (item.value) index < 3
-            ? OTPChildren[index + 1].focus()
-            : item.blur();
+        if (item.value) {
+            index < 3
+                ? OTPChildren[index + 1].focus()
+                : item.blur();
+        }
     }
-
     item.onpaste = function (event) {
         let clipboardData = event.clipboardData || window.clipboardData;
-        let pastedData = clipboardData.getData('Text');
-        OTPChildren.forEach((item, index) => item.value = pastedData.slice(0, 4)[index]);
+        OTPChildren.forEach((item, index) => item.value = clipboardData.getData('Text')
+            .slice(0, 4)[index]);
     }
-
     item.onkeydown = function (event) {
         if (['Backspace', 'Delete'].includes(event.key)) clearOTP();
     }
     item.onclick = clearOTP;
     item.onblur = checkOTP;
-
-    function clearOTP() {
-        for (let item of OTPChildren) {
-            OTPChildren[0].focus();
-            item.value = '';
-        }
-    }
 });
 
 name.onkeydown = function (event) {
@@ -206,19 +199,12 @@ name.onfocus = function () {
 
 name.onblur = function () {
     birthday.style.pointerEvents = 'visible';
-
     this.value = this.value
         .replace(/\s+/g, ' ')
-        .replace(/[\d`~!@#$%^&*()+=\-_/\\|.,<>?:;'"]/g, '')
+        .replace(/[`~!@#$%^&*()+=\-_/\\|.,<>?:;'"]/g, '')
         .trim()
         .toTitleCase();
-
-    if (this.value) {
-        setTimeout(function () {
-            name.classList.add('blue');
-            if (birthday.classList.length > 1) setButton(true);
-        }, 0.25 * 1000);
-    }
+    if (this.value) checkName();
 }
 
 birthday.onkeydown = function (event) {
@@ -227,18 +213,14 @@ birthday.onkeydown = function (event) {
     if (['Enter', 'Return'].includes(event.key)) this.blur();
 }
 
-
 birthday.oninput = function (event) {
     this.value = this.value
         .replace(/[^\d-]/g, '')
         .replace(/-+/g, '-');
-    if (event.inputType === 'deleteContentBackward') this.value = '';
 
-    if (this.value.match(/^\d{2}$/)) {
-        this.value = this.value + '-';
-    } else if (this.value.match(/^\d{2}-\d{2}$/)) {
-        this.value = this.value + '-';
-    }
+    if (event.inputType === 'deleteContentBackward') this.value = '';
+    if (this.value.match(/^\d{2}$/)) this.value += '-';
+    if (this.value.match(/^\d{2}-\d{2}$/)) this.value += '-';
 }
 
 birthday.onfocus = function () {
@@ -249,24 +231,7 @@ birthday.onfocus = function () {
 
 birthday.onblur = function () {
     name.style.pointerEvents = 'visible';
-    if (this.value) {
-        if (this.value.length !== 10) {
-            this.setCustomValidity('Sinh nhật theo cấu trúc dd-mm-yyyy.');
-            this.reportValidity();
-        } else {
-            let array = this.value.split('-');
-            if (parseInt(array[0]) > 31 || parseInt(array[1]) > 12
-                || parseInt(array[2]) > 1900 && parseInt(array[2]) > new Date().getFullYear()) {
-                this.setCustomValidity('Sinh nhật không hợp lệ.');
-                this.reportValidity();
-            } else {
-                setTimeout(function () {
-                    birthday.classList.add('blue');
-                    if (name.classList.length > 1) setButton(true);
-                }, 0.25 * 1000);
-            }
-        }
-    }
+    if (this.value) checkBirthday();
 }
 
 function checkEmail() {
@@ -373,8 +338,53 @@ function checkOTP() {
     }
 }
 
+function clearOTP() {
+    for (let item of OTPChildren) {
+        OTPChildren[0].focus();
+        item.value = '';
+    }
+}
+
+function checkName() {
+    let queryRef = query(userRef, orderByChild('userAlias'),
+        equalTo(name.value.replaceAll(' ', '').toLowerCase()));
+    get(queryRef).then(function (data) {
+            if (data.val()) {
+                name.setCustomValidity('Quý danh đã tồn tại.');
+                name.reportValidity();
+            } else {
+                setTimeout(function () {
+                    name.classList.add('blue');
+                    if (birthday.classList.length > 1) setButton(true);
+                }, 0.25 * 1000);
+            }
+        }
+    ).catch(function (error) {
+        console.log(error);
+        message.innerHTML = array.offline;
+    })
+}
+
+function checkBirthday() {
+    if (birthday.value.length !== 10) {
+        birthday.setCustomValidity('Sinh nhật theo cấu trúc dd-mm-yyyy.');
+        birthday.reportValidity();
+    } else {
+        let array = birthday.value.split('-');
+        if (parseInt(array[0]) > 31 || parseInt(array[1]) > 12
+            || parseInt(array[2]) > 1900 && parseInt(array[2]) > new Date().getFullYear()) {
+            birthday.setCustomValidity('Sinh nhật không hợp lệ.');
+            birthday.reportValidity();
+        } else {
+            setTimeout(function () {
+                birthday.classList.add('blue');
+                if (name.classList.length > 1) setButton(true);
+            }, 0.25 * 1000);
+        }
+    }
+}
+
 function setButton(type) {
-    console.log()
     button.innerHTML = sessionStorage.getItem('section')
         .replace('normal', 'Đăng nhập/Đăng ký')
         .replace('signIn', 'Đăng nhập')
@@ -418,6 +428,7 @@ function updateUserData() {
             userEmail: email.value,
             userPassword: password.value,
             userName: name.value,
+            userAlias: name.value.replaceAll(' ', '').toLowerCase(),
             userBirthday: birthday.value
         }
         update(child(userRef, userID), userData).then(function () {
@@ -444,7 +455,7 @@ function updateUserData() {
 
 function setInterlude() {
     appendSection('welcome');
-    area.animate(fade(false), option(0.5, 0.5)).onfinish = function () {
+    area.animate(fade(false), option(0.5)).onfinish = function () {
         removeSection(area, 'info');
     };
 }

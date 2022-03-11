@@ -5,10 +5,10 @@ let area = document.createElement('div');
 let array = ['Niềm', 'vui', 'tu', 'Đạo',
     'Chương trình hỏi đáp về Đức Chí Tôn,',
     'Đức Ngọc Hoàng Thượng Đế',
-    'Bắt đầu'];
+    'Tham gia'];
 
 for (let i = 0; i < array.length; i++) {
-    let child = i === array.indexOf('Bắt đầu')
+    let child = i === array.indexOf('Tham gia')
     ? document.createElement('button')
     : document.createElement('div');
     child.innerHTML = array[i];
@@ -33,11 +33,8 @@ children[6].animate(fade(), option(0.5, 3.2)).onfinish = function () {
 };
 
 function setInterlude() {
-    let backgroundAudio = document.createElement('audio');
-    backgroundAudio.src = '../media/FreeTheMindInNature.mp3';
+    let backgroundAudio = document.querySelector('#backgroundAudio');
     backgroundAudio.volume = 0.7;
-    backgroundAudio.preload;
-    backgroundAudio.loop = true;
     backgroundAudio.play().then(function () {
         console.log('Nhạc nền đã phát thành công.');
     });
@@ -45,8 +42,8 @@ function setInterlude() {
 
     children[6].onclick = null;
     appendSection('intro');
+    // appendSection('info');
     area.animate(fade(false), option(0.5)).onfinish = function () {
-        // appendSection('info');
         removeSection(area, 'opening');
     }
 }
